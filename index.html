@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novu Peptides | High-Purity Research Peptides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   CSS VARIABLES & RESET
+   ===================================================== */
+:root {
+  --primary:      #0a2b3e;
+  --primary-dk:   #071f2e;
+  --primary-md:   #0d3a52;
+  --teal:         #00b4aa;
+  --teal-lt:      #00d4c8;
+  --teal-dim:     rgba(0,180,170,0.12);
+  --white:        #ffffff;
+  --gray-50:      #f8fafc;
+  --gray-100:     #f1f5f9;
+  --gray-200:     #e2e8f0;
+  --gray-300:     #cbd5e1;
+  --gray-400:     #94a3b8;
+  --gray-500:     #64748b;
+  --gray-600:     #475569;
+  --gray-700:     #334155;
+  --gray-800:     #1e293b;
+  --gray-900:     #0f172a;
+  --danger:       #ef4444;
+  --success:      #22c55e;
+  --warn:         #f59e0b;
+  --shadow-sm:    0 1px 2px rgba(0,0,0,.05);
+  --shadow:       0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+  --shadow-md:    0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);
+  --shadow-lg:    0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);
+  --shadow-xl:    0 25px 50px -12px rgba(0,0,0,.25);
+  --radius:       12px;
+  --radius-lg:    20px;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--gray-800);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+a{text-decoration:none;}
+input,select,textarea{font-family:inherit;}
+
+/* =====================================================
+   SHARED SVG DEFS (hidden)
+   ===================================================== */
+svg.defs{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:rgba(7,31,46,.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,180,170,.18);
+  padding:0 2rem;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-text .brand{font-size:1.25rem;font-weight:900;color:#fff;letter-spacing:3px;display:block;}
+.nav-logo-text .sub{font-size:.6rem;font-weight:600;color:var(--teal);letter-spacing:4px;text-transform:uppercase;display:block;}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.75);font-size:.875rem;font-weight:500;letter-spacing:.3px;transition:color .2s;}
+.nav-links a:hover{color:var(--teal);}
+.nav-right{display:flex;align-items:center;gap:.875rem;}
+.btn-cart{
+  position:relative;
+  background:rgba(0,180,170,.12);
+  border:1px solid rgba(0,180,170,.35);
+  color:var(--teal);
+  padding:.5rem 1.1rem;border-radius:9px;
+  font-size:.85rem;font-weight:700;
+  display:flex;align-items:center;gap:7px;
+  transition:all .2s;
+}
+.btn-cart:hover{background:rgba(0,180,170,.22);border-color:var(--teal);}
+.cart-count{
+  position:absolute;top:-9px;right:-9px;
+  background:var(--teal);color:var(--primary);
+  font-size:.65rem;font-weight:800;
+  width:19px;height:19px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+}
+.cart-count.on{display:flex;}
+.mob-menu{display:none;background:none;border:none;color:#fff;font-size:1.5rem;padding:.25rem;}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(145deg,#051828 0%,#0a2b3e 45%,#0e3f5a 100%);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  padding-top:70px;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,180,170,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,180,170,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 60%,rgba(0,180,170,.07) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 85% 20%,rgba(0,180,170,.05) 0%,transparent 60%);
+}
+.hero-inner{
+  position:relative;z-index:1;
+  max-width:1280px;margin:0 auto;padding:4rem 2rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,180,170,.1);border:1px solid rgba(0,180,170,.28);
+  color:var(--teal);font-size:.72rem;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;padding:5px 14px;border-radius:100px;
+  margin-bottom:1.5rem;
+}
+.hero-pill::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;animation:blink 2s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.25);}}
+.hero h1{
+  font-size:clamp(2rem,4vw,3.4rem);font-weight:900;
+  color:#fff;line-height:1.12;margin-bottom:1.5rem;
+}
+.hero h1 .hl{color:var(--teal);}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:2.5rem;}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-prim{
+  background:var(--teal);color:var(--primary);
+  padding:.85rem 2rem;border:none;border-radius:10px;
+  font-size:.925rem;font-weight:800;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .3s;letter-spacing:.2px;
+}
+.btn-prim:hover{background:var(--teal-lt);transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,180,170,.35);}
+.btn-ghost{
+  background:transparent;color:#fff;
+  padding:.85rem 2rem;border:1px solid rgba(255,255,255,.22);border-radius:10px;
+  font-size:.925rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .3s;
+}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);}
+.hero-stats{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  margin-top:3rem;padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,.09);
+}
+.hstat-val{font-size:1.65rem;font-weight:900;color:var(--teal);}
+.hstat-lbl{font-size:.7rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+
+/* Hero card */
+.hero-vis{display:flex;justify-content:center;align-items:center;}
+.hcard{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:22px;padding:2.25rem;width:100%;max-width:390px;
+  position:relative;
+}
+.hcard-tag{font-size:.7rem;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.25rem;}
+.hcard-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(0,180,170,.14);border:1px solid rgba(0,180,170,.3);
+  color:var(--teal);font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:.3px;
+  float:right;margin-top:-1rem;
+}
+.hcard-name{font-size:1.8rem;font-weight:900;color:#fff;margin:1rem 0 .2rem;}
+.hcard-formula{font-family:'Courier New',monospace;font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:1.5rem;}
+.purity-row{display:flex;justify-content:space-between;font-size:.77rem;color:rgba(255,255,255,.45);margin-bottom:.4rem;}
+.purity-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.purity-bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-lt));border-radius:3px;transition:width 1.8s ease;}
+.hcard-specs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.5rem;}
+.hspec{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.75rem;}
+.hspec-lbl{font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem;}
+.hspec-val{font-size:.85rem;font-weight:700;color:#fff;}
+.float-tag{
+  position:absolute;
+  background:rgba(7,31,46,.92);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,180,170,.28);border-radius:11px;
+  padding:.65rem .95rem;font-size:.77rem;color:#fff;
+  display:flex;align-items:center;gap:7px;
+  animation:float 3.2s ease-in-out infinite;
+}
+.float-tag.t1{top:-14px;right:-18px;animation-delay:0s;}
+.float-tag.t2{bottom:-14px;left:-16px;animation-delay:1.6s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+/* =====================================================
+   DISCLAIMER + TRUST BAR
+   ===================================================== */
+.disc-bar{
+  background:rgba(245,158,11,.1);
+  border-top:1px solid rgba(245,158,11,.25);
+  border-bottom:1px solid rgba(245,158,11,.25);
+  color:rgba(120,76,20,.9);
+  text-align:center;padding:.6rem 2rem;font-size:.78rem;font-weight:600;letter-spacing:.2px;
+}
+.disc-bar strong{color:#92400e;}
+.trust-bar{
+  background:var(--gray-50);
+  border-bottom:1px solid var(--gray-200);
+  padding:1.1rem 2rem;
+}
+.trust-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:center;align-items:center;gap:2.5rem;flex-wrap:wrap;
+}
+.trust-item{display:flex;align-items:center;gap:9px;font-size:.82rem;font-weight:600;color:var(--gray-600);}
+.t-icon{color:var(--teal);}
+
+/* =====================================================
+   SECTIONS COMMON
+   ===================================================== */
+.sec{padding:5rem 2rem;}
+.sec-hd{text-align:center;max-width:640px;margin:0 auto 3.5rem;}
+.sec-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,180,170,.07);border:1px solid rgba(0,180,170,.2);
+  color:var(--teal);font-size:.72rem;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:1rem;
+}
+.sec-tag-inv{background:rgba(0,180,170,.12);border-color:rgba(0,180,170,.3);color:var(--teal);}
+.sec-title{font-size:clamp(1.7rem,3vw,2.45rem);font-weight:900;color:var(--primary);line-height:1.2;margin-bottom:1rem;}
+.sec-title-inv{color:#fff;}
+.sec-desc{font-size:.975rem;color:var(--gray-500);line-height:1.72;}
+.sec-desc-inv{color:rgba(255,255,255,.52);}
+
+/* =====================================================
+   PRODUCTS
+   ===================================================== */
+.products-sec{background:var(--gray-50);}
+.prod-grid{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;
+}
+.prod-card{
+  background:#fff;border:1px solid var(--gray-200);border-radius:18px;
+  overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer;
+  position:relative;
+}
+.prod-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-xl);border-color:rgba(0,180,170,.3);}
+.prod-hd{
+  background:linear-gradient(135deg,#0a2b3e 0%,#0d3a52 100%);
+  padding:1.4rem 1.5rem;position:relative;overflow:hidden;
+}
+.prod-hd::after{
+  content:'';position:absolute;
+  top:-60%;right:-15%;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(0,180,170,.09) 0%,transparent 70%);
+}
+.prod-purity{
+  position:absolute;top:1.1rem;right:1.1rem;
+  background:var(--teal);color:var(--primary);
+  font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:.3px;
+}
+.prod-lab{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(0,180,170,.14);border:1px solid rgba(0,180,170,.3);
+  color:var(--teal);font-size:.62rem;font-weight:700;
+  padding:2px 8px;border-radius:100px;letter-spacing:.3px;
+  text-transform:uppercase;margin-bottom:.85rem;
+}
+.prod-name{font-size:1.25rem;font-weight:900;color:#fff;margin-bottom:.2rem;}
+.prod-dose{font-size:.78rem;color:rgba(255,255,255,.5);}
+.prod-body{padding:1.2rem 1.5rem 1.5rem;}
+.prod-desc{font-size:.8rem;color:var(--gray-500);line-height:1.6;margin-bottom:1.1rem;}
+.prod-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem;}
+.ptag{font-size:.67rem;font-weight:600;color:var(--gray-500);background:var(--gray-100);padding:2px 7px;border-radius:6px;}
+.prod-ft{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{font-size:1.45rem;font-weight:900;color:var(--primary);}
+.prod-price sub{font-size:.8rem;font-weight:400;color:var(--gray-400);vertical-align:baseline;}
+.btn-add{
+  background:var(--teal);color:var(--primary);
+  border:none;padding:.6rem 1.2rem;border-radius:9px;
+  font-size:.82rem;font-weight:800;
+  display:flex;align-items:center;gap:6px;
+  transition:all .22s;letter-spacing:.2px;
+}
+.btn-add:hover{background:var(--teal-lt);transform:scale(1.05);}
+.btn-add.added{background:var(--success);color:#fff;}
+
+/* =====================================================
+   PRODUCT MODAL
+   ===================================================== */
+.modal-wrap{
+  position:fixed;inset:0;background:rgba(0,0,0,.58);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  z-index:1800;display:flex;align-items:center;justify-content:center;padding:1rem;
+  opacity:0;visibility:hidden;transition:all .3s;
+}
+.modal-wrap.on{opacity:1;visibility:visible;}
+.modal{
+  background:#fff;border-radius:22px;
+  max-width:700px;width:100%;max-height:92vh;overflow-y:auto;
+  transform:scale(.91) translateY(24px);transition:transform .3s;
+}
+.modal-wrap.on .modal{transform:scale(1) translateY(0);}
+.modal-top{
+  background:linear-gradient(135deg,#0a2b3e 0%,#0d3a52 100%);
+  padding:2rem;border-radius:22px 22px 0 0;position:sticky;top:0;z-index:1;
+}
+.modal-close-btn{
+  position:absolute;top:1.2rem;right:1.2rem;
+  background:rgba(255,255,255,.1);border:none;color:#fff;
+  width:36px;height:36px;border-radius:50%;font-size:1.05rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;cursor:pointer;
+}
+.modal-close-btn:hover{background:rgba(255,255,255,.2);}
+.modal-badges{display:flex;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.m-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(0,180,170,.15);border:1px solid rgba(0,180,170,.3);
+  color:var(--teal);font-size:.65rem;font-weight:700;
+  padding:3px 9px;border-radius:100px;letter-spacing:.3px;
+}
+.modal-name{font-size:2rem;font-weight:900;color:#fff;margin-bottom:.25rem;}
+.modal-sub{color:rgba(255,255,255,.5);font-size:.875rem;}
+.modal-body{padding:2rem;}
+.modal-desc{font-size:.9rem;color:var(--gray-600);line-height:1.72;margin-bottom:1.5rem;}
+.specs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.875rem;margin-bottom:1.5rem;}
+.spec-box{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:11px;padding:.95rem;}
+.spec-lbl{font-size:.67rem;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.spec-val{font-size:.92rem;font-weight:700;color:var(--primary);font-family:'Courier New',monospace;}
+.modal-sec-lbl{font-size:.75rem;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:1px;margin:1.5rem 0 .6rem;}
+.storage-box{
+  background:rgba(0,180,170,.05);border:1px solid rgba(0,180,170,.18);
+  border-radius:11px;padding:1rem 1.25rem;font-size:.875rem;color:var(--gray-600);line-height:1.65;
+}
+.notes-text{font-size:.85rem;color:var(--gray-500);line-height:1.7;}
+.modal-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.5rem 2rem;border-top:1px solid var(--gray-200);
+}
+.modal-price{font-size:2rem;font-weight:900;color:var(--primary);}
+
+/* =====================================================
+   CART SIDEBAR
+   ===================================================== */
+.cart-ov{
+  position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:1500;
+  opacity:0;visibility:hidden;transition:all .3s;
+}
+.cart-ov.on{opacity:1;visibility:visible;}
+.cart-side{
+  position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;
+  background:#fff;z-index:1600;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);
+  box-shadow:var(--shadow-xl);
+}
+.cart-ov.on .cart-side{transform:translateX(0);}
+.cart-hd{
+  background:var(--primary);padding:1.4rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-title{font-size:1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;}
+.cart-x{
+  background:rgba(255,255,255,.1);border:none;color:#fff;
+  width:34px;height:34px;border-radius:50%;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.cart-x:hover{background:rgba(255,255,255,.2);}
+.cart-body{flex:1;overflow-y:auto;padding:1.25rem;}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--gray-400);}
+.cart-empty-ico{font-size:3rem;margin-bottom:1rem;}
+.cart-item{display:flex;gap:.875rem;padding:1rem 0;border-bottom:1px solid var(--gray-100);}
+.ci-ico{
+  width:42px;height:42px;background:var(--primary);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;
+}
+.ci-info{flex:1;}
+.ci-name{font-size:.875rem;font-weight:800;color:var(--primary);margin-bottom:.2rem;}
+.ci-dose{font-size:.72rem;color:var(--gray-400);margin-bottom:.5rem;}
+.ci-ctrl{display:flex;align-items:center;gap:.5rem;}
+.qty-btn{
+  background:var(--gray-100);border:none;
+  width:27px;height:27px;border-radius:7px;
+  font-size:.875rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.qty-btn:hover{background:var(--gray-200);}
+.qty-num{font-size:.875rem;font-weight:800;color:var(--primary);min-width:22px;text-align:center;}
+.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;}
+.ci-price{font-size:.975rem;font-weight:800;color:var(--primary);}
+.ci-rm{background:none;border:none;color:var(--gray-400);font-size:.9rem;transition:color .15s;}
+.ci-rm:hover{color:var(--danger);}
+.cart-ft{padding:1.25rem;border-top:1px solid var(--gray-200);background:var(--gray-50);}
+.cart-tot-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.875rem;}
+.cart-tot-lbl{font-size:.825rem;color:var(--gray-500);}
+.cart-tot-val{font-size:1.5rem;font-weight:900;color:var(--primary);}
+.cart-disc{font-size:.67rem;color:var(--gray-400);text-align:center;margin-bottom:.875rem;line-height:1.5;}
+.btn-checkout{
+  width:100%;background:var(--teal);color:var(--primary);
+  border:none;padding:.95rem;border-radius:12px;
+  font-size:.975rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .22s;
+}
+.btn-checkout:hover{background:var(--teal-lt);transform:translateY(-1px);}
+
+/* =====================================================
+   CHECKOUT MODAL
+   ===================================================== */
+.co-modal{max-width:620px;}
+.form-grp{margin-bottom:1.2rem;}
+.form-lbl{display:block;font-size:.75rem;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.45rem;}
+.form-in{
+  width:100%;padding:.72rem 1rem;
+  border:1.5px solid var(--gray-200);border-radius:10px;
+  font-size:.9rem;color:var(--gray-800);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  background:#fff;
+}
+.form-in:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,180,170,.1);}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-sel{
+  width:100%;padding:.72rem 1rem;
+  border:1.5px solid var(--gray-200);border-radius:10px;
+  font-size:.9rem;color:var(--gray-800);
+  background:#fff;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.form-sel:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,180,170,.1);}
+.pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.4rem;}
+.pay-opt{
+  border:2px solid var(--gray-200);border-radius:10px;padding:.75rem;
+  text-align:center;font-size:.8rem;font-weight:700;color:var(--gray-500);
+  transition:all .2s;
+}
+.pay-opt:hover,.pay-opt.sel{border-color:var(--teal);background:rgba(0,180,170,.05);color:var(--primary);}
+.co-disc-box{
+  background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);
+  border-radius:10px;padding:1rem;font-size:.8rem;color:#991b1b;line-height:1.55;
+  margin-bottom:1.25rem;
+}
+.co-tot-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;border-top:1px solid var(--gray-200);margin-top:.5rem;
+}
+.co-tot-lbl{font-size:.8rem;color:var(--gray-500);}
+.co-tot-val{font-size:1.75rem;font-weight:900;color:var(--primary);}
+.btn-order{
+  background:var(--teal);color:var(--primary);
+  border:none;padding:1rem 2rem;border-radius:11px;
+  font-size:.95rem;font-weight:800;transition:all .22s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-order:hover{background:var(--teal-lt);transform:translateY(-1px);}
+
+/* =====================================================
+   WHY US
+   ===================================================== */
+.why-sec{background:var(--primary);}
+.feat-grid{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;
+}
+.feat-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:2rem;
+  transition:all .3s;
+}
+.feat-card:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(0,180,170,.28);
+  transform:translateY(-5px);
+}
+.feat-ico{
+  width:50px;height:50px;
+  background:rgba(0,180,170,.1);border:1px solid rgba(0,180,170,.22);
+  border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.25rem;
+}
+.feat-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:.5rem;}
+.feat-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;}
+
+/* =====================================================
+   HOW IT WORKS
+   ===================================================== */
+.process-sec{background:#fff;}
+.steps-wrap{
+  max-width:940px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem;
+}
+.step{text-align:center;}
+.step-num{
+  width:58px;height:58px;background:var(--primary);color:#fff;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:900;margin:0 auto 1.1rem;
+  box-shadow:0 4px 16px rgba(10,43,62,.25);
+}
+.step-title{font-size:.975rem;font-weight:800;color:var(--primary);margin-bottom:.45rem;}
+.step-desc{font-size:.82rem;color:var(--gray-500);line-height:1.65;}
+
+/* =====================================================
+   LEGAL
+   ===================================================== */
+.legal-sec{
+  background:#fffbf0;
+  border-top:3px solid var(--warn);
+  border-bottom:3px solid var(--warn);
+}
+.legal-inner{max-width:920px;margin:0 auto;}
+.legal-hd{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;}
+.legal-ico{font-size:2rem;flex-shrink:0;margin-top:.1rem;}
+.legal-h-title{font-size:1.3rem;font-weight:900;color:#92400e;}
+.legal-h-sub{font-size:.82rem;color:#b45309;margin-top:.15rem;}
+.legal-body{font-size:.875rem;color:#78350f;line-height:1.82;}
+.legal-body p{margin-bottom:.85rem;}
+.legal-body p:last-child{margin-bottom:0;}
+.legal-body strong{font-weight:800;}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer{background:#061929;color:rgba(255,255,255,.55);padding:3.5rem 2rem 1.5rem;}
+.footer-grid{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;
+  padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:2rem;
+}
+.footer-brand p{font-size:.83rem;line-height:1.72;margin:1rem 0 1.1rem;}
+.footer-contact{display:flex;align-items:center;gap:8px;font-size:.8rem;margin-bottom:.5rem;}
+.footer-heading{font-size:.75rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:1.2rem;}
+.footer-links{list-style:none;}
+.footer-links li{margin-bottom:.6rem;}
+.footer-links a{color:rgba(255,255,255,.48);font-size:.83rem;transition:color .2s;}
+.footer-links a:hover{color:var(--teal);}
+.footer-bot{
+  max-width:1280px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;
+  font-size:.75rem;
+}
+.footer-bot-note{color:rgba(255,255,255,.3);text-align:right;font-size:.7rem;}
+
+/* =====================================================
+   WHATSAPP FLOAT
+   ===================================================== */
+.wa-wrap{position:fixed;bottom:2rem;right:2rem;z-index:850;}
+.wa-btn{
+  width:58px;height:58px;background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 22px rgba(37,211,102,.4);transition:all .3s;
+}
+.wa-btn:hover{transform:scale(1.12);box-shadow:0 6px 28px rgba(37,211,102,.55);}
+.wa-btn svg{width:30px;height:30px;fill:#fff;}
+.wa-tip{
+  position:absolute;right:70px;top:50%;transform:translateY(-50%);
+  background:#1a1a1a;color:#fff;font-size:.78rem;font-weight:700;
+  padding:6px 12px;border-radius:8px;white-space:nowrap;
+  opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.wa-wrap:hover .wa-tip{opacity:1;}
+
+/* =====================================================
+   NOTIFICATION TOAST
+   ===================================================== */
+.toast{
+  position:fixed;bottom:2rem;left:50%;
+  transform:translateX(-50%) translateY(120px);
+  background:var(--primary);color:#fff;
+  padding:.875rem 1.5rem;border-radius:12px;
+  font-size:.875rem;font-weight:700;
+  z-index:9000;border-left:4px solid var(--teal);
+  box-shadow:var(--shadow-xl);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  display:flex;align-items:center;gap:10px;
+  max-width:340px;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* =====================================================
+   SUCCESS OVERLAY
+   ===================================================== */
+.success-ov{
+  position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:9500;
+  display:flex;align-items:center;justify-content:center;padding:1rem;
+  opacity:0;visibility:hidden;transition:all .3s;
+}
+.success-ov.on{opacity:1;visibility:visible;}
+.success-card{
+  background:#fff;border-radius:26px;padding:3rem 2.5rem;text-align:center;
+  max-width:420px;width:100%;transform:scale(.82);transition:transform .32s;
+}
+.success-ov.on .success-card{transform:scale(1);}
+.s-ico{
+  width:82px;height:82px;background:rgba(34,197,94,.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 1.5rem;
+}
+.s-title{font-size:1.5rem;font-weight:900;color:var(--primary);margin-bottom:.75rem;}
+.s-msg{font-size:.9rem;color:var(--gray-500);line-height:1.65;margin-bottom:1.25rem;}
+.s-oid{background:var(--gray-100);border-radius:10px;padding:.75rem;font-family:'Courier New',monospace;font-size:.83rem;color:var(--gray-600);margin-bottom:1.5rem;}
+.s-note{font-size:.7rem;color:var(--gray-400);margin-top:.875rem;}
+
+/* =====================================================
+   MOBILE NAV DRAWER
+   ===================================================== */
+.nav-drawer{
+  display:none;position:fixed;top:70px;left:0;right:0;
+  background:rgba(7,31,46,.98);backdrop-filter:blur(12px);
+  z-index:899;padding:1.5rem 2rem;
+  border-top:1px solid rgba(0,180,170,.15);
+  flex-direction:column;gap:1rem;
+}
+.nav-drawer.on{display:flex;}
+.nav-drawer a{color:rgba(255,255,255,.8);font-size:.95rem;font-weight:600;padding:.35rem 0;}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media(max-width:1024px){
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .mob-menu{display:block;}
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-cta{justify-content:center;}
+  .hero-stats{justify-content:center;}
+  .hero-vis{display:none;}
+  .footer-grid{grid-template-columns:1fr;}
+  .form-2{grid-template-columns:1fr;}
+  .pay-methods{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .modal-foot{flex-direction:column;}
+  .modal-foot .btn-prim{width:100%;justify-content:center;}
+  .co-tot-row{flex-direction:column;align-items:flex-start;gap:.5rem;}
+  .btn-order{width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- Hidden SVG defs for reusable gradients -->
+<svg class="defs" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="nGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00b4aa"/>
+      <stop offset="100%" stop-color="#0a4d6e"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <!-- SVG Logo approximating the Novu Peptides mark -->
+    <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="46" height="46" rx="11" fill="#071f2e"/>
+      <!-- N letterform -->
+      <path d="M9 36V10h5.5L27 28.5V10h5.5V36H27L14.5 17.5V36H9z" fill="url(#nGrad)"/>
+      <!-- Molecular chain top-right -->
+      <circle cx="37" cy="7"  r="2.6" fill="#00b4aa" opacity=".95"/>
+      <circle cx="42" cy="13" r="1.9" fill="#00b4aa" opacity=".7"/>
+      <circle cx="32" cy="4"  r="1.6" fill="#00b4aa" opacity=".65"/>
+      <circle cx="41" cy="5"  r="1.2" fill="#00cfc4" opacity=".55"/>
+      <line x1="37" y1="7"  x2="32" y2="4"  stroke="#00b4aa" stroke-width="1" opacity=".45"/>
+      <line x1="37" y1="7"  x2="42" y2="13" stroke="#00b4aa" stroke-width="1" opacity=".45"/>
+      <line x1="37" y1="7"  x2="41" y2="5"  stroke="#00b4aa" stroke-width=".8" opacity=".35"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="brand">NOVU</span>
+      <span class="sub">Peptides</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#legal">Legal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="btn-cart" onclick="openCart()" aria-label="Open cart">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Cart
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="mob-menu" onclick="toggleDrawer()" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <a href="#products" onclick="closeDrawer()">Products</a>
+  <a href="#why-us"   onclick="closeDrawer()">Why Us</a>
+  <a href="#process"  onclick="closeDrawer()">Process</a>
+  <a href="#legal"    onclick="closeDrawer()">Legal</a>
+  <a href="#contact"  onclick="closeDrawer()">Contact</a>
+</div>
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <!-- Left copy -->
+    <div>
+      <div class="hero-pill">Research Grade &nbsp;·&nbsp; ISO Certified</div>
+      <h1>High-Purity Peptides<br>for <span class="hl">Research</span></h1>
+      <p class="hero-sub">
+        Precision-synthesised compounds with &gt;99% purity, verified by independent
+        HPLC and mass spectrometry analysis. Trusted by research institutions worldwide.
+      </p>
+      <div class="hero-cta">
+        <a href="#products" class="btn-prim">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Browse Catalog
+        </a>
+        <a href="#why-us" class="btn-ghost">Our Standards →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hstat-val">&gt;99%</div>
+          <div class="hstat-lbl">Purity</div>
+        </div>
+        <div>
+          <div class="hstat-val">HPLC</div>
+          <div class="hstat-lbl">Verified</div>
+        </div>
+        <div>
+          <div class="hstat-val">48 h</div>
+          <div class="hstat-lbl">Dispatch</div>
+        </div>
+        <div>
+          <div class="hstat-val">3PL</div>
+          <div class="hstat-lbl">Lab Tested</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right card -->
+    <div class="hero-vis">
+      <div style="position:relative;width:100%;max-width:390px;">
+        <div class="hcard">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div class="hcard-tag">Featured Compound</div>
+            <div class="hcard-badge">✓ Lab Tested</div>
+          </div>
+          <div class="hcard-name">BPC-157</div>
+          <div class="hcard-formula">C&#x2086;&#x2082;H&#x2089;&#x2088;N&#x2081;&#x2086;O&#x2082;&#x2082; &nbsp;·&nbsp; 5 mg vial</div>
+          <div class="purity-row">
+            <span>Purity Level</span><span>99.2 %</span>
+          </div>
+          <div class="purity-track">
+            <div class="purity-bar" style="width:0%" data-w="99.2%"></div>
+          </div>
+          <div class="hcard-specs">
+            <div class="hspec">
+              <div class="hspec-lbl">CAS Number</div>
+              <div class="hspec-val">137525-51-0</div>
+            </div>
+            <div class="hspec">
+              <div class="hspec-lbl">MW</div>
+              <div class="hspec-val">1419.53 g/mol</div>
+            </div>
+            <div class="hspec">
+              <div class="hspec-lbl">Sequence</div>
+              <div class="hspec-val">15 aa</div>
+            </div>
+            <div class="hspec">
+              <div class="hspec-lbl">Storage</div>
+              <div class="hspec-val">-20 °C</div>
+            </div>
+          </div>
+        </div>
+        <div class="float-tag t1">
+          <span style="color:var(--teal)">✓</span> HPLC Certified
+        </div>
+        <div class="float-tag t2">
+          <span style="color:var(--teal)">⚗</span> Mass Spec Verified
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     DISCLAIMER + TRUST
+     ===================================================== -->
+<div class="disc-bar">
+  <strong>⚠ RESEARCH USE ONLY</strong> — All products are intended exclusively for in-vitro laboratory research. Not for human consumption, veterinary or food/drug applications.
+</div>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      HPLC Verified
+    </div>
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+      Mass Spectrometry
+    </div>
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      Secure Payments
+    </div>
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+      Discreet Packaging
+    </div>
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      48 h Dispatch
+    </div>
+    <div class="trust-item">
+      <svg class="t-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Full CoA Provided
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     PRODUCTS
+     ===================================================== -->
+<section class="sec products-sec" id="products">
+  <div class="sec-hd">
+    <div class="sec-tag">⚗ Research Catalog</div>
+    <h2 class="sec-title">Premium Research Peptides</h2>
+    <p class="sec-desc">All compounds are synthesised under strict GMP conditions and independently verified by ISO 17025 accredited laboratories.</p>
+  </div>
+  <div class="prod-grid" id="prodGrid"></div>
+</section>
+
+<!-- =====================================================
+     WHY US
+     ===================================================== -->
+<section class="sec why-sec" id="why-us">
+  <div class="sec-hd">
+    <div class="sec-tag sec-tag-inv">Our Standards</div>
+    <h2 class="sec-title sec-title-inv">Why Choose Novu Peptides?</h2>
+    <p class="sec-desc sec-desc-inv">We set the benchmark for quality, consistency, and scientific integrity in research peptides.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-ico">🔬</div>
+      <div class="feat-title">Third-Party Verified</div>
+      <div class="feat-desc">Every batch independently tested by accredited ISO 17025 laboratories. Full CoA available on request for every order.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ico">⚗️</div>
+      <div class="feat-title">&gt;99% Purity</div>
+      <div class="feat-desc">HPLC and mass spectrometry analysis confirms purity exceeding 99% for all compounds in our catalog.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ico">🌡️</div>
+      <div class="feat-title">Cold Chain Logistics</div>
+      <div class="feat-desc">Temperature-controlled packaging with dry ice or gel packs ensures peptide integrity throughout transit.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ico">🔒</div>
+      <div class="feat-title">Confidential & Discreet</div>
+      <div class="feat-desc">Plain, unmarked packaging with no external brand identifiers. Your research privacy is our priority.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ico">📋</div>
+      <div class="feat-title">Full Documentation</div>
+      <div class="feat-desc">Certificate of Analysis, MSDS, and molecular data sheets provided with every order.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ico">🚀</div>
+      <div class="feat-title">48 h Dispatch</div>
+      <div class="feat-desc">Orders processed within 24–48 hours. Express international shipping available to select research regions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     HOW IT WORKS
+     ===================================================== -->
+<section class="sec process-sec" id="process">
+  <div class="sec-hd">
+    <div class="sec-tag">Process</div>
+    <h2 class="sec-title">From Synthesis to Delivery</h2>
+    <p class="sec-desc">A rigorous quality-control pipeline ensuring compound integrity at every stage of the supply chain.</p>
+  </div>
+  <div class="steps-wrap">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">GMP Synthesis</div>
+      <div class="step-desc">Solid-phase peptide synthesis performed under Good Manufacturing Practice conditions with traceable raw materials.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Purity Analysis</div>
+      <div class="step-desc">Independent HPLC and mass spectrometry conducted by ISO 17025 accredited third-party laboratories.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Quality Release</div>
+      <div class="step-desc">Batch released only upon achieving &gt;99% purity. Full Certificate of Analysis generated and archived.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Secure Dispatch</div>
+      <div class="step-desc">Cold-chain packaging with discreet tracked shipping direct to your research facility within 48 hours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     LEGAL DISCLAIMER
+     ===================================================== -->
+<section class="sec legal-sec" id="legal">
+  <div class="legal-inner">
+    <div class="legal-hd">
+      <div class="legal-ico">⚠️</div>
+      <div>
+        <div class="legal-h-title">Important Legal Disclaimer</div>
+        <div class="legal-h-sub">Please read carefully before placing an order</div>
+      </div>
+    </div>
+    <div class="legal-body">
+      <p><strong>RESEARCH USE ONLY:</strong> All products sold by Novu Peptides are intended exclusively for in-vitro laboratory research and scientific study. These products are NOT intended for human consumption, veterinary use, food additive applications, or use in living organisms of any kind.</p>
+      <p><strong>NOT FOR CLINICAL USE:</strong> Our peptides have not been evaluated by the FDA, MHRA, EMA, or any regulatory authority for safety or efficacy. They are not classified as drugs, supplements, or medical devices.</p>
+      <p><strong>BUYER RESPONSIBILITY:</strong> By purchasing from Novu Peptides you confirm that you are a qualified researcher, scientist, or institution using these compounds solely for legitimate scientific research. You assume full responsibility for compliance with all applicable local, national, and international laws.</p>
+      <p><strong>RESTRICTED SALE:</strong> We reserve the right to refuse orders from individuals who cannot confirm legitimate research use or affiliation with a recognised research institution.</p>
+      <p><strong>AGE RESTRICTION:</strong> You must be 18 years or older to purchase. By placing an order you confirm that you meet this requirement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div>
+      <!-- Logo in footer -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem;">
+        <svg width="38" height="38" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="46" height="46" rx="11" fill="#0a2b3e"/>
+          <path d="M9 36V10h5.5L27 28.5V10h5.5V36H27L14.5 17.5V36H9z" fill="url(#nGrad)"/>
+          <circle cx="37" cy="7"  r="2.6" fill="#00b4aa" opacity=".9"/>
+          <circle cx="42" cy="13" r="1.9" fill="#00b4aa" opacity=".65"/>
+          <circle cx="32" cy="4"  r="1.6" fill="#00b4aa" opacity=".6"/>
+          <line x1="37" y1="7"  x2="32" y2="4"  stroke="#00b4aa" stroke-width="1" opacity=".4"/>
+          <line x1="37" y1="7"  x2="42" y2="13" stroke="#00b4aa" stroke-width="1" opacity=".4"/>
+        </svg>
+        <div>
+          <div style="font-size:1.05rem;font-weight:900;color:#fff;letter-spacing:3px;">NOVU</div>
+          <div style="font-size:.58rem;font-weight:700;color:var(--teal);letter-spacing:4px;">PEPTIDES</div>
+        </div>
+      </div>
+      <p>Precision-synthesised research peptides with industry-leading purity standards. Supporting the scientific community with reliable, lab-verified compounds.</p>
+      <div class="footer-contact">
+        <svg width="14" height="14" fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        research@novupeptides.com
+      </div>
+      <div class="footer-contact">
+        <svg width="14" height="14" fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        +1 (800) 000-0000
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-heading">Products</div>
+      <ul class="footer-links">
+        <li><a href="#products">BPC-157</a></li>
+        <li><a href="#products">TB-500</a></li>
+        <li><a href="#products">Semaglutide</a></li>
+        <li><a href="#products">Ipamorelin</a></li>
+        <li><a href="#products">Tirzepatide</a></li>
+        <li><a href="#products">View All →</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-heading">Company</div>
+      <ul class="footer-links">
+        <li><a href="#why-us">About Us</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#legal">Disclaimer</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-heading">Legal</div>
+      <ul class="footer-links">
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">GDPR</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bot">
+    <div>© 2025 Novu Peptides. All rights reserved.</div>
+    <div class="footer-bot-note">For research use only. Not for human consumption.<br>Not evaluated by FDA / MHRA / EMA.</div>
+  </div>
+</footer>
+
+<!-- =====================================================
+     FLOATING WHATSAPP
+     ===================================================== -->
+<div class="wa-wrap">
+  <span class="wa-tip">Chat with us</span>
+  <a href="https://wa.me/1234567890" class="wa-btn" target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- =====================================================
+     PRODUCT DETAIL MODAL
+     ===================================================== -->
+<div class="modal-wrap" id="prodModal" onclick="maybeCloseModal(event,'prodModal')">
+  <div class="modal">
+    <div class="modal-top">
+      <button class="modal-close-btn" onclick="closeModal('prodModal')" aria-label="Close">✕</button>
+      <div class="modal-badges">
+        <span class="m-badge">✓ Lab Tested</span>
+        <span class="m-badge" id="mPurity"></span>
+      </div>
+      <div class="modal-name" id="mName"></div>
+      <div class="modal-sub"  id="mSub"></div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="mDesc"></p>
+      <div class="specs-grid" id="mSpecs"></div>
+      <div class="modal-sec-lbl">Storage Instructions</div>
+      <div class="storage-box" id="mStorage"></div>
+      <div class="modal-sec-lbl">Research Notes</div>
+      <p class="notes-text" id="mNotes"></p>
+    </div>
+    <div class="modal-foot">
+      <div class="modal-price" id="mPrice"></div>
+      <button class="btn-prim" onclick="addFromModal()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     CART SIDEBAR
+     ===================================================== -->
+<div class="cart-ov" id="cartOv" onclick="maybeCloseCart(event)">
+  <div class="cart-side">
+    <div class="cart-hd">
+      <div class="cart-title">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Research Cart
+      </div>
+      <button class="cart-x" onclick="closeCart()" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty">
+        <div class="cart-empty-ico">🧪</div>
+        <p style="font-weight:700;color:var(--gray-600);">Your cart is empty</p>
+        <p style="font-size:.8rem;margin-top:.4rem;">Add research compounds to get started</p>
+      </div>
+    </div>
+    <div class="cart-ft">
+      <div class="cart-tot-row">
+        <span class="cart-tot-lbl">Subtotal (excl. shipping)</span>
+        <span class="cart-tot-val" id="cartTot">$0.00</span>
+      </div>
+      <div class="cart-disc">⚠ By proceeding you confirm all items are for laboratory research purposes only.</div>
+      <button class="btn-checkout" onclick="openCheckout()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     CHECKOUT MODAL
+     ===================================================== -->
+<div class="modal-wrap" id="coModal" onclick="maybeCloseModal(event,'coModal')">
+  <div class="modal co-modal">
+    <div class="modal-top">
+      <button class="modal-close-btn" onclick="closeModal('coModal')" aria-label="Close">✕</button>
+      <div style="color:var(--teal);font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:.5rem;">Secure Checkout</div>
+      <div style="color:#fff;font-size:1.5rem;font-weight:900;">Complete Your Order</div>
+    </div>
+    <div class="modal-body">
+      <div class="co-disc-box">
+        ⚠ By completing this order you confirm that all compounds are for legitimate scientific research purposes only. Not for human consumption.
+      </div>
+      <form id="coForm" onsubmit="submitOrder(event)" novalidate>
+        <div class="form-2">
+          <div class="form-grp">
+            <label class="form-lbl">First Name *</label>
+            <input type="text" class="form-in" placeholder="Dr. John" required>
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Last Name *</label>
+            <input type="text" class="form-in" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Email Address *</label>
+          <input type="email" class="form-in" placeholder="researcher@institution.edu" required>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Institution / Organisation</label>
+          <input type="text" class="form-in" placeholder="University / Research Laboratory">
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Street Address *</label>
+          <input type="text" class="form-in" placeholder="123 Research Avenue" required>
+        </div>
+        <div class="form-2">
+          <div class="form-grp">
+            <label class="form-lbl">City *</label>
+            <input type="text" class="form-in" placeholder="Boston" required>
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">ZIP / Postal Code *</label>
+            <input type="text" class="form-in" placeholder="02115" required>
+          </div>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Country *</label>
+          <select class="form-sel" required>
+            <option value="">Select country…</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Netherlands</option>
+            <option>Sweden</option>
+            <option>Denmark</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">Payment Method</label>
+          <div class="pay-methods">
+            <div class="pay-opt sel" onclick="selPay(this)">💳 Credit Card</div>
+            <div class="pay-opt"     onclick="selPay(this)">₿ Cryptocurrency</div>
+            <div class="pay-opt"     onclick="selPay(this)">🏦 Wire Transfer</div>
+          </div>
+        </div>
+        <div class="form-grp" id="cardFields">
+          <label class="form-lbl">Card Number</label>
+          <input type="text" class="form-in" placeholder="•••• •••• •••• ••••" maxlength="19" id="cardNum" oninput="fmtCard(this)">
+          <div class="form-2" style="margin-top:.45rem;">
+            <input type="text" class="form-in" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)">
+            <input type="text" class="form-in" placeholder="CVV" maxlength="4">
+          </div>
+        </div>
+        <div class="co-tot-row">
+          <div>
+            <div class="co-tot-lbl">Order Total</div>
+            <div class="co-tot-val" id="coTot">$0.00</div>
+          </div>
+          <button type="submit" class="btn-order">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+            Place Order (Demo)
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     SUCCESS OVERLAY
+     ===================================================== -->
+<div class="success-ov" id="successOv">
+  <div class="success-card">
+    <div class="s-ico">✓</div>
+    <div class="s-title">Order Placed!</div>
+    <div class="s-msg">Your research order has been received. A confirmation email with tracking details will be sent within 24 hours.</div>
+    <div class="s-oid" id="sOid">Order #NVP-000000</div>
+    <button class="btn-prim" style="width:100%;justify-content:center;" onclick="closeSuccess()">Continue Shopping</button>
+    <div class="s-note">Demo mode — no real order was placed</div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+<script>
+/* -------------------------------------------------------
+   PRODUCT DATA
+   ------------------------------------------------------- */
+const PRODUCTS = [
+  {
+    id:1, name:'BPC-157', fullName:'Body Protection Compound-157',
+    dosage:'5 mg', purity:'99.2%', price:42.99,
+    cas:'137525-51-0', formula:'C₆₂H₉₈N₁₆O₂₂',
+    mw:'1419.53 g/mol', seq:'15 amino acids',
+    desc:'A pentadecapeptide composed of 15 amino acids. Extensively studied in research models for its role in tissue-repair mechanisms and cytoprotective effects at the cellular level.',
+    storage:'Store lyophilised peptide at −20 °C. Upon reconstitution, store at 4 °C for short-term use (up to 4 weeks) or −20 °C for long-term storage. Avoid repeated freeze-thaw cycles.',
+    notes:'Reconstitute with sterile bacteriostatic water. Optimal research concentration: 1–5 mg/mL. Keep away from direct light and oxidising agents.'
+  },
+  {
+    id:2, name:'TB-500', fullName:'Thymosin Beta-4 Fragment',
+    dosage:'5 mg', purity:'99.1%', price:49.99,
+    cas:'77591-33-4', formula:'C₂₁₂H₃₅₀N₅₆O₇₈S',
+    mw:'4963.44 g/mol', seq:'43 amino acids',
+    desc:'Synthetic analogue of actin-sequestering Thymosin Beta-4. Studied extensively for its role in cellular migration, differentiation, and angiogenesis research models.',
+    storage:'Store lyophilised at −20 °C. Stable for 24 months when stored correctly. Reconstituted solution stable at 4 °C for 2 weeks.',
+    notes:'Reconstitute in sterile saline or bacteriostatic water. Research applications typically use 1–2 mg/mL concentrations. Highly water-soluble.'
+  },
+  {
+    id:3, name:'Semaglutide', fullName:'GLP-1 Receptor Agonist Analogue',
+    dosage:'5 mg', purity:'99.3%', price:89.99,
+    cas:'910463-68-2', formula:'C₁₈₇H₂₉₁N₄₅O₅₉',
+    mw:'4113.58 g/mol', seq:'31 amino acids',
+    desc:'A glucagon-like peptide-1 (GLP-1) receptor agonist analogue. Subject of extensive research into metabolic processes, glucose regulation, and adipose tissue biology.',
+    storage:'Store lyophilised at −20 °C. Protect from light. Stable at 4 °C for up to 28 days after reconstitution.',
+    notes:'Reconstitute in sterile phosphate buffer saline. C18 fatty acid chain modification extends half-life profile in in-vitro models.'
+  },
+  {
+    id:4, name:'CJC-1295', fullName:'CJC-1295 (No DAC)',
+    dosage:'2 mg', purity:'99.0%', price:34.99,
+    cas:'863288-34-0', formula:'C₁₅₂H₂₅₂N₄₄O₄₂',
+    mw:'3367.97 g/mol', seq:'29 amino acids',
+    desc:'A tetrasubstituted GRF (1-29) analogue. Studied for its interaction with growth hormone-releasing hormone receptors in neuroendocrine research models.',
+    storage:'Lyophilised: −20 °C for up to 2 years. Reconstituted: 4 °C for up to 14 days, or −20 °C for longer storage.',
+    notes:'Without Drug Affinity Complex (DAC). Short half-life profile suitable for pulsatile GHRH-R agonism research protocols.'
+  },
+  {
+    id:5, name:'Ipamorelin', fullName:'Ipamorelin Acetate',
+    dosage:'5 mg', purity:'99.4%', price:38.99,
+    cas:'170851-70-4', formula:'C₃₈H₄₉N₉O₅',
+    mw:'711.85 g/mol', seq:'5 amino acids',
+    desc:'A selective growth hormone secretagogue and ghrelin receptor agonist. Highly selective GHS-R1a agonist used in pituitary and neuroendocrine research models.',
+    storage:'Store at −20 °C. Reconstituted solutions stable at 4 °C for 3 weeks. Avoid exposure to heat and moisture.',
+    notes:'High selectivity for GHS-R1a with minimal off-target activity. Compound of interest for pulse-frequency secretagogue studies.'
+  },
+  {
+    id:6, name:'Tirzepatide', fullName:'Dual GIP/GLP-1 Agonist',
+    dosage:'10 mg', purity:'98.9%', price:119.99,
+    cas:'2023788-19-2', formula:'C₂₂₅H₃₄₈N₄₈O₆₈',
+    mw:'4813.48 g/mol', seq:'39 amino acids',
+    desc:'A novel dual GIP and GLP-1 receptor agonist. Of significant interest in metabolic syndrome research, adipokine biology, and insulin-sensitisation studies.',
+    storage:'Store lyophilised at −20 °C. Protect from light. Reconstituted at 4 °C for up to 21 days.',
+    notes:'Dual agonist activity at GIP-R and GLP-1R. Fatty acid modification extends half-life. Key compound in current metabolic research literature.'
+  },
+  {
+    id:7, name:'PT-141', fullName:'Bremelanotide',
+    dosage:'10 mg', purity:'99.1%', price:44.99,
+    cas:'189691-06-3', formula:'C₅₀H₆₈N₁₄O₁₀',
+    mw:'1025.18 g/mol', seq:'7 amino acids',
+    desc:'A melanocortin receptor agonist with high affinity for MC3R and MC4R. Used in research investigating central nervous system melanocortin pathway signalling.',
+    storage:'Lyophilised powder stable at −20 °C for up to 24 months. Avoid light exposure. Reconstituted: 4 °C for up to 4 weeks.',
+    notes:'Cyclic lactam peptide. Highly potent at nanomolar concentrations. Store desiccated to preserve stability.'
+  },
+  {
+    id:8, name:'HGH Frag 176-191', fullName:'HGH Fragment 176-191',
+    dosage:'5 mg', purity:'99.0%', price:37.99,
+    cas:'221231-10-3', formula:'C₇₈H₁₂₃N₂₃O₂₃S₂',
+    mw:'1817.12 g/mol', seq:'16 amino acids',
+    desc:'The C-terminal fragment of human growth hormone (amino acids 176–191). Studied for its role in adipose tissue metabolism and lipolytic signalling pathways.',
+    storage:'Store at −20 °C away from light. Reconstituted solution stable at 4 °C for up to 3 weeks.',
+    notes:'Contains the lipolytic domain of hGH. Highly specific fragment without the growth-promoting properties of the full hGH protein.'
+  },
+  {
+    id:9, name:'Selank', fullName:'Selank (TP-7)',
+    dosage:'5 mg', purity:'99.2%', price:45.99,
+    cas:'129954-34-3', formula:'C₃₃H₅₇N₁₁O₉',
+    mw:'751.88 g/mol', seq:'7 amino acids',
+    desc:'A synthetic analogue of the endogenous tetrapeptide tuftsin. Subject of research in GABAergic system modulation and neurotrophin expression studies in-vitro.',
+    storage:'Store lyophilised at −20 °C. Reconstituted solution: 4 °C for up to 2 weeks. Protect from freeze-thaw cycling.',
+    notes:'Shows high metabolic stability in-vitro relative to native tuftsin. Used in GABA receptor interaction and neuropeptide expression studies.'
+  },
+  {
+    id:10, name:'Epithalon', fullName:'Epithalamin Tetrapeptide',
+    dosage:'10 mg', purity:'99.3%', price:52.99,
+    cas:'307297-39-8', formula:'C₁₄H₂₂N₄O₉',
+    mw:'390.35 g/mol', seq:'4 aa (Ala-Glu-Asp-Gly)',
+    desc:'A synthetic tetrapeptide based on epithalamin derived from the pineal gland. Researched in longevity science, circadian rhythm regulation, and telomerase activity studies.',
+    storage:'Store at −20 °C in lyophilised form. Stable for 36 months when stored correctly. Reconstituted: 4 °C for 4 weeks.',
+    notes:'Highly water-soluble. Studied for effects on telomerase expression in human cell cultures. Low molecular weight aids tissue distribution in in-vitro models.'
+  }
+];
+
+/* -------------------------------------------------------
+   STATE
+   ------------------------------------------------------- */
+let cart = JSON.parse(localStorage.getItem('novu_cart') || '[]');
+let activeProduct = null;
+
+/* -------------------------------------------------------
+   RENDER PRODUCTS
+   ------------------------------------------------------- */
+function renderProducts() {
+  document.getElementById('prodGrid').innerHTML = PRODUCTS.map(p => `
+    <div class="prod-card" onclick="openProdModal(${p.id})">
+      <div class="prod-hd">
+        <div class="prod-purity">${p.purity}</div>
+        <div class="prod-lab">✓ Lab Tested</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-dose">${p.fullName} &nbsp;·&nbsp; ${p.dosage}</div>
+      </div>
+      <div class="prod-body">
+        <p class="prod-desc">${p.desc.slice(0,105)}…</p>
+        <div class="prod-tags">
+          <span class="ptag">CAS: ${p.cas}</span>
+          <span class="ptag">${p.formula}</span>
+          <span class="ptag">${p.mw}</span>
+        </div>
+        <div class="prod-ft">
+          <div class="prod-price">$${p.price.toFixed(2)}<sub> / vial</sub></div>
+          <button class="btn-add" id="addbtn-${p.id}"
+            onclick="event.stopPropagation(); addToCart(${p.id})">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* -------------------------------------------------------
+   CART LOGIC
+   ------------------------------------------------------- */
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(x => x.id === id);
+  ex ? ex.qty++ : cart.push({id, name:p.name, dosage:p.dosage, price:p.price, qty:1});
+  saveCart();
+  updateBadge();
+  showToast(`${p.name} added to cart`);
+  const btn = document.getElementById(`addbtn-${id}`);
+  if (btn) {
+    btn.classList.add('added');
+    btn.innerHTML = '✓ Added';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerHTML = '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to Cart';
+    }, 1600);
+  }
+}
+
+function addFromModal() {
+  if (activeProduct) { addToCart(activeProduct.id); closeModal('prodModal'); }
+}
+
+function removeItem(id) {
+  cart = cart.filter(x => x.id !== id);
+  saveCart(); updateBadge(); renderCart();
+}
+
+function changeQty(id, d) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + d);
+  saveCart(); renderCart();
+}
+
+function getTotal() { return cart.reduce((s,i) => s + i.price * i.qty, 0); }
+
+function saveCart() { localStorage.setItem('novu_cart', JSON.stringify(cart)); }
+
+function updateBadge() {
+  const n = cart.reduce((s,i) => s + i.qty, 0);
+  const el = document.getElementById('cartCount');
+  el.textContent = n;
+  el.classList.toggle('on', n > 0);
+}
+
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const tot  = document.getElementById('cartTot');
+  if (!cart.length) {
+    body.innerHTML = `<div class="cart-empty">
+      <div class="cart-empty-ico">🧪</div>
+      <p style="font-weight:700;color:var(--gray-600);">Your cart is empty</p>
+      <p style="font-size:.8rem;margin-top:.4rem;">Add research compounds to get started</p>
+    </div>`;
+    tot.textContent = '$0.00';
+    return;
+  }
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="ci-ico">⚗</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-dose">${item.dosage}</div>
+        <div class="ci-ctrl">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <div class="ci-right">
+        <div class="ci-price">$${(item.price * item.qty).toFixed(2)}</div>
+        <button class="ci-rm" onclick="removeItem(${item.id})" aria-label="Remove">✕</button>
+      </div>
+    </div>
+  `).join('');
+  tot.textContent = `$${getTotal().toFixed(2)}`;
+}
+
+/* -------------------------------------------------------
+   PRODUCT MODAL
+   ------------------------------------------------------- */
+function openProdModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  activeProduct = p;
+  document.getElementById('mPurity').textContent  = `Purity: ${p.purity}`;
+  document.getElementById('mName').textContent    = p.name;
+  document.getElementById('mSub').textContent     = `${p.fullName} · ${p.dosage} vial`;
+  document.getElementById('mDesc').textContent    = p.desc;
+  document.getElementById('mStorage').textContent = p.storage;
+  document.getElementById('mNotes').textContent   = p.notes;
+  document.getElementById('mPrice').textContent   = `$${p.price.toFixed(2)}`;
+  document.getElementById('mSpecs').innerHTML = [
+    ['CAS Number', p.cas], ['Molecular Formula', p.formula],
+    ['Molecular Weight', p.mw], ['Sequence', p.seq],
+    ['Purity', p.purity],      ['Vial Size', p.dosage]
+  ].map(([l,v]) => `
+    <div class="spec-box">
+      <div class="spec-lbl">${l}</div>
+      <div class="spec-val">${v}</div>
+    </div>`).join('');
+  openModal('prodModal');
+}
+
+/* -------------------------------------------------------
+   MODAL / OVERLAY HELPERS
+   ------------------------------------------------------- */
+function openModal(id) {
+  document.getElementById(id).classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('on');
+  if (!document.querySelector('.modal-wrap.on') && !document.getElementById('cartOv').classList.contains('on')) {
+    document.body.style.overflow = '';
+  }
+}
+function maybeCloseModal(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+
+/* -------------------------------------------------------
+   CART SIDEBAR
+   ------------------------------------------------------- */
+function openCart() {
+  renderCart();
+  document.getElementById('cartOv').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartOv').classList.remove('on');
+  if (!document.querySelector('.modal-wrap.on')) document.body.style.overflow = '';
+}
+function maybeCloseCart(e) {
+  if (e.target === document.getElementById('cartOv')) closeCart();
+}
+
+/* -------------------------------------------------------
+   CHECKOUT
+   ------------------------------------------------------- */
+function openCheckout() {
+  if (!cart.length) { showToast('Your cart is empty'); return; }
+  closeCart();
+  document.getElementById('coTot').textContent = `$${getTotal().toFixed(2)}`;
+  openModal('coModal');
+}
+function closeCheckout() { closeModal('coModal'); }
+
+function selPay(el) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('cardFields').style.display =
+    el.textContent.includes('Card') ? '' : 'none';
+}
+
+function fmtCard(inp) {
+  inp.value = inp.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim().slice(0,19);
+}
+function fmtExp(inp) {
+  let v = inp.value.replace(/\D/g,'');
+  if (v.length >= 3) v = v.slice(0,2) + ' / ' + v.slice(2,4);
+  inp.value = v;
+}
+
+function submitOrder(e) {
+  e.preventDefault();
+  const oid = 'NVP-' + Math.random().toString(36).slice(2,10).toUpperCase();
+  const order = {
+    orderId: oid,
+    timestamp: new Date().toISOString(),
+    items: cart.map(i => ({name:i.name, dosage:i.dosage, qty:i.qty, unitPrice:i.price})),
+    total: `$${getTotal().toFixed(2)}`
+  };
+  console.group('=== NOVU PEPTIDES — DEMO ORDER ===');
+  console.log(JSON.stringify(order, null, 2));
+  console.groupEnd();
+  closeModal('coModal');
+  document.getElementById('sOid').textContent = `Order #${oid}`;
+  document.getElementById('successOv').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  cart = []; saveCart(); updateBadge();
+}
+
+function closeSuccess() {
+  document.getElementById('successOv').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+/* -------------------------------------------------------
+   TOAST
+   ------------------------------------------------------- */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = `<span style="color:var(--teal)">✓</span> ${msg}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* -------------------------------------------------------
+   MOBILE NAV
+   ------------------------------------------------------- */
+function toggleDrawer() {
+  document.getElementById('navDrawer').classList.toggle('on');
+}
+function closeDrawer() {
+  document.getElementById('navDrawer').classList.remove('on');
+}
+
+/* -------------------------------------------------------
+   ANIMATE PURITY BAR ON LOAD
+   ------------------------------------------------------- */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.purity-bar[data-w]').forEach(el => {
+      el.style.width = el.dataset.w;
+    });
+  }, 400);
+});
+
+/* -------------------------------------------------------
+   INIT
+   ------------------------------------------------------- */
+renderProducts();
+updateBadge();
+</script>
+</body>
+</html>
