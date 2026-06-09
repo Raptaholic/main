@@ -1,317 +1,1456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novu Peptides — Premium Peptides &amp; Supplements UAE</title>
-  <meta name="description" content="Novu Peptides — Premium peptides, injectables, oral compounds, SARMs, sports nutrition and supplements in the UAE. High purity, fast delivery." />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Novu Peptides — Peptides &amp; Supplements Store UAE</title>
+<meta name="description" content="Novu Peptides — UAE's trusted store for peptides, GLP-1, SARMs, injectables, sports nutrition and health supplements. Fast UAE-wide delivery, cash on delivery."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"/>
+<style>
+:root{--navy:#0a2b3e;--deep:#07202e;--ink:#051721;--teal:#00b4aa;--teal2:#00d9cc;--teal-dark:#009991;--teal-light:#e0f7f6;--gold:#f5b942;--white:#fff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g700:#334155;--g800:#1e293b;--g900:#0f172a;--red:#ef4444;--green:#22c55e;--radius:12px;--rl:18px;--hh:64px;--tr:.22s ease;--shadow:0 4px 14px rgba(7,32,46,.08);--shadow-lg:0 18px 44px rgba(7,32,46,.18)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--g50);color:var(--g800);font-size:14px;line-height:1.55;min-height:100vh}
+a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;background:none;font-family:inherit}ul{list-style:none}img{max-width:100%}
+h1,h2,h3,.font-display{font-family:'Sora','Inter',sans-serif}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+/* ── ANNOUNCEMENT BAR ── */
+#announce{background:var(--ink);color:rgba(255,255,255,.78);font-size:11.5px;font-weight:600;letter-spacing:.4px;text-align:center;padding:7px 14px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+#announce span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+#announce b{color:var(--teal2)}
+/* ── HEADER ── */
+#site-header{position:sticky;top:0;z-index:300;height:var(--hh);background:rgba(10,43,62,.92);backdrop-filter:blur(14px);display:flex;align-items:center;padding:0 22px;gap:16px;box-shadow:0 2px 18px rgba(0,0,0,.28)}
+.header-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
+.logo-mark{width:34px;height:34px;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1.05}
+.logo-text .brand{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#fff;letter-spacing:.4px}
+.logo-text .sub{font-size:9.5px;color:var(--teal2);font-weight:600;letter-spacing:2.5px;text-transform:uppercase}
+#main-nav{display:flex;align-items:center;gap:2px;margin-left:6px}
+.nav-link{padding:8px 13px;border-radius:9px;font-size:13px;font-weight:600;color:rgba(255,255,255,.66);transition:all var(--tr);white-space:nowrap}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-link.active{color:var(--teal2);background:rgba(0,180,170,.13)}
+.header-search{flex:1;max-width:430px;position:relative;margin-left:auto}
+.header-search input{width:100%;height:38px;border-radius:19px;border:1px solid rgba(255,255,255,.12);padding:0 40px 0 16px;font-size:13.5px;font-family:inherit;background:rgba(255,255,255,.08);color:#fff;outline:none;transition:all var(--tr)}
+.header-search input::placeholder{color:rgba(255,255,255,.4)}
+.header-search input:focus{background:rgba(255,255,255,.16);border-color:rgba(0,217,204,.5)}
+.header-search .search-icon{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.45);pointer-events:none;font-size:15px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(255,255,255,.8);background:rgba(255,255,255,.07);transition:all var(--tr)}
+.icon-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.btn-cart{position:relative;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-weight:800;font-size:13px;padding:0 18px;height:40px;border-radius:20px;transition:all var(--tr);box-shadow:0 3px 12px rgba(0,180,170,.35)}
+.btn-cart:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,180,170,.5)}
+.bub{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px;line-height:1;border:2px solid var(--navy)}
+.bub.visible{display:flex}
+#hamburger{display:none}
+#mobile-menu{display:none;position:fixed;inset:var(--hh) 0 auto 0;background:var(--navy);z-index:290;padding:10px 16px 18px;flex-direction:column;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+#mobile-menu.open{display:flex}
+#mobile-menu .nav-link{padding:13px 12px;font-size:15px;border-bottom:1px solid rgba(255,255,255,.07)}
+/* ── VIEWS ── */
+.view{display:none}.view.active{display:block;animation:viewIn .35s ease}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ── HERO ── */
+#hero{background:radial-gradient(ellipse 90% 110% at 80% -10%,#11506e 0%,var(--navy) 45%,var(--deep) 100%);padding:74px 24px 64px;text-align:center;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 320px at 12% 78%,rgba(0,217,204,.14),transparent),radial-gradient(circle 260px at 88% 30%,rgba(0,180,170,.12),transparent);pointer-events:none}
+.molecule{position:absolute;border:1.5px solid rgba(0,217,204,.18);border-radius:50%;pointer-events:none;animation:float 9s ease-in-out infinite}
+.molecule::after{content:'';position:absolute;width:9px;height:9px;border-radius:50%;background:rgba(0,217,204,.4);top:-4px;left:50%}
+.m1{width:130px;height:130px;top:16%;left:7%;animation-delay:0s}
+.m2{width:75px;height:75px;top:62%;left:14%;animation-delay:-3s}
+.m3{width:170px;height:170px;top:12%;right:6%;animation-delay:-5s}
+.m4{width:60px;height:60px;bottom:14%;right:16%;animation-delay:-7s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(40deg)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:18px;border:1px solid rgba(0,217,204,.3);border-radius:20px;padding:7px 18px;background:rgba(0,217,204,.07)}
+#hero h1{font-size:clamp(30px,5.4vw,58px);font-weight:800;color:#fff;line-height:1.12;margin-bottom:18px;position:relative}
+#hero h1 .grad{background:linear-gradient(95deg,var(--teal2),#7ef0e7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.62);max-width:560px;margin:0 auto 30px;position:relative}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:38px;position:relative}
+.btn-primary{display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 30px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:25px;transition:all var(--tr);box-shadow:0 6px 22px rgba(0,180,170,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,180,170,.55)}
+.btn-ghost{display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 28px;border:1.5px solid rgba(255,255,255,.25);color:#fff;font-size:15px;font-weight:700;border-radius:25px;transition:all var(--tr)}
+.btn-ghost:hover{border-color:var(--teal2);color:var(--teal2);background:rgba(0,217,204,.06)}
+.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;position:relative}
+.stat{padding:0 34px;border-right:1px solid rgba(255,255,255,.12);text-align:center}
+.stat:last-child{border-right:none}
+.stat .num{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff}
+.stat .num em{color:var(--teal2);font-style:normal}
+.stat .lbl{font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px}
+/* ── BRAND MARQUEE ── */
+#brand-strip{background:var(--ink);padding:16px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.marquee{display:flex;gap:54px;width:max-content;animation:scroll 36s linear infinite}
+.marquee span{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.3);white-space:nowrap;transition:color var(--tr)}
+.marquee span:hover{color:var(--teal2)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ── SECTIONS ── */
+.section{max-width:1280px;margin:0 auto;padding:64px 22px}
+.sec-head{text-align:center;margin-bottom:40px}
+.sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal-dark);margin-bottom:10px}
+.sec-head h2{font-size:clamp(24px,3.4vw,36px);font-weight:800;color:var(--navy);line-height:1.18}
+.sec-head p{font-size:14.5px;color:var(--g500);max-width:520px;margin:12px auto 0}
+.sec-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.sec-row h2{font-size:clamp(20px,2.6vw,28px);font-weight:800;color:var(--navy)}
+.link-more{font-size:13.5px;font-weight:700;color:var(--teal-dark);display:inline-flex;align-items:center;gap:6px;transition:gap var(--tr)}
+.link-more:hover{gap:10px}
+/* ── CATEGORY TILES ── */
+.cat-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
+.cat-tile{position:relative;border-radius:var(--rl);padding:22px 18px;min-height:128px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;overflow:hidden;cursor:pointer;transition:all var(--tr);border:1px solid rgba(255,255,255,.08)}
+.cat-tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.cat-tile .ic{font-size:30px;position:absolute;top:16px;right:16px;opacity:.85;transition:transform var(--tr)}
+.cat-tile:hover .ic{transform:scale(1.2) rotate(-8deg)}
+.cat-tile .nm{font-family:'Sora',sans-serif;font-size:14.5px;font-weight:700;color:#fff;position:relative}
+.cat-tile .ct{font-size:11px;color:rgba(255,255,255,.55);font-weight:600;position:relative}
+/* ── PRODUCT GRID & CARDS ── */
+#product-grid,.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
+.featured-grid{grid-template-columns:repeat(auto-fill,minmax(225px,1fr))}
+.product-card{position:relative;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;transition:all var(--tr);cursor:pointer}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--teal)}
+.card-visual{height:172px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0}
+.card-visual .abbr-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.card-abbr{font-family:'Sora',sans-serif;font-size:clamp(18px,4vw,25px);font-weight:800;color:rgba(255,255,255,.22);letter-spacing:-1px;text-align:center;padding:0 8px;line-height:1.1;text-transform:uppercase;pointer-events:none;user-select:none}
+.card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:10px;z-index:2}
+.card-form-badge{position:absolute;bottom:8px;left:8px;background:rgba(5,23,33,.55);backdrop-filter:blur(5px);color:rgba(255,255,255,.9);font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;letter-spacing:.3px;z-index:3}
+.card-flag{position:absolute;top:10px;left:10px;z-index:4;font-size:9.5px;font-weight:800;letter-spacing:.8px;padding:4px 9px;border-radius:8px;text-transform:uppercase}
+.flag-new{background:var(--teal);color:#fff}
+.flag-hot{background:#ff5630;color:#fff}
+.btn-wish{position:absolute;top:8px;right:8px;z-index:4;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--g400);transition:all var(--tr)}
+.btn-wish:hover{transform:scale(1.12);color:var(--red)}
+.btn-wish.on{color:var(--red)}
+.card-body{padding:13px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-brand-badge{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:6px;width:fit-content}
+.card-name{font-size:13.5px;font-weight:600;color:var(--g800);line-height:1.35;flex:1}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.card-price{font-family:'Sora',sans-serif;font-size:16.5px;font-weight:800;color:var(--navy)}
+.card-price .currency{font-size:10.5px;font-weight:700;color:var(--g500);margin-right:2px;font-family:'Inter',sans-serif}
+.btn-add{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;font-size:19px;line-height:1;transition:all var(--tr);flex-shrink:0;box-shadow:0 3px 10px rgba(0,180,170,.3)}
+.btn-add:hover{transform:scale(1.14)}
+.btn-add.added{background:var(--green)}
+.empty-state{grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--g400)}
+.empty-state .es-icon{font-size:54px;margin-bottom:14px}
+.empty-state h3{font-size:19px;font-weight:700;color:var(--g600);margin-bottom:6px}
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px}
+.why-card{background:#fff;border:1px solid var(--g200);border-radius:var(--rl);padding:26px 22px;transition:all var(--tr)}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--teal-light)}
+.why-card .ic{width:48px;height:48px;border-radius:14px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:23px;margin-bottom:14px}
+.why-card h3{font-size:15.5px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.why-card p{font-size:13px;color:var(--g500);line-height:1.6}
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:16px}
+.testi-card{background:#fff;border:1px solid var(--g200);border-radius:var(--rl);padding:24px;display:flex;flex-direction:column;gap:12px;transition:all var(--tr)}
+.testi-card:hover{box-shadow:var(--shadow-lg)}
+.stars{color:var(--gold);font-size:14px;letter-spacing:2px}
+.testi-card p{font-size:13.5px;color:var(--g600);line-height:1.65;font-style:italic}
+.testi-who{display:flex;align-items:center;gap:11px;margin-top:auto}
+.testi-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff}
+.testi-who .nm{font-size:13px;font-weight:700;color:var(--g800)}
+.testi-who .loc{font-size:11px;color:var(--g400)}
+/* ── NEWSLETTER / CTA ── */
+#newsletter{background:radial-gradient(ellipse 80% 130% at 50% -20%,#11506e,var(--navy) 60%,var(--deep));border-radius:var(--rl);padding:52px 30px;text-align:center;position:relative;overflow:hidden}
+#newsletter::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 240px at 85% 80%,rgba(0,217,204,.13),transparent)}
+#newsletter h2{font-size:clamp(21px,3vw,30px);font-weight:800;color:#fff;margin-bottom:10px;position:relative}
+#newsletter p{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px;position:relative}
+.nl-form{display:flex;gap:10px;max-width:430px;margin:0 auto;position:relative;flex-wrap:wrap;justify-content:center}
+.nl-form input{flex:1;min-width:220px;height:48px;border-radius:24px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;padding:0 20px;font-size:14px;font-family:inherit;outline:none}
+.nl-form input::placeholder{color:rgba(255,255,255,.4)}
+.nl-form button{height:48px;padding:0 26px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-weight:800;font-size:14px;border-radius:24px;transition:all var(--tr)}
+.nl-form button:hover{transform:translateY(-1px)}
+/* ── SHOP LAYOUT ── */
+#shop-top{background:linear-gradient(135deg,var(--navy),#0d3a52);padding:34px 22px 26px;text-align:center}
+#shop-top h1{font-size:clamp(22px,3.4vw,34px);font-weight:800;color:#fff;margin-bottom:6px}
+#shop-top p{font-size:13.5px;color:rgba(255,255,255,.55)}
+#cat-nav{background:#fff;border-bottom:1px solid var(--g200);height:52px;display:flex;align-items:center;overflow-x:auto;padding:0 14px;position:sticky;top:var(--hh);z-index:250;scrollbar-width:none}
+#cat-nav::-webkit-scrollbar{display:none}
+.cat-btn{display:flex;align-items:center;gap:6px;padding:0 15px;height:100%;font-size:13px;font-weight:600;color:var(--g600);white-space:nowrap;border-bottom:3px solid transparent;transition:all var(--tr);flex-shrink:0}
+.cat-btn:hover{color:var(--navy)}
+.cat-btn.active{color:var(--teal-dark);border-bottom-color:var(--teal)}
+#main-wrap{display:flex;max-width:1440px;margin:0 auto;padding:24px 16px 50px;gap:20px;align-items:flex-start}
+#sidebar{width:240px;flex-shrink:0;position:sticky;top:calc(var(--hh) + 68px);max-height:calc(100vh - var(--hh) - 96px);overflow-y:auto;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);padding:20px 16px}
+.sidebar-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+#sidebar-close{display:none;font-size:18px;color:var(--g500)}
+.filter-section{margin-bottom:22px}
+.filter-label{font-size:12px;font-weight:700;color:var(--g700);margin-bottom:10px;display:block}
+.brand-filter-list{display:flex;flex-direction:column;gap:4px}
+.brand-chip{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:background var(--tr);font-size:12.5px;color:var(--g700);font-weight:500}
+.brand-chip:hover{background:var(--g100)}
+.brand-chip.active{background:var(--teal-light);color:var(--teal-dark);font-weight:700}
+.brand-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.brand-count{margin-left:auto;font-size:11px;color:var(--g400)}
+.sort-select{width:100%;padding:9px 12px;border:1px solid var(--g200);border-radius:9px;font-size:13px;font-family:inherit;color:var(--g700);background:#fff;cursor:pointer;outline:none}
+.sort-select:focus{border-color:var(--teal)}
+.btn-clear-filters{width:100%;padding:10px;border:1px solid var(--g200);border-radius:9px;font-size:12.5px;font-weight:700;color:var(--g600);transition:all var(--tr);margin-top:6px}
+.btn-clear-filters:hover{border-color:var(--red);color:var(--red)}
+#product-area{flex:1;min-width:0}
+.area-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+.area-header h2{font-size:19px;font-weight:800;color:var(--navy)}
+.result-count{font-size:12.5px;color:var(--g500)}
+#btn-mobile-filters{display:none;align-items:center;gap:7px;height:38px;padding:0 16px;border:1px solid var(--g300);border-radius:19px;font-size:13px;font-weight:700;color:var(--g700);background:#fff}
+#recently-viewed{margin-bottom:22px}
+#recently-viewed h3{font-size:13px;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px}
+.rv-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.rv-item{flex-shrink:0;width:74px;height:74px;border-radius:12px;border:1px solid var(--g200);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:all var(--tr);position:relative}
+.rv-item:hover{border-color:var(--teal);transform:translateY(-2px)}
+.rv-item img{width:100%;height:100%;object-fit:contain;padding:5px}
+.rv-item .rv-abbr{font-size:10px;font-weight:800;color:#fff;text-align:center;padding:2px}
+/* ── LEARN ── */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.learn-card{background:#fff;border:1px solid var(--g200);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all var(--tr);display:flex;flex-direction:column}
+.learn-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.learn-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:44px}
+.learn-body{padding:20px;flex:1;display:flex;flex-direction:column;gap:9px}
+.learn-tag{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal-dark)}
+.learn-body h3{font-size:16.5px;font-weight:700;color:var(--navy);line-height:1.3}
+.learn-body p{font-size:13px;color:var(--g500);line-height:1.6;flex:1}
+.learn-meta{font-size:11.5px;color:var(--g400);font-weight:600}
+/* ── ARTICLE OVERLAY ── */
+#article-overlay{position:fixed;inset:0;background:rgba(5,23,33,.66);z-index:650;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#article-overlay.open{opacity:1;pointer-events:all}
+.article-modal{background:#fff;border-radius:var(--rl);width:100%;max-width:680px;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:scale(.96);transition:transform .25s ease}
+#article-overlay.open .article-modal{transform:scale(1)}
+.article-head{padding:30px 32px 0;position:relative}
+.article-head .learn-tag{margin-bottom:8px;display:block}
+.article-head h2{font-size:23px;font-weight:800;color:var(--navy);line-height:1.25;padding-right:40px}
+.article-body{padding:18px 32px 34px;font-size:14px;color:var(--g600);line-height:1.75}
+.article-body p{margin-bottom:14px}
+.article-body h4{font-size:15px;font-weight:700;color:var(--navy);margin:20px 0 8px}
+.article-body .note{font-size:12px;color:var(--g400);background:var(--g50);border-left:3px solid var(--g200);border-radius:8px;padding:12px 14px;margin-top:18px}
+/* ── ABOUT ── */
+.about-hero{background:radial-gradient(ellipse 90% 120% at 70% -10%,#11506e,var(--navy) 55%,var(--deep));padding:64px 24px;text-align:center}
+.about-hero h1{font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;margin-bottom:14px}
+.about-hero p{font-size:15px;color:rgba(255,255,255,.6);max-width:600px;margin:0 auto}
+.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-cols img{border-radius:var(--rl);width:100%;box-shadow:var(--shadow-lg)}
+.about-cols h2{font-size:clamp(21px,2.8vw,30px);font-weight:800;color:var(--navy);margin-bottom:14px}
+.about-cols p{font-size:14px;color:var(--g600);line-height:1.75;margin-bottom:12px}
+.check-list{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.check-list li{display:flex;gap:10px;font-size:13.5px;color:var(--g700);font-weight:600;align-items:flex-start}
+.check-list li::before{content:'✓';color:var(--teal-dark);font-weight:800;flex-shrink:0}
+.brand-cloud{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.brand-cloud span{padding:9px 19px;border-radius:22px;font-size:13px;font-weight:700;border:1.5px solid;transition:all var(--tr);cursor:default}
+.brand-cloud span:hover{transform:translateY(-2px)}
+/* ── FAQ ── */
+.faq-wrap{max-width:760px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid var(--g200);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;padding:18px 20px;font-size:14.5px;font-weight:700;color:var(--navy);display:flex;justify-content:space-between;align-items:center;gap:14px;transition:background var(--tr)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover{background:var(--g50)}
+.faq-item summary::after{content:'+';font-size:21px;font-weight:400;color:var(--teal-dark);transition:transform var(--tr);flex-shrink:0}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item .faq-a{padding:0 20px 18px;font-size:13.5px;color:var(--g600);line-height:1.7}
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:44px}
+.contact-card{background:#fff;border:1px solid var(--g200);border-radius:var(--rl);padding:28px 24px;text-align:center;transition:all var(--tr)}
+.contact-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.contact-card .ic{width:54px;height:54px;margin:0 auto 14px;border-radius:16px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:25px}
+.contact-card h3{font-size:15.5px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.contact-card p{font-size:13px;color:var(--g500);line-height:1.6}
+.contact-card a{color:var(--teal-dark);font-weight:700}
+.contact-form-wrap{max-width:620px;margin:0 auto;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);padding:34px}
+.contact-form-wrap h2{font-size:21px;font-weight:800;color:var(--navy);margin-bottom:20px;text-align:center}
+/* ── FORMS ── */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:12.5px;font-weight:700;color:var(--g700);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border:1.5px solid var(--g200);border-radius:10px;font-size:14px;font-family:inherit;color:var(--g800);background:#fff;outline:none;transition:border-color var(--tr)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--teal)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group textarea{resize:vertical;min-height:84px}
+/* ── CART DRAWER ── */
+.ovl{position:fixed;inset:0;background:rgba(5,23,33,.5);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.ovl.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:410px;max-width:100vw;background:#fff;z-index:501;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);box-shadow:-10px 0 36px rgba(0,0,0,.22)}
+.drawer.open{transform:translateX(0)}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--g200);flex-shrink:0}
+.drawer-header h2{font-size:18px;font-weight:800;color:var(--navy)}
+.btn-close{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--g500);transition:all var(--tr)}
+.btn-close:hover{background:var(--g100);color:var(--g800)}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 24px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--g400)}
+.cart-empty .empty-icon{font-size:50px}
+.cart-empty p{font-size:15px;font-weight:600}
+.ship-bar{margin:0 24px;padding:14px 0 4px;flex-shrink:0}
+.ship-bar .sb-txt{font-size:12px;font-weight:700;color:var(--g600);margin-bottom:8px}
+.ship-bar .sb-txt b{color:var(--teal-dark)}
+.sb-track{height:7px;border-radius:4px;background:var(--g100);overflow:hidden}
+.sb-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .4s ease}
+.cart-items{display:flex;flex-direction:column;gap:13px}
+.cart-item{display:flex;gap:13px;align-items:flex-start;padding:12px;border:1px solid var(--g100);border-radius:var(--radius);background:var(--g50)}
+.cart-item-thumb{width:58px;height:58px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:rgba(255,255,255,.45);overflow:hidden;position:relative}
+.cart-item-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:4px}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:13px;font-weight:700;color:var(--g800);line-height:1.3;margin-bottom:2px}
+.cart-item-brand{font-size:11px;color:var(--g500)}
+.cart-item-actions{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty-btn{width:26px;height:26px;border:1px solid var(--g300);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--g700);transition:all var(--tr)}
+.qty-btn:hover{border-color:var(--teal);color:var(--teal-dark)}
+.qty-num{font-size:13px;font-weight:800;min-width:20px;text-align:center}
+.cart-item-price{font-size:14px;font-weight:800;color:var(--navy);flex-shrink:0;align-self:center;font-family:'Sora',sans-serif}
+.btn-remove{color:var(--g400);font-size:15px;padding:2px;transition:color var(--tr)}
+.btn-remove:hover{color:var(--red)}
+.drawer-footer{padding:18px 24px 22px;border-top:1px solid var(--g200);flex-shrink:0}
+.cart-row{display:flex;justify-content:space-between;font-size:13px;color:var(--g600);padding:4px 0}
+.cart-row.total{font-size:17px;font-weight:800;color:var(--navy);border-top:1px solid var(--g200);margin-top:8px;padding-top:12px;font-family:'Sora',sans-serif}
+.btn-checkout{width:100%;height:50px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:25px;transition:all var(--tr);margin-top:12px;box-shadow:0 5px 16px rgba(0,180,170,.35)}
+.btn-checkout:hover{transform:translateY(-1px)}
+.btn-wa-order{width:100%;height:46px;display:flex;align-items:center;justify-content:center;gap:9px;border:1.5px solid #25d366;color:#1da851;font-size:14px;font-weight:800;border-radius:23px;transition:all var(--tr);margin-top:9px}
+.btn-wa-order:hover{background:#25d366;color:#fff}
+/* ── PRODUCT MODAL ── */
+#modal-overlay{position:fixed;inset:0;background:rgba(5,23,33,.6);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#modal-overlay.open{opacity:1;pointer-events:all}
+.product-modal{background:#fff;border-radius:var(--rl);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:scale(.95) translateY(10px);transition:transform .25s ease}
+#modal-overlay.open .product-modal{transform:scale(1) translateY(0)}
+.modal-visual{height:240px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:var(--rl) var(--rl) 0 0;overflow:hidden}
+.modal-abbr{font-family:'Sora',sans-serif;font-size:60px;font-weight:800;color:rgba(255,255,255,.18);letter-spacing:-3px;text-transform:uppercase}
+.modal-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:18px;z-index:2}
+.modal-close{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;background:rgba(5,23,33,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-size:17px;transition:background var(--tr)}
+.modal-close:hover{background:rgba(5,23,33,.6)}
+.modal-wish{position:absolute;top:12px;right:56px;z-index:5;width:36px;height:36px;background:rgba(5,23,33,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-size:16px;transition:all var(--tr)}
+.modal-wish.on{color:#ff7b90}
+.modal-body{padding:26px 30px 30px}
+.modal-brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:4px 11px;border-radius:7px;margin-bottom:10px}
+.modal-name{font-size:23px;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:5px}
+.modal-form{font-size:13px;color:var(--g500);margin-bottom:14px}
+.modal-price{font-family:'Sora',sans-serif;font-size:29px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.modal-price .cur{font-size:14px;font-weight:700;color:var(--g500);font-family:'Inter',sans-serif}
+.price-note{font-size:11.5px;color:var(--g400);margin-bottom:16px}
+.modal-divider{height:1px;background:var(--g100);margin:18px 0}
+.modal-section-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);margin-bottom:11px}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.tag-chip{background:var(--g100);color:var(--g600);font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px}
+.modal-disclaimer{font-size:11px;color:var(--g400);line-height:1.6;background:var(--g50);border-radius:9px;padding:12px 14px;border-left:3px solid var(--g200);margin-top:14px}
+.modal-actions{display:flex;gap:11px;margin-top:22px;align-items:center}
+.qty-stepper{display:flex;align-items:center;gap:2px;border:1.5px solid var(--g200);border-radius:23px;height:46px;padding:0 6px;flex-shrink:0}
+.qty-stepper button{width:32px;height:32px;border-radius:50%;font-size:17px;color:var(--g700);display:flex;align-items:center;justify-content:center;transition:background var(--tr)}
+.qty-stepper button:hover{background:var(--g100)}
+.qty-stepper .qv{min-width:26px;text-align:center;font-weight:800;font-size:14px}
+.btn-modal-add{flex:1;height:48px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:24px;transition:all var(--tr);box-shadow:0 4px 14px rgba(0,180,170,.3)}
+.btn-modal-add:hover{transform:translateY(-1px)}
+.related-wrap{margin-top:22px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.rel-card{border:1px solid var(--g200);border-radius:12px;overflow:hidden;cursor:pointer;transition:all var(--tr);background:#fff}
+.rel-card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.rel-vis{height:74px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.rel-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:5px}
+.rel-vis .ra{font-size:11px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase}
+.rel-card .rn{font-size:10.5px;font-weight:700;color:var(--g700);padding:7px 8px 3px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rel-card .rp{font-size:11px;font-weight:800;color:var(--navy);padding:0 8px 8px}
+/* ── CHECKOUT ── */
+#checkout-overlay{position:fixed;inset:0;background:rgba(5,23,33,.6);z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#checkout-overlay.open{opacity:1;pointer-events:all}
+.checkout-modal{background:#fff;border-radius:var(--rl);width:100%;max-width:580px;max-height:92vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:scale(.95);transition:transform .25s ease}
+#checkout-overlay.open .checkout-modal{transform:scale(1)}
+.checkout-header{background:radial-gradient(ellipse 110% 160% at 30% -40%,#11506e,var(--navy));padding:26px 28px;border-radius:var(--rl) var(--rl) 0 0;position:relative}
+.checkout-header h2{font-size:20px;font-weight:800;color:#fff}
+.checkout-header p{font-size:13px;color:rgba(255,255,255,.55);margin-top:4px}
+.checkout-form{padding:26px 28px 30px}
+.order-summary-mini{background:var(--g50);border:1px solid var(--g200);border-radius:var(--radius);padding:15px;margin-bottom:20px}
+.order-summary-mini .ost{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--g400);margin-bottom:10px}
+.summary-item{display:flex;justify-content:space-between;font-size:13px;color:var(--g600);padding:3px 0;gap:14px}
+.summary-total{display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:var(--navy);border-top:1px solid var(--g200);margin-top:9px;padding-top:10px}
+.btn-place-order{width:100%;height:51px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15.5px;font-weight:800;border-radius:26px;transition:all var(--tr);letter-spacing:.3px;box-shadow:0 5px 16px rgba(0,180,170,.35)}
+.btn-place-order:hover{transform:translateY(-1px)}
+/* ── SUCCESS ── */
+#success-overlay{position:fixed;inset:0;background:rgba(5,23,33,.66);z-index:800;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#success-overlay.open{opacity:1;pointer-events:all}
+.success-card{background:#fff;border-radius:var(--rl);padding:46px 36px;text-align:center;max-width:430px;width:100%;box-shadow:var(--shadow-lg)}
+.success-icon{font-size:60px;margin-bottom:14px}
+.success-card h2{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.success-card p{font-size:14px;color:var(--g500);line-height:1.65;margin-bottom:24px}
+.btn-continue{height:46px;padding:0 32px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:23px;transition:all var(--tr)}
+.btn-continue:hover{transform:translateY(-1px)}
+/* ── WHATSAPP FLOAT & TOP ── */
+#wa-float{position:fixed;bottom:26px;right:26px;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 20px rgba(37,211,102,.5);z-index:400;transition:all var(--tr)}
+#wa-float:hover{transform:scale(1.1)}
+#wa-float svg{width:30px;height:30px;fill:#fff}
+#wa-float .pulse{position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+.wa-tooltip{position:absolute;right:70px;top:50%;transform:translateY(-50%);background:var(--g900);color:#fff;font-size:12px;font-weight:700;padding:7px 13px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--tr)}
+#wa-float:hover .wa-tooltip{opacity:1}
+#back-top{position:fixed;bottom:96px;right:33px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--g200);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--g600);z-index:399;opacity:0;pointer-events:none;transition:all var(--tr)}
+#back-top.show{opacity:1;pointer-events:all}
+#back-top:hover{color:var(--teal-dark);border-color:var(--teal)}
+/* ── FOOTER ── */
+footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1.4fr;gap:34px;max-width:1280px;margin:0 auto 38px}
+.footer-brand p{font-size:13px;line-height:1.7;max-width:280px;margin-top:12px}
+.footer-col h4{font-size:13px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:.4px}
+.footer-col ul{display:flex;flex-direction:column;gap:9px}
+.footer-col ul li{font-size:13px}
+.footer-col ul li a{transition:color var(--tr);cursor:pointer}
+.footer-col ul li a:hover{color:var(--teal2)}
+.pay-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pay-pills span{font-size:10.5px;font-weight:800;letter-spacing:.5px;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:6px 11px;color:rgba(255,255,255,.65)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.09);padding-top:24px;max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.footer-bottom p{font-size:12px}
+.footer-legal{font-size:11px;line-height:1.7;color:rgba(255,255,255,.32);max-width:980px}
+/* ── TOAST ── */
+#toast{position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g900);color:#fff;font-size:13px;font-weight:700;padding:11px 22px;border-radius:22px;z-index:900;opacity:0;transition:all .25s ease;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow-lg)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ── RESPONSIVE ── */
+@media(max-width:1120px){#main-nav{display:none}#hamburger{display:flex}}
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr;gap:26px}.about-cols{grid-template-columns:1fr;gap:26px}}
+@media(max-width:860px){
+#sidebar{position:fixed;left:0;top:0;bottom:0;width:300px;max-width:86vw;z-index:520;border-radius:0;max-height:none;transform:translateX(-105%);transition:transform .3s ease}
+#sidebar.mobile-open{transform:translateX(0)}
+#sidebar-close{display:block}
+#btn-mobile-filters{display:inline-flex}
+#main-wrap{padding:16px 12px 40px}
+#product-grid,.featured-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.card-visual{height:135px}
+#hero{padding:50px 18px 46px}
+.stat{padding:0 18px}
+.header-search{max-width:none}
+.logo-text{display:none}
+}
+@media(max-width:520px){
+#site-header{padding:0 12px;gap:10px}
+.btn-cart span.txt{display:none}
+#product-grid,.featured-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.modal-actions{flex-wrap:wrap}
+.form-row{grid-template-columns:1fr}
+.section{padding:44px 16px}
+.footer-grid{grid-template-columns:1fr}
+#announce{gap:10px;font-size:10.5px}
+.hero-stats{gap:10px}
+.stat{border-right:none;padding:0 12px}
+}
+</style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     HEADER
-═══════════════════════════════════════ -->
-<header id="site-header">
-  <a href="#" class="header-logo">
-    <svg class="logo-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="36" height="36" rx="8" fill="#00b4aa"/>
-      <path d="M10 26V10L18 20L26 10V26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="18" cy="20" r="2.5" fill="white"/>
-    </svg>
-    <div class="logo-text">
-      <span class="brand">Novu Peptides</span>
-      <span class="sub">Premium · UAE</span>
-    </div>
-  </a>
-
-  <div class="header-search">
-    <input type="text" id="search-input" placeholder="Search products, brands…" autocomplete="off" />
-    <span class="search-icon">🔍</span>
-  </div>
-
-  <div class="header-actions">
-    <button class="btn-cart" id="btn-cart">
-      <span>🛒</span>
-      <span>Cart</span>
-      <span class="cart-badge" id="cart-badge">0</span>
-    </button>
-  </div>
-</header>
-
-<!-- ═══════════════════════════════════════
-     HERO
-═══════════════════════════════════════ -->
-<section id="hero">
-  <p class="hero-eyebrow">UAE's #1 Peptide &amp; Supplement Store</p>
-  <h1>High-Purity <span>Peptides</span> &amp;<br/>Premium Supplements</h1>
-  <p class="hero-sub">238+ products across 14 top brands. Fast UAE delivery. Pharmaceutical-grade quality.</p>
-  <div class="hero-trust">
-    <div class="trust-pill"><span class="tp-icon">✦</span> Highest Quality</div>
-    <div class="trust-pill"><span class="tp-icon">✦</span> Fully Transparent</div>
-    <div class="trust-pill"><span class="tp-icon">✦</span> Research Backed</div>
-    <div class="trust-pill"><span class="tp-icon">✦</span> Maximum Absorption</div>
-    <div class="trust-pill"><span class="tp-icon">✦</span> Fast UAE Delivery</div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════
-     CATEGORY NAV
-═══════════════════════════════════════ -->
-<nav id="cat-nav" aria-label="Product categories"></nav>
-
-<!-- ═══════════════════════════════════════
-     MAIN LAYOUT
-═══════════════════════════════════════ -->
-<div id="main-wrap">
-
-  <!-- SIDEBAR -->
-  <aside id="sidebar">
-    <p class="sidebar-title">Filters</p>
-
-    <div class="filter-section">
-      <label class="filter-label">Sort By</label>
-      <select id="sort-select" class="sort-select">
-        <option value="default">Default</option>
-        <option value="price-asc">Price: Low → High</option>
-        <option value="price-desc">Price: High → Low</option>
-        <option value="name-asc">Name: A → Z</option>
-        <option value="brand">Brand</option>
-      </select>
-    </div>
-
-    <div class="filter-section">
-      <label class="filter-label">Brand</label>
-      <div class="brand-filter-list" id="brand-filter-list"></div>
-    </div>
-
-    <button class="btn-clear-filters" id="btn-clear-filters">Clear All Filters</button>
-  </aside>
-
-  <!-- PRODUCT AREA -->
-  <main id="product-area">
-    <div class="area-header">
-      <div>
-        <h2 id="area-title">All Products</h2>
-        <span class="result-count" id="result-count"></span>
-      </div>
-    </div>
-    <div id="product-grid"></div>
-  </main>
-
+<div id="announce">
+  <span>🚚 Fast <b>UAE-wide</b> delivery</span>
+  <span>💵 <b>Cash on Delivery</b> available</span>
+  <span>📦 Discreet packaging</span>
+  <span>💬 24/7 WhatsApp support</span>
 </div>
 
-<!-- ═══════════════════════════════════════
-     CART DRAWER
-═══════════════════════════════════════ -->
-<div id="cart-overlay"></div>
-<aside id="cart-drawer" aria-label="Shopping cart">
-  <div class="drawer-header">
-    <h2>Your Cart</h2>
-    <button class="btn-close" id="btn-close-cart" aria-label="Close cart">✕</button>
+<header id="site-header">
+  <a class="header-logo" data-nav="home">
+    <svg class="logo-mark" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="#00b4aa"/><path d="M10 26V10L18 20L26 10V26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="20" r="2.5" fill="white"/></svg>
+    <div class="logo-text"><span class="brand">Novu Peptides</span><span class="sub">UAE</span></div>
+  </a>
+  <nav id="main-nav">
+    <a class="nav-link active" data-nav="home">Home</a>
+    <a class="nav-link" data-nav="shop">Shop</a>
+    <a class="nav-link" data-nav="learn">Learn</a>
+    <a class="nav-link" data-nav="about">About Us</a>
+    <a class="nav-link" data-nav="faq">FAQ</a>
+    <a class="nav-link" data-nav="contact">Contact</a>
+  </nav>
+  <div class="header-search">
+    <input type="text" id="search-input" placeholder="Search 240+ products…" autocomplete="off"/>
+    <span class="search-icon">🔍</span>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="btn-wishlist" title="Wishlist">♡<span class="bub" id="wish-badge">0</span></button>
+    <button class="btn-cart" id="btn-cart"><span>🛒</span><span class="txt">Cart</span><span class="bub" id="cart-badge">0</span></button>
+    <button class="icon-btn" id="hamburger">☰</button>
+  </div>
+</header>
+<div id="mobile-menu">
+  <a class="nav-link" data-nav="home">Home</a>
+  <a class="nav-link" data-nav="shop">Shop</a>
+  <a class="nav-link" data-nav="learn">Learn</a>
+  <a class="nav-link" data-nav="about">About Us</a>
+  <a class="nav-link" data-nav="faq">FAQ</a>
+  <a class="nav-link" data-nav="contact">Contact</a>
+</div>
+
+<!-- ════════ HOME VIEW ════════ -->
+<div class="view active" id="view-home">
+  <section id="hero">
+    <div class="molecule m1"></div><div class="molecule m2"></div><div class="molecule m3"></div><div class="molecule m4"></div>
+    <div class="hero-eyebrow">✦ UAE's Trusted Peptide &amp; Supplement Store</div>
+    <h1>High-Purity <span class="grad">Peptides</span><br/>&amp; Elite Supplements</h1>
+    <p class="hero-sub">From GLP-1 and healing peptides to SARMs, pharma-grade compounds and complete sports nutrition — everything you need, delivered fast across the Emirates.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" data-nav="shop">Shop All Products →</a>
+      <a class="btn-ghost" data-nav="learn">📖 Learning Hub</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num" id="stat-products">240<em>+</em></div><div class="lbl">Products</div></div>
+      <div class="stat"><div class="num">14</div><div class="lbl">Brands</div></div>
+      <div class="stat"><div class="num">99<em>%</em></div><div class="lbl">Purity Tested</div></div>
+      <div class="stat"><div class="num">24<em>h</em></div><div class="lbl">Dispatch</div></div>
+    </div>
+  </section>
+
+  <div id="brand-strip"><div class="marquee" id="marquee"></div></div>
+
+  <section class="section reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Browse</div>
+      <h2>Shop by Category</h2>
+      <p>Ten specialist categories covering everything from research peptides to everyday health.</p>
+    </div>
+    <div class="cat-tiles" id="home-cat-tiles"></div>
+  </section>
+
+  <section class="section reveal">
+    <div class="sec-row">
+      <div><div class="sec-eyebrow">Hand-picked</div><h2>Featured Products</h2></div>
+      <a class="link-more" data-nav="shop">View all products →</a>
+    </div>
+    <div class="featured-grid" id="featured-grid"></div>
+  </section>
+
+  <section class="section reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Why Novu</div>
+      <h2>Built on Quality &amp; Trust</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="ic">🧪</div><h3>Highest Quality</h3><p>Sourced exclusively from established labs with batch documentation and verified supply chains.</p></div>
+      <div class="why-card"><div class="ic">🔍</div><h3>Fully Transparent</h3><p>Real product photos, clear specifications and honest labelling on every single listing.</p></div>
+      <div class="why-card"><div class="ic">📚</div><h3>Research Backed</h3><p>Every compound is documented in our Learning Hub so you understand exactly what you're buying.</p></div>
+      <div class="why-card"><div class="ic">⚡</div><h3>Maximum Absorption</h3><p>Premium formulations and verified dosing for the best possible results from every product.</p></div>
+      <div class="why-card"><div class="ic">🚚</div><h3>Fast UAE Delivery</h3><p>Same-day dispatch across Dubai, Abu Dhabi and all seven Emirates. Cash on delivery available.</p></div>
+      <div class="why-card"><div class="ic">💬</div><h3>Expert Support</h3><p>Questions before you order? Our team answers on WhatsApp around the clock, every day.</p></div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Reviews</div>
+      <h2>What Customers Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Ordered Sunday night, delivered to Dubai Marina Tuesday morning. Genuine ZPHC, checked the codes — all verified. This is my store now."</p><div class="testi-who"><div class="testi-av" style="background:#0d6efd">AK</div><div><div class="nm">Ahmed K.</div><div class="loc">Dubai</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Best prices I've found in the UAE for Applied Nutrition. The ABE pre-workout and ISO-XP combo is unbeatable. COD made it easy."</p><div class="testi-who"><div class="testi-av" style="background:#e67e22">SM</div><div><div class="nm">Sara M.</div><div class="loc">Abu Dhabi</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Asked a ton of questions on WhatsApp before ordering peptides. Patient, knowledgeable answers every time. Packaging was discreet and professional."</p><div class="testi-who"><div class="testi-av" style="background:#8e44ad">RJ</div><div><div class="nm">Ryan J.</div><div class="loc">Sharjah</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"The Learn section actually taught me more than hours of forum digging. Ordered the right PCT setup the first time thanks to their guides."</p><div class="testi-who"><div class="testi-av" style="background:#16a085">DF</div><div><div class="nm">Daniel F.</div><div class="loc">Ras Al Khaimah</div></div></div></div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div id="newsletter">
+      <h2>Get Drops, Deals &amp; Restocks First</h2>
+      <p>Join the list — new arrivals, price drops and UAE-exclusive offers. No spam, ever.</p>
+      <form class="nl-form" id="nl-form">
+        <input type="email" placeholder="Your email address" required/>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ SHOP VIEW ════════ -->
+<div class="view" id="view-shop">
+  <div id="shop-top">
+    <h1>Shop All Products</h1>
+    <p>Filter by category, brand or search — fast UAE-wide delivery on everything.</p>
+  </div>
+  <nav id="cat-nav" aria-label="Categories"></nav>
+  <div id="main-wrap">
+    <aside id="sidebar">
+      <p class="sidebar-title">Filters <button id="sidebar-close">✕</button></p>
+      <div class="filter-section">
+        <label class="filter-label">Sort By</label>
+        <select id="sort-select" class="sort-select">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name-asc">Name: A → Z</option>
+          <option value="brand">Brand</option>
+        </select>
+      </div>
+      <div class="filter-section">
+        <label class="filter-label">Brand</label>
+        <div class="brand-filter-list" id="brand-filter-list"></div>
+      </div>
+      <button class="btn-clear-filters" id="btn-clear-filters">Clear All Filters</button>
+    </aside>
+    <main id="product-area">
+      <div id="recently-viewed" style="display:none">
+        <h3>Recently Viewed</h3>
+        <div class="rv-strip" id="rv-strip"></div>
+      </div>
+      <div class="area-header">
+        <div><h2 id="area-title">All Products</h2><span class="result-count" id="result-count"></span></div>
+        <button id="btn-mobile-filters">⚙ Filters</button>
+      </div>
+      <div id="product-grid"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════ LEARN VIEW ════════ -->
+<div class="view" id="view-learn">
+  <div class="about-hero">
+    <h1>Learning Hub</h1>
+    <p>Straight-talking guides on peptides, SARMs, PCT and sports nutrition — so you always know exactly what you're working with.</p>
+  </div>
+  <section class="section">
+    <div class="learn-grid" id="learn-grid"></div>
+  </section>
+</div>
+
+<!-- ════════ ABOUT VIEW ════════ -->
+<div class="view" id="view-about">
+  <div class="about-hero">
+    <h1>About Novu Peptides</h1>
+    <p>The UAE's specialist store for peptides, performance compounds and premium supplements.</p>
+  </div>
+  <section class="section">
+    <div class="about-cols">
+      <div>
+        <div class="sec-eyebrow">Our Story</div>
+        <h2>Quality First, Always</h2>
+        <p>Novu Peptides was founded with one simple frustration: finding genuinely high-quality peptides and supplements in the UAE was a gamble. Fake products, inflated prices, zero support. We decided to fix that.</p>
+        <p>Today we stock 240+ products from 14 of the world's most respected labs and brands — every item sourced through verified supply chains, stored correctly, and shipped fast to all seven Emirates.</p>
+        <ul class="check-list">
+          <li>HPLC-tested, pharmaceutical-grade sourcing</li>
+          <li>Authentic stock with verifiable batch codes</li>
+          <li>Cold-chain handling for temperature-sensitive products</li>
+          <li>Same-day dispatch, COD across the UAE</li>
+          <li>Real humans on WhatsApp — not bots</li>
+        </ul>
+      </div>
+      <img src="pics/pic26.png" alt="HPLC-tested pharmaceutical-grade quality" onerror="this.style.display='none'"/>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Our Partners</div>
+      <h2>Brands We Carry</h2>
+    </div>
+    <div class="brand-cloud" id="about-brands"></div>
+  </section>
+</div>
+
+<!-- ════════ FAQ VIEW ════════ -->
+<div class="view" id="view-faq">
+  <div class="about-hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about ordering, delivery and our products.</p>
+  </div>
+  <section class="section">
+    <div class="faq-wrap" id="faq-wrap"></div>
+  </section>
+</div>
+
+<!-- ════════ CONTACT VIEW ════════ -->
+<div class="view" id="view-contact">
+  <div class="about-hero">
+    <h1>Get In Touch</h1>
+    <p>Questions about a product, your order, or what's right for you? We're here 24/7.</p>
+  </div>
+  <section class="section">
+    <div class="contact-grid">
+      <div class="contact-card"><div class="ic">💬</div><h3>WhatsApp</h3><p>Fastest way to reach us — replies within minutes, day or night.<br/><a href="https://wa.me/971500000000" target="_blank" rel="noopener">Message us now →</a></p></div>
+      <div class="contact-card"><div class="ic">📧</div><h3>Email</h3><p>For order queries and anything else.<br/><a href="mailto:support@novupeptides.com">support@novupeptides.com</a></p></div>
+      <div class="contact-card"><div class="ic">📍</div><h3>Location</h3><p>United Arab Emirates<br/>Delivering to Dubai, Abu Dhabi, Sharjah &amp; all Emirates</p></div>
+      <div class="contact-card"><div class="ic">🕐</div><h3>Hours</h3><p>Orders accepted 24/7<br/>Dispatch: Sat–Thu, same-day before 4 PM</p></div>
+    </div>
+    <div class="contact-form-wrap">
+      <h2>Send Us a Message</h2>
+      <form id="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Name *</label><input type="text" required placeholder="Your name"/></div>
+          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" required placeholder="+971 50 000 0000"/></div>
+        </div>
+        <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?"/></div>
+        <div class="form-group"><label>Message *</label><textarea required placeholder="How can we help?"></textarea></div>
+        <button type="submit" class="btn-place-order">Send Message</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ OVERLAYS ════════ -->
+<div class="ovl" id="cart-overlay"></div>
+<aside class="drawer" id="cart-drawer">
+  <div class="drawer-header"><h2>Your Cart</h2><button class="btn-close" id="btn-close-cart">✕</button></div>
+  <div class="ship-bar" id="ship-bar" style="display:none">
+    <div class="sb-txt" id="sb-txt"></div>
+    <div class="sb-track"><div class="sb-fill" id="sb-fill"></div></div>
   </div>
   <div class="drawer-body">
-    <div class="cart-empty" id="cart-empty">
-      <div class="empty-icon">🛒</div>
-      <p>Your cart is empty</p>
-    </div>
+    <div class="cart-empty" id="cart-empty"><div class="empty-icon">🛒</div><p>Your cart is empty</p><a class="btn-primary" data-nav="shop" style="height:42px;padding:0 22px;font-size:13px">Start shopping</a></div>
     <div class="cart-items" id="cart-items"></div>
   </div>
   <div class="drawer-footer">
-    <div class="cart-totals">
-      <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">AED 0</span></div>
-      <div class="cart-row"><span>Shipping</span><span>Calculated at checkout</span></div>
-      <div class="cart-row total"><span>Total</span><span id="cart-total">AED 0</span></div>
-    </div>
+    <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">AED 0</span></div>
+    <div class="cart-row"><span>Delivery</span><span id="cart-ship">—</span></div>
+    <div class="cart-row total"><span>Total</span><span id="cart-total">AED 0</span></div>
     <button class="btn-checkout" id="btn-checkout">Proceed to Checkout</button>
+    <a class="btn-wa-order" id="btn-wa-cart" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.52 5.857L0 24l6.335-1.477A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.012-1.376l-.36-.213-3.73.869.937-3.427-.234-.373A9.818 9.818 0 012.182 12C2.182 6.571 6.571 2.182 12 2.182S21.818 6.571 21.818 12 17.429 21.818 12 21.818z"/></svg>Order via WhatsApp</a>
   </div>
 </aside>
 
-<!-- ═══════════════════════════════════════
-     PRODUCT MODAL
-═══════════════════════════════════════ -->
-<div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Product details">
+<div class="ovl" id="wish-overlay"></div>
+<aside class="drawer" id="wish-drawer">
+  <div class="drawer-header"><h2>Wishlist ♥</h2><button class="btn-close" id="btn-close-wish">✕</button></div>
+  <div class="drawer-body">
+    <div class="cart-empty" id="wish-empty"><div class="empty-icon">♡</div><p>No saved items yet</p><a class="btn-primary" data-nav="shop" style="height:42px;padding:0 22px;font-size:13px">Browse products</a></div>
+    <div class="cart-items" id="wish-items"></div>
+  </div>
+</aside>
+
+<div id="modal-overlay" role="dialog" aria-modal="true">
   <div class="product-modal">
     <div class="modal-visual" id="modal-visual">
       <div class="modal-abbr" id="modal-abbr"></div>
-      <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+      <button class="modal-wish" id="modal-wish-btn">♡</button>
+      <button class="modal-close" id="modal-close-btn">✕</button>
     </div>
     <div class="modal-body">
       <span class="modal-brand-badge" id="modal-brand"></span>
       <h2 class="modal-name" id="modal-name"></h2>
       <p class="modal-form" id="modal-form"></p>
       <div class="modal-price" id="modal-price"></div>
+      <p class="price-note">Price includes UAE-wide delivery handling. Final pricing confirmed at checkout.</p>
       <div class="modal-divider"></div>
-      <p class="modal-section-title">Tags</p>
+      <p class="modal-section-title">Highlights</p>
       <div class="modal-tags" id="modal-tags"></div>
-      <p class="modal-disclaimer">
-        Products sold by Novu Peptides are intended for use by adults in the UAE in accordance with applicable regulations.
-        Please consult a qualified healthcare professional before use. Not intended for use by minors.
-      </p>
+      <p class="modal-disclaimer">Sold for lawful adult use in the UAE. Always consult a qualified healthcare professional before using any supplement or compound. Keep out of reach of children.</p>
       <div class="modal-actions">
+        <div class="qty-stepper"><button id="qty-dec">−</button><span class="qv" id="qty-val">1</span><button id="qty-inc">+</button></div>
         <button class="btn-modal-add" id="modal-add-btn">Add to Cart</button>
-        <button class="btn-modal-cart" id="modal-cart-btn">View Cart</button>
+      </div>
+      <div class="related-wrap" id="related-wrap">
+        <div class="modal-divider"></div>
+        <p class="modal-section-title">You May Also Like</p>
+        <div class="related-grid" id="related-grid"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     CHECKOUT MODAL
-═══════════════════════════════════════ -->
-<div id="checkout-overlay" role="dialog" aria-modal="true" aria-label="Checkout">
+<div id="checkout-overlay" role="dialog" aria-modal="true">
   <div class="checkout-modal">
-    <div class="checkout-header" style="position:relative">
-      <button class="btn-close" id="btn-close-checkout" style="position:absolute;top:20px;right:20px;color:rgba(255,255,255,.7)">✕</button>
-      <h2>Checkout</h2>
-      <p>Complete your order details below</p>
+    <div class="checkout-header">
+      <button class="btn-close" id="btn-close-checkout" style="position:absolute;top:18px;right:18px;color:rgba(255,255,255,.7)">✕</button>
+      <h2>Checkout</h2><p>Cash on delivery, bank transfer or crypto — your choice.</p>
     </div>
     <div class="checkout-form">
-      <div class="order-summary-mini">
-        <p class="ost">Order Summary</p>
-        <div id="checkout-summary"></div>
-        <div class="summary-total"><span>Total</span><span id="checkout-total">AED 0</span></div>
-      </div>
-
+      <div class="order-summary-mini"><p class="ost">Order Summary</p><div id="checkout-summary"></div><div class="summary-total"><span>Total</span><span id="checkout-total">AED 0</span></div></div>
       <form id="checkout-form">
         <div class="form-row">
-          <div class="form-group">
-            <label for="cust-name">Full Name *</label>
-            <input type="text" id="cust-name" name="name" required placeholder="Ahmed Al Rashidi" />
-          </div>
-          <div class="form-group">
-            <label for="cust-phone">Phone *</label>
-            <input type="tel" id="cust-phone" name="phone" required placeholder="+971 50 000 0000" />
-          </div>
+          <div class="form-group"><label>Full Name *</label><input type="text" id="cust-name" required placeholder="Ahmed Al Rashidi"/></div>
+          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="cust-phone" required placeholder="+971 50 000 0000"/></div>
         </div>
-        <div class="form-group">
-          <label for="cust-email">Email</label>
-          <input type="email" id="cust-email" name="email" placeholder="you@example.com" />
-        </div>
-        <div class="form-group">
-          <label for="cust-address">Delivery Address *</label>
-          <input type="text" id="cust-address" name="address" required placeholder="Building, Street, Area" />
-        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="cust-email" placeholder="you@example.com"/></div>
+        <div class="form-group"><label>Delivery Address *</label><input type="text" id="cust-address" required placeholder="Building, street, area"/></div>
         <div class="form-row">
-          <div class="form-group">
-            <label for="cust-city">City / Emirate *</label>
-            <select id="cust-city" name="city" required>
-              <option value="">Select…</option>
-              <option>Dubai</option>
-              <option>Abu Dhabi</option>
-              <option>Sharjah</option>
-              <option>Ajman</option>
-              <option>Ras Al Khaimah</option>
-              <option>Fujairah</option>
-              <option>Umm Al Quwain</option>
-            </select>
+          <div class="form-group"><label>Emirate *</label>
+            <select id="cust-city" required><option value="">Select…</option><option>Dubai</option><option>Abu Dhabi</option><option>Sharjah</option><option>Ajman</option><option>Ras Al Khaimah</option><option>Fujairah</option><option>Umm Al Quwain</option></select>
           </div>
-          <div class="form-group">
-            <label for="cust-payment">Payment</label>
-            <select id="cust-payment" name="payment">
-              <option>Cash on Delivery</option>
-              <option>Bank Transfer</option>
-              <option>Crypto (USDT)</option>
-            </select>
+          <div class="form-group"><label>Payment Method</label>
+            <select id="cust-payment"><option>Cash on Delivery</option><option>Bank Transfer</option><option>Crypto (USDT)</option></select>
           </div>
         </div>
-        <div class="form-group">
-          <label for="cust-notes">Order Notes</label>
-          <textarea id="cust-notes" name="notes" placeholder="Special instructions, preferred delivery time…"></textarea>
-        </div>
+        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Delivery time preferences, special instructions…"></textarea></div>
         <button type="submit" class="btn-place-order">Place Order</button>
       </form>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SUCCESS OVERLAY
-═══════════════════════════════════════ -->
 <div id="success-overlay">
   <div class="success-card">
     <div class="success-icon">✅</div>
-    <h2>Order Placed!</h2>
-    <p>Thank you for your order. Our team will contact you shortly via WhatsApp or phone to confirm delivery details.</p>
+    <h2>Order Received!</h2>
+    <p>Thank you! Our team will confirm your order on WhatsApp shortly and arrange delivery. Keep your phone handy.</p>
     <button class="btn-continue" id="btn-continue">Continue Shopping</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════ -->
+<div id="article-overlay">
+  <div class="article-modal">
+    <div class="article-head">
+      <button class="btn-close" id="btn-close-article" style="position:absolute;top:18px;right:18px">✕</button>
+      <span class="learn-tag" id="article-tag"></span>
+      <h2 id="article-title"></h2>
+    </div>
+    <div class="article-body" id="article-body"></div>
+  </div>
+</div>
+
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;margin-bottom:14px">
-        <rect width="36" height="36" rx="8" fill="#00b4aa"/>
-        <path d="M10 26V10L18 20L26 10V26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="18" cy="20" r="2.5" fill="white"/>
-      </svg>
-      <p>Novu Peptides is the UAE's leading supplier of pharmaceutical-grade peptides, injectables, SARMs, and premium sports supplements.</p>
+      <svg viewBox="0 0 36 36" fill="none" style="width:40px;height:40px"><rect width="36" height="36" rx="8" fill="#00b4aa"/><path d="M10 26V10L18 20L26 10V26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="20" r="2.5" fill="white"/></svg>
+      <p>The UAE's specialist store for peptides, performance compounds and premium sports supplements. Quality first — always.</p>
+      <div class="pay-pills"><span>COD</span><span>BANK TRANSFER</span><span>USDT</span></div>
     </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="#">Injectables</a></li>
-        <li><a href="#">Oral Compounds</a></li>
-        <li><a href="#">Peptides &amp; GLP-1</a></li>
-        <li><a href="#">SARMs</a></li>
-        <li><a href="#">HGH &amp; Hormones</a></li>
-        <li><a href="#">Sports Nutrition</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Brands</h4>
-      <ul>
-        <li><a href="#">Dezel Labs</a></li>
-        <li><a href="#">DNA PRO</a></li>
-        <li><a href="#">Pharmacom Labs</a></li>
-        <li><a href="#">Peptide Sciences</a></li>
-        <li><a href="#">Applied Nutrition</a></li>
-        <li><a href="#">Lawless Labs</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="#">WhatsApp Us</a></li>
-        <li><a href="#">Shipping Info</a></li>
-        <li><a href="#">Returns Policy</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
+    <div class="footer-col"><h4>Shop</h4><ul id="footer-cats"></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a data-nav="about">About Us</a></li>
+      <li><a data-nav="learn">Learning Hub</a></li>
+      <li><a data-nav="faq">FAQ</a></li>
+      <li><a data-nav="contact">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Support</h4><ul>
+      <li><a href="https://wa.me/971500000000" target="_blank" rel="noopener">WhatsApp Us</a></li>
+      <li><a data-nav="faq">Shipping Info</a></li>
+      <li><a data-nav="faq">Payment Methods</a></li>
+      <li><a data-nav="faq">Returns Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Top Brands</h4><ul id="footer-brands"></ul></div>
   </div>
   <div class="footer-bottom">
-    <div>
-      <p>&copy; 2025 Novu Peptides. All rights reserved. UAE.</p>
-    </div>
-    <p class="footer-legal">
-      Products listed on this website are sold for legitimate purposes in the United Arab Emirates and are intended for adults only.
-      Consult a qualified healthcare professional before use. Novu Peptides makes no medical claims.
-      All brands are trademarks of their respective owners. Prices are in AED and subject to change without notice.
-    </p>
+    <p>© 2025 Novu Peptides — United Arab Emirates. All rights reserved.</p>
+    <p class="footer-legal">Products are sold for lawful adult use in the United Arab Emirates. Statements on this site have not been evaluated by any health authority and products are not intended to diagnose, treat, cure or prevent any disease. Always consult a qualified healthcare professional before use. All brand names and trademarks are property of their respective owners. Prices in AED and subject to change.</p>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════
-     WHATSAPP FLOAT
-═══════════════════════════════════════ -->
-<a href="https://wa.me/971500000000" id="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.52 5.857L0 24l6.335-1.477A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.012-1.376l-.36-.213-3.73.869.937-3.427-.234-.373A9.818 9.818 0 012.182 12C2.182 6.571 6.571 2.182 12 2.182S21.818 6.571 21.818 12 17.429 21.818 12 21.818z"/>
-  </svg>
-  <span class="wa-tooltip">Chat on WhatsApp</span>
+<a href="https://wa.me/971500000000" id="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <span class="pulse"></span>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.52 5.857L0 24l6.335-1.477A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.012-1.376l-.36-.213-3.73.869.937-3.427-.234-.373A9.818 9.818 0 012.182 12C2.182 6.571 6.571 2.182 12 2.182S21.818 6.571 21.818 12 17.429 21.818 12 21.818z"/></svg>
+  <span class="wa-tooltip">Chat with us on WhatsApp</span>
 </a>
-
-<!-- TOAST -->
+<button id="back-top" title="Back to top">↑</button>
 <div id="toast"></div>
 
-<!-- SCRIPTS -->
-<script src="js/data.js"></script>
-<script src="js/app.js"></script>
 
+
+
+<script>
+/* ═══ NOVU PEPTIDES — DATA ═══ */
+const WA_NUMBER='971500000000'; /* ← replace with your real WhatsApp number */
+const FREE_SHIP=500; /* free delivery threshold AED */
+const BRAND_CFG={'Dezel Labs':{color:'#e74c3c',light:'#fdecea'},'DNA PRO':{color:'#d4a017',light:'#fdf8e1'},'GV':{color:'#27ae60',light:'#eafaf1'},'ZPHC':{color:'#2980b9',light:'#eaf4fb'},'Lawless Labs':{color:'#8e44ad',light:'#f5eef8'},'Pharma Grade':{color:'#16a085',light:'#e8f8f5'},'Peptide Sciences':{color:'#00b4aa',light:'#e0faf9'},'Unisarm Labs':{color:'#d35400',light:'#fdf0e7'},'Pharmacom Labs':{color:'#c0392b',light:'#fdedec'},'Cambridge Research':{color:'#1a6fa3',light:'#eaf3fb'},'Applied Nutrition':{color:'#e67e22',light:'#fef5e7'},'Revive MD':{color:'#2471a3',light:'#eaf4fb'},'Supplement Needs':{color:'#1abc9c',light:'#e8f8f5'},'Biolab':{color:'#7d3c98',light:'#f4ecf7'}};
+const CAT_CFG={injectables:{label:'Injectables',icon:'💉',grad:'linear-gradient(135deg,#1c0800,#3a1200)'},orals:{label:'Oral Compounds',icon:'💊',grad:'linear-gradient(135deg,#001a08,#003810)'},peptides:{label:'Peptides & GLP-1',icon:'⚗️',grad:'linear-gradient(135deg,#00192e,#003355)'},sarms:{label:'SARMs',icon:'🔬',grad:'linear-gradient(135deg,#0d0020,#200040)'},hgh:{label:'HGH & Hormones',icon:'📈',grad:'linear-gradient(135deg,#1a1000,#332200)'},pct:{label:'PCT & Anti-Estrogen',icon:'🛡️',grad:'linear-gradient(135deg,#1a0005,#30000e)'},fatloss:{label:'Fat Loss',icon:'🔥',grad:'linear-gradient(135deg,#1a0800,#331500)'},nutrition:{label:'Sports Nutrition',icon:'💪',grad:'linear-gradient(135deg,#001830,#003060)'},vitamins:{label:'Vitamins & Health',icon:'🌿',grad:'linear-gradient(135deg,#001505,#002e0f)'}};
+const p=b=>b<=500?b+150:b+300;
+/* img: pics/picN.png — falls back to gradient tile if missing */
+const PRODUCTS=[
+/* ── DEZEL LABS — INJECTABLES ── */
+{id:1,name:'Test Enanthate 300mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'TEST-E',price:p(120),tags:['testosterone','enanthate'],hot:1},
+{id:2,name:'Test Propionate 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'TEST-P',price:p(85),tags:['testosterone','propionate']},
+{id:3,name:'Tren Enanthate 200mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'TREN-E',price:p(250),tags:['trenbolone','enanthate']},
+{id:4,name:'Tren Acetate 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'TREN-A',price:p(210),tags:['trenbolone','acetate']},
+{id:5,name:'Masterone 200 — Drostanolone Enanthate',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'MAST-E',price:p(290),tags:['masteron','drostanolone'],img:'pics/pic4.png',hot:1},
+{id:6,name:'Deca 300 Nandrolone',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'DECA',price:p(165),tags:['nandrolone','deca']},
+{id:7,name:'NPP 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'NPP',price:p(145),tags:['nandrolone','phenylpropionate']},
+{id:8,name:'Primobolan 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'PRIMO',price:p(375),tags:['primobolan','metenolone']},
+{id:9,name:'MENT 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'MENT',price:p(400),tags:['trestolone','ment']},
+{id:10,name:'Winstrol 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'10ml Vial',abbr:'WINST',price:p(175),tags:['winstrol','stanozolol']},
+{id:11,name:'Parabolan 100mg/ml',brand:'Dezel Labs',cat:'injectables',form:'50ml Vial',abbr:'PARA',price:p(225),tags:['trenbolone','hex']},
+{id:12,name:'Danabol 100 Oral Drops',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'DBOL',price:p(140),tags:['dianabol','methandienone'],img:'pics/pic5.png',badge:'NEW'},
+{id:13,name:'Superdrol 100mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'SDROL',price:p(275),tags:['superdrol','methasterone']},
+{id:14,name:'Androlic 100mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'ANDRO',price:p(165),tags:['anadrol','oxymetholone']},
+{id:15,name:'Stanozolol 100mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'STANO',price:p(165),tags:['winstrol','stanozolol']},
+{id:16,name:'Turinabol Drops',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'TBOL',price:p(220),tags:['turinabol']},
+{id:17,name:'Metren 50 (Trenbolone)',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'TREN',price:p(300),tags:['trenbolone']},
+{id:18,name:'Anavar 25mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'ANAV',price:p(320),tags:['anavar','oxandrolone']},
+{id:19,name:'Haldotest 25mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'HALDO',price:p(430),tags:['halotestin']},
+{id:20,name:'Test Methyl 100mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'TEST',price:p(150),tags:['testosterone','methyl']},
+{id:21,name:'Proviron 100mg/ml',brand:'Dezel Labs',cat:'orals',form:'20ml Drops',abbr:'PROVI',price:p(220),tags:['proviron','mesterolone']},
+{id:22,name:'Clen 200 — Clenbuterol Drops',brand:'Dezel Labs',cat:'fatloss',form:'20ml Drops',abbr:'CLEN',price:p(125),tags:['clenbuterol','fat burner'],hot:1},
+{id:23,name:'T3-Thyro 100mcg/ml',brand:'Dezel Labs',cat:'fatloss',form:'20ml Drops',abbr:'T3',price:p(35),tags:['t3','liothyronine','thyroid']},
+/* ── DNA PRO ── */
+{id:24,name:'PRO-BOLD Boldenone 250mg/ml',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'EQ',price:p(165),tags:['boldenone','equipoise']},
+{id:25,name:'PRO-SUST Testosterone Mix',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'SUST',price:p(135),tags:['sustanon','testosterone']},
+{id:26,name:'PRO-CYP Testosterone Cypionate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'TEST-C',price:p(125),tags:['testosterone','cypionate']},
+{id:27,name:'PRO-DECA Nandrolone 300',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'DECA',price:p(165),tags:['nandrolone','deca']},
+{id:28,name:'PRO-ENAN Testosterone Enanthate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'TEST-E',price:p(125),tags:['testosterone','enanthate']},
+{id:29,name:'PRO-MAST Masteron Propionate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'MAST-P',price:p(180),tags:['masteron','drostanolone']},
+{id:30,name:'PRO-TREN 100 Trenbolone Acetate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'TREN-A',price:p(180),tags:['trenbolone','acetate']},
+{id:31,name:'PRO-NPP Nandrolone Phenylprop',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'NPP',price:p(125),tags:['nandrolone']},
+{id:32,name:'PRO-PRIMO Methenolone Enanthate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'PRIMO',price:p(225),tags:['primobolan']},
+{id:33,name:'PRO-TREN 200 Trenbolone Enanthate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'TREN-E',price:p(230),tags:['trenbolone','enanthate']},
+{id:34,name:'PRO-PROP Testosterone Propionate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'TEST-P',price:p(100),tags:['testosterone','propionate']},
+{id:35,name:'PRO-STAN Stanozolol Suspension',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'WINST',price:p(150),tags:['winstrol','stanozolol']},
+{id:36,name:'MAST-E 200mg Enanthate',brand:'DNA PRO',cat:'injectables',form:'10ml Vial',abbr:'MAST-E',price:p(230),tags:['masteron','enanthate']},
+{id:37,name:'Clomid 50mg',brand:'DNA PRO',cat:'pct',form:'50 Tabs',abbr:'CLOMID',price:p(110),tags:['clomid','clomiphene','pct']},
+{id:38,name:'Proviron 25mg',brand:'DNA PRO',cat:'orals',form:'50 Tabs',abbr:'PROVI',price:p(120),tags:['proviron','mesterolone']},
+{id:39,name:'Dianabol 10mg',brand:'DNA PRO',cat:'orals',form:'100 Tabs',abbr:'DBOL',price:p(65),tags:['dianabol']},
+{id:40,name:'Anadrol 50mg',brand:'DNA PRO',cat:'orals',form:'100 Tabs',abbr:'ADROL',price:p(130),tags:['anadrol','oxymetholone']},
+{id:41,name:'Winstrol 10mg',brand:'DNA PRO',cat:'orals',form:'100 Tabs',abbr:'WINST',price:p(65),tags:['winstrol','stanozolol']},
+{id:42,name:'Anavar 10mg',brand:'DNA PRO',cat:'orals',form:'100 Tabs',abbr:'ANAV',price:p(180),tags:['anavar','oxandrolone'],hot:1},
+{id:43,name:'Turinabol 10mg',brand:'DNA PRO',cat:'orals',form:'100 Tabs',abbr:'TBOL',price:p(165),tags:['turinabol']},
+{id:44,name:'Primosolan 25mg',brand:'DNA PRO',cat:'orals',form:'50 Tabs',abbr:'PRIMO',price:p(220),tags:['primobolan']},
+{id:45,name:'ANASTRAZOLO Arimidex 1mg',brand:'DNA PRO',cat:'pct',form:'100 Tabs',abbr:'ARIM',price:p(175),tags:['anastrozole','arimidex']},
+{id:46,name:'Pro T3 Liothyronine 25mcg',brand:'DNA PRO',cat:'fatloss',form:'90 Tabs',abbr:'T3',price:p(65),tags:['t3','thyroid']},
+{id:47,name:'T4 100 Tablets',brand:'DNA PRO',cat:'fatloss',form:'100 Tabs',abbr:'T4',price:p(65),tags:['thyroid','t4']},
+{id:48,name:'BPC-157 15mg (5mg x3)',brand:'DNA PRO',cat:'peptides',form:'3x5mg Vials',abbr:'BPC-157',price:p(250),tags:['bpc157','healing']},
+{id:49,name:'CJC-1295 no DAC 2mg',brand:'DNA PRO',cat:'peptides',form:'2mg + BW',abbr:'CJC',price:p(600),tags:['cjc1295','ghrh']},
+{id:50,name:'HGH Frag 176-191 (5x5mg)',brand:'DNA PRO',cat:'peptides',form:'5x5mg Vials',abbr:'FRAG',price:p(600),tags:['hgh fragment','fat loss']},
+{id:51,name:'IGF-LR3 1000mcg x3',brand:'DNA PRO',cat:'peptides',form:'3 Vials',abbr:'IGF',price:p(550),tags:['igf-lr3','growth']},
+{id:52,name:'Melanotan II 50mg x3',brand:'DNA PRO',cat:'peptides',form:'3x2ml Vials',abbr:'MT-2',price:p(350),tags:['melanotan','tanning']},
+/* ── GV ── */
+{id:53,name:'GV Test Depot 250',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'TEST-E',price:p(80),tags:['testosterone','enanthate']},
+{id:54,name:'GV Cypionex 250',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'TEST-C',price:p(80),tags:['testosterone','cypionate']},
+{id:55,name:'GV Test Propionate 100',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'TEST-P',price:p(65),tags:['testosterone','propionate']},
+{id:56,name:'GV Equipoise 250',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'EQ',price:p(125),tags:['boldenone','equipoise']},
+{id:57,name:'GV Tren Ace 100',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'TREN-A',price:p(145),tags:['trenbolone','acetate']},
+{id:58,name:'GV Deca Durabolin 250',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'DECA',price:p(125),tags:['nandrolone','deca']},
+{id:59,name:'GV Sustanon 250',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'SUST',price:p(85),tags:['sustanon','testosterone']},
+{id:60,name:'GV Stanozolol Winstrol',brand:'GV',cat:'injectables',form:'10ml Vial',abbr:'WINST',price:p(125),tags:['winstrol','stanozolol']},
+{id:61,name:'GV Somatropin 10IU x10 (HGH)',brand:'GV',cat:'hgh',form:'10 Vials',abbr:'HGH',price:p(650),tags:['hgh','somatropin'],hot:1},
+{id:62,name:'GV Somatropin 16IU x10 (HGH)',brand:'GV',cat:'hgh',form:'10 Vials',abbr:'HGH',price:p(800),tags:['hgh','somatropin']},
+{id:63,name:'GV AOD 9604 5mg + Bac Water',brand:'GV',cat:'peptides',form:'5mg Vial',abbr:'AOD',price:p(490),tags:['aod9604','fat loss']},
+{id:64,name:'GV AOD 9604 2mg x3',brand:'GV',cat:'peptides',form:'3x2mg Vials',abbr:'AOD',price:p(240),tags:['aod9604']},
+{id:65,name:'GV Thymalin 20mg + Bac Water',brand:'GV',cat:'peptides',form:'20mg Vial',abbr:'THYM',price:p(675),tags:['thymalin','immune']},
+{id:66,name:'GV Thymosin Alpha-1 5mg x3',brand:'GV',cat:'peptides',form:'3x5mg Vials',abbr:'TA-1',price:p(675),tags:['thymosin','immune']},
+{id:67,name:'GV Tesamorelin 2mg',brand:'GV',cat:'peptides',form:'2mg + BW',abbr:'TESA',price:p(250),tags:['tesamorelin','ghrh']},
+{id:68,name:'GV TB-500 5mg x3',brand:'GV',cat:'peptides',form:'3x5mg Vials',abbr:'TB-500',price:p(350),tags:['tb500','healing']},
+{id:69,name:'GV Sermorelin 2mg',brand:'GV',cat:'peptides',form:'2mg + BW',abbr:'SERM',price:p(350),tags:['sermorelin','ghrh']},
+{id:70,name:'GV Semaglutide 2mg x3',brand:'GV',cat:'peptides',form:'3x2mg Vials',abbr:'SEMA',price:p(450),tags:['semaglutide','glp-1','weight'],hot:1},
+{id:71,name:'GV 5-Amino-1MQ 10mg x3',brand:'GV',cat:'peptides',form:'3 Vials',abbr:'5A1MQ',price:p(490),tags:['amino','nad+']},
+/* ── ZPHC ── */
+{id:72,name:'ZPHC Test Enanthate 250',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'TEST-E',price:p(130),tags:['testosterone','enanthate']},
+{id:73,name:'ZPHC Test Cypionate 250',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'TEST-C',price:p(130),tags:['testosterone','cypionate']},
+{id:74,name:'ZPHC Sustanon 250',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'SUST',price:p(140),tags:['sustanon']},
+{id:75,name:'ZPHC Nandrolone Decanoate',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'DECA',price:p(145),tags:['nandrolone','deca']},
+{id:76,name:'ZPHC Trenbolone Enanthate',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'TREN-E',price:p(165),tags:['trenbolone']},
+{id:77,name:'ZPHC Boldenone Undecylenate',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'EQ',price:p(145),tags:['boldenone','equipoise']},
+{id:78,name:'ZPHC Masteron Enanthate 200',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'MAST-E',price:p(195),tags:['masteron']},
+{id:79,name:'ZPHC Primobolan Enanthate',brand:'ZPHC',cat:'injectables',form:'10ml Vial',abbr:'PRIMO',price:p(235),tags:['primobolan']},
+{id:80,name:'ZPHC SEO Site Enhancement Oil 40ml',brand:'ZPHC',cat:'injectables',form:'40ml Vial',abbr:'SEO',price:p(150),tags:['seo','synthol','site oil'],img:'pics/pic8.png',badge:'NEW'},
+{id:81,name:'ZPHC Anavar 10mg',brand:'ZPHC',cat:'orals',form:'100 Tabs',abbr:'ANAV',price:p(200),tags:['anavar','oxandrolone']},
+{id:82,name:'ZPHC Dianabol 10mg',brand:'ZPHC',cat:'orals',form:'100 Tabs',abbr:'DBOL',price:p(80),tags:['dianabol']},
+{id:83,name:'ZPHC Winstrol 10mg',brand:'ZPHC',cat:'orals',form:'100 Tabs',abbr:'WINST',price:p(90),tags:['winstrol']},
+{id:84,name:'ZPHC Anadrol 50mg',brand:'ZPHC',cat:'orals',form:'50 Tabs',abbr:'ADROL',price:p(130),tags:['anadrol']},
+{id:85,name:'ZPHC Turinabol 10mg',brand:'ZPHC',cat:'orals',form:'100 Tabs',abbr:'TBOL',price:p(100),tags:['turinabol']},
+{id:86,name:'ZPHC Proviron 25mg',brand:'ZPHC',cat:'orals',form:'50 Tabs',abbr:'PROVI',price:p(110),tags:['proviron']},
+{id:87,name:'ZPHC Anastrozole 1mg',brand:'ZPHC',cat:'pct',form:'50 Tabs',abbr:'ARIM',price:p(120),tags:['anastrozole','ai']},
+{id:88,name:'ZPHC Clomid 50mg',brand:'ZPHC',cat:'pct',form:'50 Tabs',abbr:'CLOMID',price:p(110),tags:['clomid','pct']},
+{id:89,name:'ZPHC Nolvadex 20mg',brand:'ZPHC',cat:'pct',form:'50 Tabs',abbr:'NOLVA',price:p(110),tags:['nolvadex','tamoxifen','pct']},
+{id:90,name:'ZPHC Letrozole 2.5mg',brand:'ZPHC',cat:'pct',form:'50 Tabs',abbr:'LETRO',price:p(130),tags:['letrozole','ai']},
+{id:91,name:'ZPHC Cabergoline 0.25mg',brand:'ZPHC',cat:'pct',form:'20 Tabs',abbr:'CABER',price:p(150),tags:['cabergoline','prolactin']},
+{id:92,name:'ZPHC HCG 5000IU',brand:'ZPHC',cat:'pct',form:'1 Vial',abbr:'HCG',price:p(185),tags:['hcg','pct']},
+{id:93,name:'ZPHC Aromasin 25mg',brand:'ZPHC',cat:'pct',form:'50 Tabs',abbr:'AROM',price:p(130),tags:['exemestane','ai']},
+{id:94,name:'ZPHC Retatrutide 24mg',brand:'ZPHC',cat:'peptides',form:'24mg Vial',abbr:'RETA',price:p(900),tags:['retatrutide','glp-1','weight loss'],img:'pics/pic6.png',badge:'NEW',hot:1},
+{id:95,name:'ZPHC Tirzepatide 37.5mg Kit',brand:'ZPHC',cat:'peptides',form:'5x7.5mg Kit',abbr:'TIRZ',price:p(1200),tags:['tirzepatide','mounjaro','glp-1'],img:'pics/pic7.png',badge:'NEW',hot:1},
+/* ── PHARMACOM LABS ── */
+{id:96,name:'Pharma Test E 300',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'TEST-E',price:p(145),tags:['testosterone','enanthate'],img:'pics/pic15.png',hot:1},
+{id:97,name:'Pharma Test P 100',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'TEST-P',price:p(100),tags:['testosterone','propionate'],img:'pics/pic14.png',badge:'NEW'},
+{id:98,name:'Pharma Test C 250',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'TEST-C',price:p(145),tags:['testosterone','cypionate']},
+{id:99,name:'Pharma Sust 300',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'SUST',price:p(155),tags:['sustanon']},
+{id:100,name:'Pharma Nan D 300',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'DECA',price:p(170),tags:['nandrolone','deca']},
+{id:101,name:'Pharma Tren E 200',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'TREN-E',price:p(200),tags:['trenbolone']},
+{id:102,name:'Pharma Tren A 100',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'TREN-A',price:p(190),tags:['trenbolone','acetate']},
+{id:103,name:'Pharma 3-Tren 200 (Tren Mix)',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'3-TREN',price:p(260),tags:['trenbolone','mix'],img:'pics/pic16.png',badge:'NEW'},
+{id:104,name:'Pharma Bold 300',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'EQ',price:p(165),tags:['boldenone']},
+{id:105,name:'Pharma Mast E 200',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'MAST-E',price:p(195),tags:['masteron']},
+{id:106,name:'Pharma Primo E 100',brand:'Pharmacom Labs',cat:'injectables',form:'10ml Vial',abbr:'PRIMO',price:p(235),tags:['primobolan']},
+{id:107,name:'Pharma Anavar 10mg',brand:'Pharmacom Labs',cat:'orals',form:'100 Tabs',abbr:'ANAV',price:p(210),tags:['anavar']},
+{id:108,name:'Pharma Winstrol 10mg',brand:'Pharmacom Labs',cat:'orals',form:'100 Tabs',abbr:'WINST',price:p(95),tags:['winstrol']},
+{id:109,name:'Pharma Dianabol 10mg',brand:'Pharmacom Labs',cat:'orals',form:'100 Tabs',abbr:'DBOL',price:p(85),tags:['dianabol']},
+{id:110,name:'Pharma Anadrol 50mg',brand:'Pharmacom Labs',cat:'orals',form:'50 Tabs',abbr:'ADROL',price:p(135),tags:['anadrol']},
+{id:111,name:'Pharma Primo Tabs 25mg',brand:'Pharmacom Labs',cat:'orals',form:'50 Tabs',abbr:'PRIMO',price:p(230),tags:['primobolan']},
+{id:112,name:'Pharma HGH 100IU Kit',brand:'Pharmacom Labs',cat:'hgh',form:'10x10IU',abbr:'HGH',price:p(680),tags:['hgh','somatropin']},
+{id:113,name:'Pharma HGH 200IU Kit',brand:'Pharmacom Labs',cat:'hgh',form:'20x10IU',abbr:'HGH',price:p(1100),tags:['hgh','somatropin']},
+/* ── CAMBRIDGE RESEARCH ── */
+{id:114,name:'Cambridge Test-Prop 100',brand:'Cambridge Research',cat:'injectables',form:'10ml Vial',abbr:'TEST-P',price:p(110),tags:['testosterone','propionate'],img:'pics/pic28.png',badge:'NEW'},
+{id:115,name:'Cambridge HGH Fragment 176-191 (5mg x3)',brand:'Cambridge Research',cat:'peptides',form:'3x5mg Vials',abbr:'FRAG',price:p(550),tags:['hgh fragment','fat loss'],img:'pics/pic29.png',badge:'NEW'},
+{id:116,name:'Cambridge BPC-157 5mg',brand:'Cambridge Research',cat:'peptides',form:'5mg Vial',abbr:'BPC-157',price:p(165),tags:['bpc157','healing']},
+{id:117,name:'Cambridge TB-500 5mg',brand:'Cambridge Research',cat:'peptides',form:'5mg Vial',abbr:'TB-500',price:p(185),tags:['tb500']},
+{id:118,name:'Cambridge RAD-140',brand:'Cambridge Research',cat:'sarms',form:'50 Caps',abbr:'RAD-140',price:p(215),tags:['rad140','testolone','sarm']},
+{id:119,name:'Cambridge LGD-4033',brand:'Cambridge Research',cat:'sarms',form:'50 Caps',abbr:'LGD',price:p(205),tags:['lgd4033','ligandrol','sarm']},
+{id:120,name:'Cambridge MK-677',brand:'Cambridge Research',cat:'sarms',form:'50 Caps',abbr:'MK-677',price:p(225),tags:['mk677','ibutamoren']},
+/* ── PEPTIDE SCIENCES ── */
+{id:121,name:'BPC-157 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'BPC-157',price:p(140),tags:['bpc157','healing'],hot:1},
+{id:122,name:'BPC-157 10mg',brand:'Peptide Sciences',cat:'peptides',form:'10mg Vial',abbr:'BPC-157',price:p(240),tags:['bpc157','healing']},
+{id:123,name:'BPC-157 + TB-500 Blend 5/5mg',brand:'Peptide Sciences',cat:'peptides',form:'10mg Blend Vial',abbr:'BPC+TB',price:p(300),tags:['bpc157','tb500','healing','blend'],img:'pics/pic11.png',badge:'NEW',hot:1},
+{id:124,name:'TB-500 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'TB-500',price:p(160),tags:['tb500','healing']},
+{id:125,name:'NAD+ 1000mg',brand:'Peptide Sciences',cat:'peptides',form:'1000mg Vial',abbr:'NAD+',price:p(400),tags:['nad+','longevity','anti-aging'],img:'pics/pic9.png',badge:'NEW'},
+{id:126,name:'VIP 6mg',brand:'Peptide Sciences',cat:'peptides',form:'6mg Vial',abbr:'VIP',price:p(250),tags:['vip','vasoactive'],img:'pics/pic10.png',badge:'NEW'},
+{id:127,name:'CJC-1295 No DAC 2mg',brand:'Peptide Sciences',cat:'peptides',form:'2mg Vial',abbr:'CJC',price:p(110),tags:['cjc1295','ghrh']},
+{id:128,name:'Ipamorelin 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'IPA',price:p(130),tags:['ipamorelin','ghrp']},
+{id:129,name:'PT-141 Bremelanotide 10mg',brand:'Peptide Sciences',cat:'peptides',form:'10mg Vial',abbr:'PT-141',price:p(175),tags:['pt141','libido']},
+{id:130,name:'Selank 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'SELANK',price:p(170),tags:['selank','nootropic']},
+{id:131,name:'Epithalon 10mg',brand:'Peptide Sciences',cat:'peptides',form:'10mg Vial',abbr:'EPITH',price:p(195),tags:['epithalon','longevity']},
+{id:132,name:'GHK-Cu 200mg',brand:'Peptide Sciences',cat:'peptides',form:'200mg',abbr:'GHK-Cu',price:p(140),tags:['ghk-cu','skin','anti-aging']},
+{id:133,name:'AOD-9604 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'AOD',price:p(145),tags:['aod9604','fat loss']},
+{id:134,name:'HGH Fragment 176-191 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'FRAG',price:p(145),tags:['hgh fragment','fat loss']},
+{id:135,name:'GHRP-2 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'GHRP-2',price:p(110),tags:['ghrp2']},
+{id:136,name:'GHRP-6 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'GHRP-6',price:p(110),tags:['ghrp6']},
+{id:137,name:'Melanotan II 10mg',brand:'Peptide Sciences',cat:'peptides',form:'10mg Vial',abbr:'MT-2',price:p(175),tags:['melanotan','tanning'],hot:1},
+{id:138,name:'Thymosin Alpha-1 5mg',brand:'Peptide Sciences',cat:'peptides',form:'5mg Vial',abbr:'TA-1',price:p(265),tags:['thymosin','immune']},
+{id:139,name:'Semax 30mg',brand:'Peptide Sciences',cat:'peptides',form:'30mg',abbr:'SEMAX',price:p(200),tags:['semax','nootropic']},
+{id:140,name:'Sermorelin 2mg',brand:'Peptide Sciences',cat:'peptides',form:'2mg Vial',abbr:'SERM',price:p(130),tags:['sermorelin','ghrh']},
+{id:141,name:'Hexarelin 2mg',brand:'Peptide Sciences',cat:'peptides',form:'2mg Vial',abbr:'HEXA',price:p(120),tags:['hexarelin']},
+/* ── PHARMA GRADE ── */
+{id:142,name:'Pharma Grade BPC-157 5mg',brand:'Pharma Grade',cat:'peptides',form:'5mg Vial',abbr:'BPC-157',price:p(155),tags:['bpc157','healing'],img:'pics/pic25.png'},
+{id:143,name:'Pharma Grade TB-500 5mg',brand:'Pharma Grade',cat:'peptides',form:'5mg Vial',abbr:'TB-500',price:p(185),tags:['tb500'],img:'pics/pic25.png'},
+{id:144,name:'Pharma Grade Semaglutide 5mg',brand:'Pharma Grade',cat:'peptides',form:'5mg Vial',abbr:'SEMA',price:p(320),tags:['semaglutide','glp-1'],img:'pics/pic25.png',hot:1},
+{id:145,name:'Pharma Grade Tirzepatide 10mg',brand:'Pharma Grade',cat:'peptides',form:'10mg Vial',abbr:'TIRZ',price:p(420),tags:['tirzepatide','glp-1'],img:'pics/pic25.png'},
+{id:146,name:'Pharma Grade HGH Fragment 5mg',brand:'Pharma Grade',cat:'peptides',form:'5mg Vial',abbr:'FRAG',price:p(155),tags:['hgh fragment'],img:'pics/pic25.png'},
+{id:147,name:'Pharma Grade HGH 100IU Kit',brand:'Pharma Grade',cat:'hgh',form:'10x10IU',abbr:'HGH',price:p(680),tags:['hgh','somatropin']},
+/* ── BIOLAB ── */
+{id:148,name:'Cali BioLab GLP-3 RT Retatrutide 30mg',brand:'Biolab',cat:'peptides',form:'30mg Vial',abbr:'GLP-3',price:p(1500),tags:['retatrutide','glp-3','triple agonist'],img:'pics/pic32.png',badge:'NEW',hot:1},
+{id:149,name:'5-Amino-1MQ 5mg Vial',brand:'Biolab',cat:'peptides',form:'5mg Vial',abbr:'5A1MQ',price:p(300),tags:['5-amino-1mq','nad+'],img:'pics/pic27.png',badge:'NEW'},
+{id:150,name:'5-Amino-1MQ 50mg 30 Caps',brand:'Biolab',cat:'peptides',form:'30 Caps',abbr:'5A1MQ',price:p(845),tags:['5-amino-1mq','nad+']},
+{id:151,name:'Acetyl GLP-1+GIP 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'GLP-1',price:p(1050),tags:['glp-1','gip','tirzepatide']},
+{id:152,name:'Acetyl GLP-1+GIP Pen 5mg',brand:'Biolab',cat:'peptides',form:'5mg Pen',abbr:'GLP-1',price:p(810),tags:['glp-1','pen']},
+{id:153,name:'Adamax 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'ADMAX',price:p(350),tags:['adamax','nootropic']},
+{id:154,name:'Adamax Spray 10mg/10ml',brand:'Biolab',cat:'peptides',form:'10ml Spray',abbr:'ADMAX',price:p(275),tags:['adamax','nasal']},
+/* ── LAWLESS LABS ── */
+{id:155,name:'Godzilla 5-SARM Stack 90 Caps',brand:'Lawless Labs',cat:'sarms',form:'90 Caps',abbr:'GODZILLA',price:p(260),tags:['sarm stack','bulking'],img:'pics/pic17.png',badge:'NEW',hot:1},
+{id:156,name:'King Kong SARM S-23 90 Caps',brand:'Lawless Labs',cat:'sarms',form:'90 Caps',abbr:'S-23',price:p(235),tags:['s23','sarm'],img:'pics/pic18.png',badge:'NEW'},
+{id:157,name:'Ligandrol LGD-4033 Liquid 30ml',brand:'Lawless Labs',cat:'sarms',form:'30ml Drops',abbr:'LGD',price:p(225),tags:['lgd4033','ligandrol','liquid'],img:'pics/pic19.png',badge:'NEW'},
+{id:158,name:'RAD-140 Testolone',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 10mg',abbr:'RAD-140',price:p(225),tags:['rad140','testolone'],hot:1},
+{id:159,name:'LGD-4033 Ligandrol Caps',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 10mg',abbr:'LGD',price:p(225),tags:['lgd4033','ligandrol']},
+{id:160,name:'MK-677 Ibutamoren',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 25mg',abbr:'MK-677',price:p(245),tags:['mk677','ibutamoren']},
+{id:161,name:'Ostarine MK-2866',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 25mg',abbr:'OSTA',price:p(199),tags:['ostarine','mk2866']},
+{id:162,name:'Cardarine GW-501516',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 20mg',abbr:'GW',price:p(215),tags:['cardarine','endurance']},
+{id:163,name:'YK-11',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 10mg',abbr:'YK-11',price:p(245),tags:['yk11','myostatin']},
+{id:164,name:'SR9009 Stenabolic',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 20mg',abbr:'SR9009',price:p(225),tags:['sr9009','endurance']},
+{id:165,name:'S4 Andarine',brand:'Lawless Labs',cat:'sarms',form:'50 Caps 25mg',abbr:'S-4',price:p(215),tags:['andarine','s4']},
+{id:166,name:'AC-262 Accadrine 20mg Drops',brand:'Lawless Labs',cat:'sarms',form:'Drops 20mg',abbr:'AC-262',price:p(170),tags:['ac262','sarm']},
+{id:167,name:'AC-262 536 60 Caps',brand:'Lawless Labs',cat:'sarms',form:'60 Caps',abbr:'AC-262',price:p(150),tags:['ac262','sarm']},
+{id:168,name:'5-Amino 1MQ Capsules',brand:'Lawless Labs',cat:'peptides',form:'Capsules',abbr:'5A1MQ',price:p(225),tags:['5-amino-1mq','nad+']},
+{id:169,name:'5-Amino 1MQ Drops',brand:'Lawless Labs',cat:'peptides',form:'Oral Drops',abbr:'5A1MQ',price:p(250),tags:['5-amino-1mq']},
+/* ── UNISARM LABS ── */
+{id:170,name:'Uni-Sten SR-9009 Stenabolic',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps 10mg',abbr:'SR9009',price:p(225),tags:['sr9009','stenabolic'],img:'pics/pic20.png',badge:'NEW'},
+{id:171,name:'Uni-Tamoren MK-677 Ibutamoren',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps 10mg',abbr:'MK-677',price:p(225),tags:['mk677','ibutamoren'],img:'pics/pic21.png',badge:'NEW'},
+{id:172,name:'Uni-Mix III (LGD + MK-677 + RAD-140)',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps 25mg',abbr:'UNI-MIX',price:p(320),tags:['sarm stack','lgd','rad140','mk677'],img:'pics/pic22.png',badge:'NEW',hot:1},
+{id:173,name:'Unisarm RAD-140 10mg',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps',abbr:'RAD-140',price:p(215),tags:['rad140','testolone']},
+{id:174,name:'Unisarm LGD-4033 10mg',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps',abbr:'LGD',price:p(205),tags:['lgd4033']},
+{id:175,name:'Unisarm Ostarine 25mg',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps',abbr:'OSTA',price:p(195),tags:['ostarine']},
+{id:176,name:'Unisarm Cardarine 20mg',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps',abbr:'GW',price:p(205),tags:['cardarine']},
+{id:177,name:'Unisarm YK-11 10mg',brand:'Unisarm Labs',cat:'sarms',form:'60 Caps',abbr:'YK-11',price:p(235),tags:['yk11']},
+/* ── APPLIED NUTRITION ── */
+{id:178,name:'ISO-XP Whey Protein Isolate 1kg',brand:'Applied Nutrition',cat:'nutrition',form:'1kg',abbr:'ISO-XP',price:p(135),tags:['protein','whey','isolate'],hot:1},
+{id:179,name:'Critical Whey 2kg',brand:'Applied Nutrition',cat:'nutrition',form:'2kg',abbr:'WHEY',price:p(199),tags:['protein','whey']},
+{id:180,name:'100% Casein 1.8kg',brand:'Applied Nutrition',cat:'nutrition',form:'1.8kg',abbr:'CASEIN',price:p(155),tags:['casein','protein']},
+{id:181,name:'Diet Whey 1kg',brand:'Applied Nutrition',cat:'nutrition',form:'1kg',abbr:'D-WHEY',price:p(119),tags:['diet whey','lean']},
+{id:182,name:'ABE Pre-Workout 375g',brand:'Applied Nutrition',cat:'nutrition',form:'375g',abbr:'ABE',price:p(129),tags:['pre-workout','energy'],hot:1},
+{id:183,name:'ABE Pre-Workout Gel 60ml',brand:'Applied Nutrition',cat:'nutrition',form:'60ml Gel',abbr:'ABE',price:p(10),tags:['pre-workout','gel']},
+{id:184,name:'ABE Pre-Workout Shot 60ml',brand:'Applied Nutrition',cat:'nutrition',form:'60ml Shot',abbr:'ABE',price:p(10),tags:['pre-workout','shot','energy drink']},
+{id:185,name:'BCAA Amino-Hydrate 450g',brand:'Applied Nutrition',cat:'nutrition',form:'450g',abbr:'BCAA',price:p(127),tags:['bcaa','amino acids']},
+{id:186,name:'Citrulline Malate 2:1 300g',brand:'Applied Nutrition',cat:'nutrition',form:'300g',abbr:'CIT-MAL',price:p(52),tags:['citrulline','pump']},
+{id:187,name:'Acetyl L-Carnitine 150g',brand:'Applied Nutrition',cat:'nutrition',form:'150g',abbr:'ALCAR',price:p(95),tags:['carnitine','fat burn']},
+{id:188,name:'L-Glutamine Powder 250g',brand:'Applied Nutrition',cat:'nutrition',form:'250g',abbr:'GLUT',price:p(58),tags:['glutamine','recovery']},
+{id:189,name:'CLA + L-Carnitine + Green Tea',brand:'Applied Nutrition',cat:'fatloss',form:'100 Caps',abbr:'CLA',price:p(70),tags:['cla','fat burner']},
+{id:190,name:'TRT — Testosterone Support',brand:'Applied Nutrition',cat:'vitamins',form:'120 Caps',abbr:'TRT',price:p(120),tags:['testosterone support','tribulus','ashwagandha'],img:'pics/pic12.png',badge:'NEW'},
+{id:191,name:'Organ Shield — Liver, Kidney & Heart',brand:'Applied Nutrition',cat:'vitamins',form:'90 Caps',abbr:'ORGAN',price:p(110),tags:['organ support','liver','on-cycle'],img:'pics/pic12.png',badge:'NEW',hot:1},
+{id:192,name:'Sleep — Unwind & Recover',brand:'Applied Nutrition',cat:'vitamins',form:'30 Servings',abbr:'SLEEP',price:p(95),tags:['sleep','recovery'],img:'pics/pic12.png',badge:'NEW'},
+{id:193,name:'Prostate Support',brand:'Applied Nutrition',cat:'vitamins',form:'90 Caps',abbr:'PROST',price:p(100),tags:['prostate','saw palmetto'],img:'pics/pic12.png',badge:'NEW'},
+{id:194,name:'Joint Complex — Advanced Formula',brand:'Applied Nutrition',cat:'vitamins',form:'30 Servings',abbr:'JOINT',price:p(105),tags:['joints','collagen'],img:'pics/pic12.png',badge:'NEW'},
+{id:195,name:'Turmeric 800mg',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'TURM',price:p(85),tags:['turmeric','anti-inflammatory'],img:'pics/pic13.png',badge:'NEW'},
+{id:196,name:'Relax & Calm',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'CALM',price:p(85),tags:['calm','stress'],img:'pics/pic13.png',badge:'NEW'},
+{id:197,name:'Gut Health',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'GUT',price:p(90),tags:['gut','probiotics'],img:'pics/pic13.png',badge:'NEW'},
+{id:198,name:'Detox & Debloat',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'DETOX',price:p(90),tags:['detox','debloat'],img:'pics/pic13.png',badge:'NEW'},
+{id:199,name:'Brain Fuel — Focus & Clarity',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'BRAIN',price:p(92),tags:['nootropic','focus'],img:'pics/pic13.png'},
+{id:200,name:'Calcium & Magnesium',brand:'Applied Nutrition',cat:'vitamins',form:'90 Tabs',abbr:'CAL-MAG',price:p(77),tags:['calcium','magnesium']},
+{id:201,name:'Berberine 1000mg',brand:'Applied Nutrition',cat:'vitamins',form:'90 Caps',abbr:'BERB',price:p(150),tags:['berberine','glucose']},
+{id:202,name:'Citrus Bergamot 1200mg',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'BERG',price:p(179),tags:['bergamot','cholesterol']},
+{id:203,name:'Milk Thistle',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'MILK-T',price:p(55),tags:['milk thistle','liver']},
+/* ── REVIVE MD ── */
+{id:204,name:'Revive Liver — Liver Management',brand:'Revive MD',cat:'vitamins',form:'120 Caps',abbr:'LIVER',price:p(257),tags:['liver','tudca','nac','on-cycle'],img:'pics/pic1.png',hot:1},
+{id:205,name:'Revive Daily Greens — Fresh Berry',brand:'Revive MD',cat:'vitamins',form:'297g Powder',abbr:'GREENS',price:p(258),tags:['greens','superfoods'],img:'pics/pic2.png',hot:1},
+{id:206,name:'Revive Glutamine 300g',brand:'Revive MD',cat:'nutrition',form:'300g',abbr:'GLUT',price:p(153),tags:['glutamine','gut']},
+{id:207,name:'Revive Essential Vitamin Pack',brand:'Revive MD',cat:'vitamins',form:'Pack',abbr:'VIT-PKG',price:p(315),tags:['vitamins','pack']},
+{id:208,name:'Revive Multi Vitamin',brand:'Revive MD',cat:'vitamins',form:'120 Caps',abbr:'MULTI-V',price:p(200),tags:['multivitamin']},
+{id:209,name:'Revive Multi Minerals',brand:'Revive MD',cat:'vitamins',form:'120 Caps',abbr:'MULTI-M',price:p(200),tags:['minerals']},
+{id:210,name:'Revive B-Complex',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'B-CMPLX',price:p(112),tags:['b vitamins','energy']},
+{id:211,name:'Revive Vitamin C',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'VIT-C',price:p(153),tags:['vitamin c','immune']},
+{id:212,name:'Revive Vitamin K2 + D3',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'K2-D3',price:p(199),tags:['vitamin d','bone']},
+{id:213,name:'Revive Omega 3',brand:'Revive MD',cat:'vitamins',form:'130 Caps',abbr:'OMEGA-3',price:p(189),tags:['omega 3','fish oil']},
+{id:214,name:'Revive Yohimbine',brand:'Revive MD',cat:'fatloss',form:'60 Caps',abbr:'YOHIMB',price:p(180),tags:['yohimbine','thermogenic']},
+{id:215,name:'Revive Adrenacore',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'ADREN',price:p(200),tags:['adrenal','stress']},
+{id:216,name:'Revive Cortisol Support',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'CORT',price:p(245),tags:['cortisol','stress']},
+{id:217,name:'Revive Collagen 260g',brand:'Revive MD',cat:'vitamins',form:'260g',abbr:'COLL',price:p(299),tags:['collagen','joints','skin']},
+{id:218,name:'Revive Fiber 312g',brand:'Revive MD',cat:'vitamins',form:'312g',abbr:'FIBER',price:p(189),tags:['fiber','digestion']},
+{id:219,name:'Revive Daily Greens 180 Caps',brand:'Revive MD',cat:'vitamins',form:'180 Caps',abbr:'GREENS',price:p(258),tags:['greens']},
+{id:220,name:'Revive Magnesium Glycinate',brand:'Revive MD',cat:'vitamins',form:'180 Caps',abbr:'MAG-G',price:p(153),tags:['magnesium','sleep']},
+{id:221,name:'Revive Digest Aid',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'DIGEST',price:p(200),tags:['digestion','enzymes']},
+{id:222,name:'Revive Turmeric+',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'TURM',price:p(279),tags:['turmeric','curcumin']},
+{id:223,name:'Revive Kidney Support',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'KIDNEY',price:p(224),tags:['kidney','organ support']},
+{id:224,name:'Revive Thyroid Support',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'THYROID',price:p(210),tags:['thyroid','metabolism']},
+{id:225,name:'Revive Lipid',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'LIPID',price:p(279),tags:['cholesterol','lipids']},
+{id:226,name:'Revive Ashwagandha',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'ASHWA',price:p(159),tags:['ashwagandha','adaptogen']},
+{id:227,name:'Revive OPTI Zinc',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'ZINC',price:p(153),tags:['zinc','immune']},
+{id:228,name:'Revive Prostate Support',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'PROST',price:p(279),tags:['prostate']},
+{id:229,name:'Revive Calm+',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'CALM',price:p(199),tags:['calm','relaxation']},
+{id:230,name:'Revive GI+ 165g',brand:'Revive MD',cat:'vitamins',form:'165g',abbr:'GI+',price:p(299),tags:['gut health','probiotics']},
+{id:231,name:'Revive Inositol',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'INOSITOL',price:p(189),tags:['inositol','mood']},
+{id:232,name:'Revive Heart',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'HEART',price:p(300),tags:['heart','coq10']},
+{id:233,name:"Revive Men's Health",brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'MEN',price:p(258),tags:['mens health','vitality']},
+{id:234,name:"Revive Women's Health",brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'WOMEN',price:p(210),tags:['womens health','balance']},
+{id:235,name:'Revive Bergamot',brand:'Revive MD',cat:'vitamins',form:'60 Caps',abbr:'BERG',price:p(189),tags:['bergamot','cholesterol']},
+{id:236,name:'Revive Zinc Carnosine',brand:'Revive MD',cat:'vitamins',form:'120 Caps',abbr:'ZN-CARN',price:p(153),tags:['zinc','gut lining']},
+{id:237,name:'Revive Sleep 312g Chocolate',brand:'Revive MD',cat:'vitamins',form:'312g',abbr:'SLEEP',price:p(225),tags:['sleep','recovery']},
+{id:238,name:'Revive Suntheanine',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'THEAN',price:p(190),tags:['l-theanine','focus']},
+{id:239,name:'Revive Betaine HCL',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'BETAINE',price:p(153),tags:['betaine','digestion']},
+{id:240,name:'Revive Joint Support',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'JOINTS',price:p(245),tags:['joints','glucosamine']},
+{id:241,name:'Revive Glucose',brand:'Revive MD',cat:'vitamins',form:'90 Caps',abbr:'GLUC',price:p(279),tags:['glucose','blood sugar']},
+/* ── SUPPLEMENT NEEDS ── */
+{id:242,name:'Liver Stack — Dean St Mart',brand:'Supplement Needs',cat:'vitamins',form:'240 Caps',abbr:'LIVER',price:p(285),tags:['liver','tudca','on-cycle'],img:'pics/pic23.png',badge:'NEW'},
+{id:243,name:'Heart Stack — Dean St Mart',brand:'Supplement Needs',cat:'vitamins',form:'240 Caps',abbr:'HEART',price:p(285),tags:['heart','coq10','blood pressure'],img:'pics/pic23.png',hot:1},
+{id:244,name:'Kidney & Blood Pressure Stack',brand:'Supplement Needs',cat:'vitamins',form:'240 Caps',abbr:'KIDNEY',price:p(285),tags:['kidney','blood pressure'],img:'pics/pic23.png',badge:'NEW'},
+{id:245,name:'Multivitamin & Mineral Pro',brand:'Supplement Needs',cat:'vitamins',form:'60 Caps',abbr:'MULTI',price:p(160),tags:['multivitamin','minerals'],img:'pics/pic24.png',badge:'NEW'},
+{id:246,name:'Electrolyte Powder',brand:'Supplement Needs',cat:'nutrition',form:'400g',abbr:'ELECTRO',price:p(130),tags:['electrolytes','hydration']},
+{id:247,name:'Cream of Rice 1kg',brand:'Supplement Needs',cat:'nutrition',form:'1kg',abbr:'C.O.R',price:p(225),tags:['carbs','cream of rice']},
+{id:248,name:'Creatine Monohydrate 500g',brand:'Supplement Needs',cat:'nutrition',form:'500g',abbr:'CREAT',price:p(165),tags:['creatine','strength'],hot:1},
+{id:249,name:'Glutamine Powder 500g',brand:'Supplement Needs',cat:'nutrition',form:'500g',abbr:'GLUT',price:p(113),tags:['glutamine','recovery']},
+{id:250,name:'Immuno Pro+',brand:'Supplement Needs',cat:'vitamins',form:'90 Caps',abbr:'IMMUNO',price:p(231),tags:['immune','zinc']}
+];
+/* ═══ LEARN ARTICLES ═══ */
+const ARTICLES=[
+{id:1,tag:'Peptides',icon:'⚗️',grad:'linear-gradient(135deg,#00192e,#003355)',title:'Peptides 101: What They Are & How They Work',mins:4,teaser:'Short chains of amino acids that signal your body to repair, grow and recover — here is the science made simple.',body:`<p>Peptides are short chains of amino acids — essentially mini-proteins — that act as signalling molecules in the body. Where a protein might be hundreds of amino acids long, peptides are typically between 2 and 50, which makes them small enough to act as precise messengers.</p><h4>Why people use them</h4><p>Different peptides carry different messages. Some (like BPC-157 and TB-500) are studied for tissue repair and recovery. Others (CJC-1295, Ipamorelin, Sermorelin) signal the pituitary to release more growth hormone. GLP-1 class peptides (Semaglutide, Tirzepatide, Retatrutide) act on appetite and metabolic pathways and have become the most talked-about compounds in the weight-management world.</p><h4>Storage & handling basics</h4><p>Lyophilised (freeze-dried) peptides are stable at room temperature for shipping, but once reconstituted with bacteriostatic water they should be refrigerated and used within the recommended window. Always check each product's storage instructions.</p><h4>Quality matters most</h4><p>The single biggest risk with peptides is poor sourcing — underdosed, impure or mislabelled vials. We only stock labs with HPLC purity testing and verifiable batch documentation.</p><div class="note">Educational content only — not medical advice. Consult a qualified healthcare professional before using any peptide.</div>`},
+{id:2,tag:'GLP-1',icon:'📉',grad:'linear-gradient(135deg,#0d3a52,#11506e)',title:'The GLP-1 Guide: Semaglutide vs Tirzepatide vs Retatrutide',mins:5,teaser:'The three biggest names in metabolic peptides compared — how they differ and what the research says.',body:`<p>GLP-1 receptor agonists have transformed the conversation around weight management. Here's how the three best-known compounds differ.</p><h4>Semaglutide (single agonist)</h4><p>Activates the GLP-1 receptor only. It slows gastric emptying, reduces appetite and improves insulin response. The most established of the three, with years of clinical data behind it.</p><h4>Tirzepatide (dual agonist)</h4><p>Targets both GLP-1 and GIP receptors. The dual action appears to produce stronger average weight-loss results in head-to-head trials, with many users reporting fewer GI side effects than semaglutide at equivalent stages.</p><h4>Retatrutide (triple agonist)</h4><p>The newest of the three — it adds glucagon receptor activity to GLP-1 and GIP. Early phase-2 data showed the largest average reductions yet recorded, which is why it's generating so much attention. It remains the least studied long-term.</p><h4>Practical notes</h4><p>All three are dosed by slow titration — starting low and increasing gradually is how clinicians minimise nausea and adaptation issues. These compounds require refrigeration after reconstitution.</p><div class="note">Educational content only — not medical advice. GLP-1 compounds affect blood sugar and should only be used under professional supervision.</div>`},
+{id:3,tag:'SARMs',icon:'🔬',grad:'linear-gradient(135deg,#0d0020,#200040)',title:'SARMs Explained: RAD-140, LGD-4033, MK-677 & More',mins:5,teaser:'Selective androgen receptor modulators — what makes them "selective", and an honest look at each major compound.',body:`<p>SARMs (Selective Androgen Receptor Modulators) bind to androgen receptors with more tissue selectivity than traditional compounds — favouring muscle and bone over other tissues. "Selective" does not mean "side-effect free", but it explains their popularity.</p><h4>The main players</h4><p><strong>RAD-140 (Testolone)</strong> — among the strongest for lean mass; suppression is real, so PCT planning matters.<br/><strong>LGD-4033 (Ligandrol)</strong> — well-studied for steady strength and size gains at low doses.<br/><strong>Ostarine (MK-2866)</strong> — the mildest entry point; often used in cutting phases to preserve muscle.<br/><strong>MK-677 (Ibutamoren)</strong> — technically not a SARM but a growth-hormone secretagogue; raises GH and IGF-1, popular for recovery and sleep quality.<br/><strong>Cardarine (GW-501516)</strong> — also not a SARM; a PPAR-delta agonist studied for endurance and lipid metabolism.</p><h4>Stacks</h4><p>Products like our Godzilla 5-SARM stack or Uni-Mix III combine compounds for users who want a pre-built protocol — start with single compounds if you're new.</p><div class="note">Educational content only — not medical advice. SARMs can suppress natural hormone production; bloodwork and professional guidance are strongly recommended.</div>`},
+{id:4,tag:'PCT',icon:'🛡️',grad:'linear-gradient(135deg,#1a0005,#30000e)',title:'PCT & On-Cycle Support: Protecting Your Foundation',mins:4,teaser:'Clomid, Nolvadex, AIs and organ support — the unglamorous part of performance enhancement that matters most.',body:`<p>Any compound that suppresses natural testosterone production needs an exit strategy. That's what Post-Cycle Therapy (PCT) is — and skipping it is the most common and most costly mistake.</p><h4>The standard tools</h4><p><strong>Clomid (clomiphene)</strong> and <strong>Nolvadex (tamoxifen)</strong> are SERMs that stimulate the body's own LH/FSH signalling to restart natural production. <strong>HCG</strong> is often used to maintain testicular function during longer protocols.</p><h4>Managing estrogen</h4><p>Aromatase inhibitors — <strong>Arimidex (anastrozole)</strong>, <strong>Aromasin (exemestane)</strong>, <strong>Letrozole</strong> — control the conversion of testosterone to estrogen during a cycle. The goal is balance, not elimination: crashing estrogen causes its own problems (joint pain, mood, lipids).</p><h4>Organ support is not optional</h4><p>Oral compounds in particular stress the liver and lipids. Products like Revive Liver (TUDCA + NAC), Organ Shield, and Supplement Needs' Liver/Heart/Kidney stacks exist precisely for this. Blood pressure, lipid panels and liver enzymes should be monitored before, during and after any cycle.</p><div class="note">Educational content only — not medical advice. Bloodwork and a qualified practitioner are the foundation of any responsible protocol.</div>`},
+{id:5,tag:'Nutrition',icon:'💪',grad:'linear-gradient(135deg,#001830,#003060)',title:'Protein, Creatine & The Supplements That Actually Work',mins:4,teaser:'Cut through the noise — the handful of sports supplements with real evidence behind them.',body:`<p>The supplement industry sells ten thousand products; the science supports about a dozen. Here are the ones worth your money.</p><h4>Creatine monohydrate</h4><p>The most-studied supplement in existence. 3–5g daily increases strength, power output and lean mass. No loading phase needed, no cycling needed. Just take it every day.</p><h4>Whey protein</h4><p>Not magic — just convenient, high-quality protein. Isolates (like ISO-XP) digest fast and are nearly lactose-free; casein digests slowly and works well before bed. Aim for 1.6–2.2g of total protein per kg of bodyweight daily.</p><h4>Pre-workout & caffeine</h4><p>Caffeine is the most evidence-backed performance ingredient there is. Formulas like ABE add citrulline (pumps/blood flow) and beta-alanine (the tingles + muscular endurance buffer).</p><h4>The support cast</h4><p>Electrolytes for hard sessions in UAE heat, glutamine for gut health, omega-3s for recovery and cardiovascular health, magnesium glycinate for sleep. Boring, effective, cheap.</p><div class="note">Educational content only. Dietary supplements support — they don't replace — proper training and nutrition.</div>`},
+{id:6,tag:'Guides',icon:'🧊',grad:'linear-gradient(135deg,#001505,#002e0f)',title:'Reconstitution & Storage: Handling Peptides Properly',mins:3,teaser:'Bacteriostatic water, refrigeration, and the handling mistakes that ruin good peptides.',body:`<p>You can buy the purest peptide in the world and destroy it on your kitchen counter. Handling matters.</p><h4>Reconstitution basics</h4><p>Lyophilised peptide powder is mixed with bacteriostatic water before use. Add the water slowly down the side of the vial — never spray it directly onto the powder — and swirl gently. Never shake.</p><h4>Storage rules</h4><p>Unreconstituted vials: cool, dark place — most are fine at room temperature for weeks and in a fridge for months. Reconstituted vials: always refrigerated (2–8°C), typically used within 14–30 days depending on the peptide. GLP-1 compounds are particularly temperature-sensitive.</p><h4>Common mistakes</h4><p>Freezing reconstituted peptides (ice crystals damage the structure), leaving vials in a hot car (UAE summer will cook a peptide in under an hour), and using plain sterile water for multi-dose vials (it lacks the preservative that keeps bacteria out).</p><div class="note">Educational content only — follow the specific instructions supplied with each product.</div>`}
+];
+/* ═══ FAQ ═══ */
+const FAQS=[
+{q:'Do you deliver across the whole UAE?',a:'Yes — we deliver to all seven Emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah and Umm Al Quwain. Orders confirmed before 4 PM are typically dispatched the same day.'},
+{q:'Is Cash on Delivery available?',a:'Yes. COD is available UAE-wide, alongside bank transfer and crypto (USDT). You pay when your order arrives at your door.'},
+{q:'How do I know the products are genuine?',a:'We source exclusively through verified supply chains. Brands like ZPHC and Pharmacom include authentication codes on every unit which you can verify directly on the manufacturer’s website.'},
+{q:'How is my order packaged?',a:'All orders ship in plain, discreet packaging with no product names or branding visible on the outside. Temperature-sensitive items ship with appropriate cold-chain protection.'},
+{q:'How fast is delivery?',a:'Dubai and Sharjah: usually next-day or sooner. Abu Dhabi and other Emirates: 1–2 working days. You’ll receive a WhatsApp confirmation with tracking once your order is dispatched.'},
+{q:'Can I get help choosing the right product?',a:'Absolutely — message us on WhatsApp any time. We’ll answer questions about products, storage, and what fits your goals. For dosing and health decisions, always consult a qualified healthcare professional.'},
+{q:'What is your returns policy?',a:'Unopened products in original sealed packaging can be returned within 7 days of delivery. For peptides and temperature-sensitive items, returns are only possible if the cold chain was never broken. Contact us on WhatsApp to arrange.'},
+{q:'Do peptides need to be refrigerated during shipping?',a:'Lyophilised (powder) peptides are stable at ambient temperature for transport — this is standard worldwide. Once you reconstitute them with bacteriostatic water, keep them refrigerated at 2–8°C.'},
+{q:'I can’t see a price / a product is out of stock — what do I do?',a:'Some new arrivals are listed before final UAE pricing is confirmed. Tap "Order via WhatsApp" or message us and we’ll confirm current pricing and availability instantly.'}
+];
+</script>
+
+<script>
+/* ═══ STATE ═══ */
+let cart=JSON.parse(localStorage.getItem('novu_cart')||'[]');
+let wishlist=new Set(JSON.parse(localStorage.getItem('novu_wish')||'[]'));
+let recents=JSON.parse(localStorage.getItem('novu_recent')||'[]');
+let activeCat='all',activeBrands=new Set(),sortMode='default',searchQ='',currentProduct=null,modalQty=1;
+const $=id=>document.getElementById(id);
+const byId=id=>PRODUCTS.find(p=>p.id===id);
+const fmt=n=>'AED '+n.toLocaleString();
+let toastTimer;
+
+/* ═══ ROUTER ═══ */
+const VIEWS=['home','shop','learn','about','faq','contact'];
+function go(view,cat){
+  if(!VIEWS.includes(view))view='home';
+  if(cat&&CAT_CFG[cat]){activeCat=cat;activeBrands.clear();}
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  $('view-'+view).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.toggle('active',l.dataset.nav===view));
+  $('mobile-menu').classList.remove('open');
+  if(view==='shop'){renderCatNav();renderBrandFilters();renderProducts();renderRecents();}
+  const want='#'+view+(view==='shop'&&activeCat!=='all'?'/'+activeCat:'');
+  if(location.hash!==want)history.replaceState(null,'',want);
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function routeFromHash(){
+  const h=(location.hash||'#home').slice(1).split('/');
+  go(h[0]||'home',h[1]);
+}
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('[data-nav]');
+  if(nav){e.preventDefault();closeAll();go(nav.dataset.nav);}
+});
+window.addEventListener('hashchange',routeFromHash);
+
+/* ═══ FILTER & SORT ═══ */
+function filtered(){
+  let list=PRODUCTS;
+  if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
+  if(activeBrands.size>0)list=list.filter(p=>activeBrands.has(p.brand));
+  if(searchQ){const q=searchQ.toLowerCase();list=list.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||(p.tags||[]).some(t=>t.toLowerCase().includes(q))||(p.abbr||'').toLowerCase().includes(q));}
+  if(sortMode==='price-asc')list=[...list].sort((a,b)=>a.price-b.price);
+  else if(sortMode==='price-desc')list=[...list].sort((a,b)=>b.price-a.price);
+  else if(sortMode==='name-asc')list=[...list].sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sortMode==='brand')list=[...list].sort((a,b)=>a.brand.localeCompare(b.brand));
+  else list=[...list].sort((a,b)=>(b.img?1:0)-(a.img?1:0)||(b.hot?1:0)-(a.hot?1:0));
+  return list;
+}
+
+/* ═══ CARD BUILDER ═══ */
+function cardHTML(p){
+  const bc=BRAND_CFG[p.brand]||{color:'#64748b',light:'#f1f5f9'};
+  const cc=CAT_CFG[p.cat]||{grad:'linear-gradient(135deg,#1e293b,#334155)'};
+  const inCart=cart.some(c=>c.id===p.id);
+  const wished=wishlist.has(p.id);
+  const flag=p.badge?'<span class="card-flag flag-new">'+p.badge+'</span>':(p.hot?'<span class="card-flag flag-hot">🔥 Hot</span>':'');
+  const img=p.img?'<img class="card-img" src="'+p.img+'" alt="'+p.name+'" loading="lazy" onerror="this.remove()"/>':'';
+  return '<div class="card-visual" style="background:'+cc.grad+'">'
+    +'<div class="abbr-wrap"><div class="card-abbr">'+(p.abbr||p.name.split(' ')[0])+'</div></div>'
+    +img+flag
+    +'<button class="btn-wish '+(wished?'on':'')+'" data-wish="'+p.id+'">'+(wished?'♥':'♡')+'</button>'
+    +'<div class="card-form-badge">'+p.form+'</div></div>'
+    +'<div class="card-body"><span class="card-brand-badge" style="background:'+bc.light+';color:'+bc.color+'">'+p.brand+'</span>'
+    +'<div class="card-name">'+p.name+'</div>'
+    +'<div class="card-footer"><div class="card-price"><span class="currency">AED </span>'+p.price.toLocaleString()+'</div>'
+    +'<button class="btn-add '+(inCart?'added':'')+'" data-add="'+p.id+'">'+(inCart?'✓':'+')+'</button></div></div>';
+}
+function bindCard(card,p){
+  card.addEventListener('click',e=>{
+    if(e.target.closest('[data-add]')){e.stopPropagation();addToCart(p);return;}
+    if(e.target.closest('[data-wish]')){e.stopPropagation();toggleWish(p.id);return;}
+    openModal(p);
+  });
+}
+
+/* ═══ SHOP RENDER ═══ */
+function renderProducts(){
+  const grid=$('product-grid'),list=filtered();
+  grid.innerHTML='';
+  if(!list.length){grid.innerHTML='<div class="empty-state"><div class="es-icon">🔍</div><h3>No products found</h3><p>Try adjusting your filters or search.</p></div>';$('result-count').textContent='0 products';return;}
+  $('result-count').textContent=list.length+' product'+(list.length!==1?'s':'');
+  list.forEach(p=>{
+    const card=document.createElement('div');card.className='product-card';
+    card.innerHTML=cardHTML(p);bindCard(card,p);grid.appendChild(card);
+  });
+}
+function renderCatNav(){
+  const nav=$('cat-nav');
+  const cats=[{id:'all',label:'All Products',icon:'🛒'},...Object.entries(CAT_CFG).map(([id,c])=>({id,label:c.label,icon:c.icon}))];
+  nav.innerHTML=cats.map(c=>'<button class="cat-btn '+(c.id===activeCat?'active':'')+'" data-cat="'+c.id+'"><span>'+c.icon+'</span><span>'+c.label+'</span></button>').join('');
+  nav.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    activeCat=btn.dataset.cat;activeBrands.clear();
+    nav.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    $('area-title').textContent=activeCat==='all'?'All Products':CAT_CFG[activeCat].label;
+    history.replaceState(null,'','#shop'+(activeCat!=='all'?'/'+activeCat:''));
+    renderBrandFilters();renderProducts();
+  }));
+}
+function renderBrandFilters(){
+  const c=$('brand-filter-list'),counts={};
+  (activeCat==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat)).forEach(p=>counts[p.brand]=(counts[p.brand]||0)+1);
+  const brands=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  c.innerHTML=brands.map(b=>{
+    const bc=BRAND_CFG[b]||{color:'#64748b'};
+    return '<div class="brand-chip '+(activeBrands.has(b)?'active':'')+'" data-brand="'+b+'"><span class="brand-dot" style="background:'+bc.color+'"></span><span>'+b+'</span><span class="brand-count">'+counts[b]+'</span></div>';
+  }).join('');
+  c.querySelectorAll('.brand-chip').forEach(ch=>ch.addEventListener('click',()=>{
+    const b=ch.dataset.brand;
+    activeBrands.has(b)?activeBrands.delete(b):activeBrands.add(b);
+    renderBrandFilters();renderProducts();
+  }));
+}
+function renderRecents(){
+  const wrap=$('recently-viewed'),strip=$('rv-strip');
+  const items=recents.map(byId).filter(Boolean);
+  if(!items.length){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  strip.innerHTML='';
+  items.forEach(p=>{
+    const cc=CAT_CFG[p.cat]||{};
+    const d=document.createElement('div');d.className='rv-item';
+    d.style.background=p.img?'#fff':cc.grad;
+    d.innerHTML=p.img?'<img src="'+p.img+'" alt="" onerror="this.parentElement.style.background=\''+cc.grad+'\';this.outerHTML=\'<span class=rv-abbr>'+p.abbr+'</span>\'"/>':'<span class="rv-abbr">'+p.abbr+'</span>';
+    d.title=p.name;d.addEventListener('click',()=>openModal(p));
+    strip.appendChild(d);
+  });
+}
+function pushRecent(id){
+  recents=[id,...recents.filter(r=>r!==id)].slice(0,10);
+  localStorage.setItem('novu_recent',JSON.stringify(recents));
+}
+
+/* ═══ HOME RENDER ═══ */
+function renderHome(){
+  $('stat-products').innerHTML=PRODUCTS.length+'<em>+</em>';
+  const brands=Object.keys(BRAND_CFG);
+  $('marquee').innerHTML=brands.concat(brands).map(b=>'<span>'+b+'</span>').join('');
+  $('home-cat-tiles').innerHTML=Object.entries(CAT_CFG).map(([id,c])=>{
+    const n=PRODUCTS.filter(p=>p.cat===id).length;
+    return '<div class="cat-tile" style="background:'+c.grad+'" data-cattile="'+id+'"><span class="ic">'+c.icon+'</span><span class="nm">'+c.label+'</span><span class="ct">'+n+' products</span></div>';
+  }).join('');
+  document.querySelectorAll('[data-cattile]').forEach(t=>t.addEventListener('click',()=>{activeCat=t.dataset.cattile;go('shop',t.dataset.cattile);}));
+  const featured=PRODUCTS.filter(p=>p.img&&p.hot).concat(PRODUCTS.filter(p=>p.img&&!p.hot)).slice(0,8);
+  const fg=$('featured-grid');fg.innerHTML='';
+  featured.forEach(p=>{const card=document.createElement('div');card.className='product-card';card.innerHTML=cardHTML(p);bindCard(card,p);fg.appendChild(card);});
+  $('footer-cats').innerHTML=Object.entries(CAT_CFG).slice(0,6).map(([id,c])=>'<li><a data-footcat="'+id+'">'+c.label+'</a></li>').join('');
+  document.querySelectorAll('[data-footcat]').forEach(a=>a.addEventListener('click',()=>go('shop',a.dataset.footcat)));
+  $('footer-brands').innerHTML=['ZPHC','Pharmacom Labs','Peptide Sciences','Applied Nutrition','Revive MD','Lawless Labs'].map(b=>'<li><a data-footbrand="'+b+'">'+b+'</a></li>').join('');
+  document.querySelectorAll('[data-footbrand]').forEach(a=>a.addEventListener('click',()=>{activeCat='all';activeBrands=new Set([a.dataset.footbrand]);go('shop');}));
+  $('about-brands').innerHTML=brands.map(b=>{const bc=BRAND_CFG[b];return '<span style="border-color:'+bc.color+';color:'+bc.color+';background:'+bc.light+'">'+b+'</span>';}).join('');
+}
+
+/* ═══ LEARN ═══ */
+function renderLearn(){
+  $('learn-grid').innerHTML=ARTICLES.map(a=>'<div class="learn-card" data-article="'+a.id+'"><div class="learn-banner" style="background:'+a.grad+'">'+a.icon+'</div><div class="learn-body"><span class="learn-tag">'+a.tag+'</span><h3>'+a.title+'</h3><p>'+a.teaser+'</p><span class="learn-meta">📖 '+a.mins+' min read</span></div></div>').join('');
+  document.querySelectorAll('[data-article]').forEach(c=>c.addEventListener('click',()=>{
+    const a=ARTICLES.find(x=>x.id==c.dataset.article);
+    $('article-tag').textContent=a.tag;$('article-title').textContent=a.title;$('article-body').innerHTML=a.body;
+    $('article-overlay').classList.add('open');document.body.style.overflow='hidden';
+  }));
+}
+
+/* ═══ FAQ ═══ */
+function renderFaq(){
+  $('faq-wrap').innerHTML=FAQS.map(f=>'<details class="faq-item"><summary>'+f.q+'</summary><div class="faq-a">'+f.a+'</div></details>').join('');
+}
+
+/* ═══ WISHLIST ═══ */
+function saveWish(){localStorage.setItem('novu_wish',JSON.stringify([...wishlist]));}
+function toggleWish(id){
+  wishlist.has(id)?wishlist.delete(id):wishlist.add(id);
+  saveWish();updateBadges();
+  if($('view-shop').classList.contains('active'))renderProducts();
+  renderHome();renderWishItems();
+  showToast(wishlist.has(id)?'Saved to wishlist ♥':'Removed from wishlist');
+}
+function renderWishItems(){
+  const items=[...wishlist].map(byId).filter(Boolean);
+  $('wish-empty').style.display=items.length?'none':'flex';
+  $('wish-items').style.display=items.length?'flex':'none';
+  $('wish-items').innerHTML=items.map(p=>{
+    const cc=CAT_CFG[p.cat]||{};
+    const th=p.img?'<img src="'+p.img+'" onerror="this.remove()"/>':'';
+    return '<div class="cart-item"><div class="cart-item-thumb" style="background:'+cc.grad+'">'+p.abbr+th+'</div><div class="cart-item-info"><div class="cart-item-name">'+p.name+'</div><div class="cart-item-brand">'+p.brand+' · '+fmt(p.price)+'</div><div class="cart-item-actions"><button class="qty-btn" style="width:auto;padding:0 12px;font-size:12px;font-weight:700" data-wadd="'+p.id+'">Add to cart</button><button class="btn-remove" data-wrem="'+p.id+'">✕</button></div></div></div>';
+  }).join('');
+  $('wish-items').querySelectorAll('[data-wadd]').forEach(b=>b.addEventListener('click',()=>{addToCart(byId(+b.dataset.wadd));}));
+  $('wish-items').querySelectorAll('[data-wrem]').forEach(b=>b.addEventListener('click',()=>toggleWish(+b.dataset.wrem)));
+}
+
+/* ═══ CART ═══ */
+function saveCart(){localStorage.setItem('novu_cart',JSON.stringify(cart));}
+function cartTotal(){return cart.reduce((s,c)=>s+c.price*c.qty,0);}
+function cartCount(){return cart.reduce((s,c)=>s+c.qty,0);}
+function updateBadges(){
+  const n=cartCount();$('cart-badge').textContent=n;$('cart-badge').classList.toggle('visible',n>0);
+  const w=wishlist.size;$('wish-badge').textContent=w;$('wish-badge').classList.toggle('visible',w>0);
+}
+function addToCart(p,qty){
+  qty=qty||1;
+  const ex=cart.find(c=>c.id===p.id);
+  if(ex)ex.qty+=qty;else cart.push({id:p.id,name:p.name,brand:p.brand,price:p.price,abbr:p.abbr,cat:p.cat,img:p.img||null,qty});
+  saveCart();updateBadges();renderCartItems();
+  if($('view-shop').classList.contains('active'))renderProducts();
+  showToast('✓ '+p.name+' added to cart');
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);saveCart();updateBadges();renderCartItems();if($('view-shop').classList.contains('active'))renderProducts();}
+function changeQty(id,d){const it=cart.find(c=>c.id===id);if(!it)return;it.qty+=d;if(it.qty<=0)return removeFromCart(id);saveCart();updateBadges();renderCartItems();}
+function renderCartItems(){
+  const total=cartTotal();
+  $('cart-empty').style.display=cart.length?'none':'flex';
+  $('cart-items').style.display=cart.length?'flex':'none';
+  $('ship-bar').style.display=cart.length?'block':'none';
+  if(cart.length){
+    const left=FREE_SHIP-total;
+    $('sb-txt').innerHTML=left>0?'Add <b>'+fmt(left)+'</b> more for <b>FREE delivery</b>':'🎉 <b>FREE delivery unlocked!</b>';
+    $('sb-fill').style.width=Math.min(100,total/FREE_SHIP*100)+'%';
+  }
+  $('cart-items').innerHTML=cart.map(it=>{
+    const cc=CAT_CFG[it.cat]||{};
+    const th=it.img?'<img src="'+it.img+'" onerror="this.remove()"/>':'';
+    return '<div class="cart-item"><div class="cart-item-thumb" style="background:'+cc.grad+'">'+it.abbr+th+'</div><div class="cart-item-info"><div class="cart-item-name">'+it.name+'</div><div class="cart-item-brand">'+it.brand+'</div><div class="cart-item-actions"><button class="qty-btn" data-dec="'+it.id+'">−</button><span class="qty-num">'+it.qty+'</span><button class="qty-btn" data-inc="'+it.id+'">+</button><button class="btn-remove" data-rem="'+it.id+'">✕</button></div></div><div class="cart-item-price">'+fmt(it.price*it.qty)+'</div></div>';
+  }).join('');
+  $('cart-items').querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click',()=>changeQty(+b.dataset.dec,-1)));
+  $('cart-items').querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>changeQty(+b.dataset.inc,1)));
+  $('cart-items').querySelectorAll('[data-rem]').forEach(b=>b.addEventListener('click',()=>removeFromCart(+b.dataset.rem)));
+  $('cart-subtotal').textContent=fmt(total);
+  $('cart-ship').textContent=cart.length?(total>=FREE_SHIP?'FREE':'At checkout'):'—';
+  $('cart-total').textContent=fmt(total);
+  $('btn-wa-cart').href=waCartLink();
+}
+function waCartLink(){
+  if(!cart.length)return 'https://wa.me/'+WA_NUMBER;
+  let msg='Hi Novu Peptides! I\'d like to order:%0A%0A';
+  cart.forEach(it=>{msg+='• '+it.name+' ('+it.brand+') × '+it.qty+' — '+fmt(it.price*it.qty)+'%0A';});
+  msg+='%0ATotal: '+fmt(cartTotal());
+  return 'https://wa.me/'+WA_NUMBER+'?text='+msg.replace(/ /g,'%20');
+}
+function openDrawer(which){renderCartItems();renderWishItems();$(which+'-overlay').classList.add('open');$(which+'-drawer').classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(which){$(which+'-overlay').classList.remove('open');$(which+'-drawer').classList.remove('open');document.body.style.overflow='';}
+
+/* ═══ PRODUCT MODAL ═══ */
+function openModal(p){
+  currentProduct=p;modalQty=1;$('qty-val').textContent='1';
+  pushRecent(p.id);
+  const bc=BRAND_CFG[p.brand]||{color:'#64748b',light:'#f1f5f9'};
+  const cc=CAT_CFG[p.cat]||{grad:'linear-gradient(135deg,#1e293b,#334155)'};
+  const mv=$('modal-visual');
+  mv.style.background=cc.grad;
+  mv.querySelectorAll('.modal-img').forEach(i=>i.remove());
+  $('modal-abbr').textContent=p.abbr||p.name.split(' ')[0];
+  if(p.img){const im=document.createElement('img');im.className='modal-img';im.src=p.img;im.alt=p.name;im.onerror=()=>im.remove();mv.insertBefore(im,mv.querySelector('.modal-wish'));}
+  $('modal-brand').textContent=p.brand;$('modal-brand').style.background=bc.light;$('modal-brand').style.color=bc.color;
+  $('modal-name').textContent=p.name;$('modal-form').textContent=p.form+' · '+(CAT_CFG[p.cat]?CAT_CFG[p.cat].label:'');
+  $('modal-price').innerHTML='<span class="cur">AED </span>'+p.price.toLocaleString();
+  $('modal-tags').innerHTML=(p.tags||[]).map(t=>'<span class="tag-chip">'+t+'</span>').join('');
+  const wb=$('modal-wish-btn');wb.textContent=wishlist.has(p.id)?'♥':'♡';wb.classList.toggle('on',wishlist.has(p.id));
+  const inCart=cart.some(c=>c.id===p.id);
+  const ab=$('modal-add-btn');ab.textContent=inCart?'✓ In Cart — Add More':'Add to Cart';
+  const rel=PRODUCTS.filter(x=>x.cat===p.cat&&x.id!==p.id).sort((a,b)=>(b.img?1:0)-(a.img?1:0)).slice(0,4);
+  $('related-wrap').style.display=rel.length?'block':'none';
+  $('related-grid').innerHTML=rel.map(r=>{
+    const rcc=CAT_CFG[r.cat]||{};
+    const ri=r.img?'<img src="'+r.img+'" onerror="this.remove()"/>':'';
+    return '<div class="rel-card" data-rel="'+r.id+'"><div class="rel-vis" style="background:'+rcc.grad+'"><span class="ra">'+r.abbr+'</span>'+ri+'</div><div class="rn">'+r.name+'</div><div class="rp">'+fmt(r.price)+'</div></div>';
+  }).join('');
+  $('related-grid').querySelectorAll('[data-rel]').forEach(c=>c.addEventListener('click',()=>openModal(byId(+c.dataset.rel))));
+  $('modal-overlay').classList.add('open');document.body.style.overflow='hidden';
+  if($('view-shop').classList.contains('active'))renderRecents();
+}
+function closeModal(){$('modal-overlay').classList.remove('open');document.body.style.overflow='';currentProduct=null;}
+
+/* ═══ CHECKOUT ═══ */
+function openCheckout(){
+  if(!cart.length)return;
+  closeDrawer('cart');
+  $('checkout-summary').innerHTML=cart.map(it=>'<div class="summary-item"><span>'+it.name+' × '+it.qty+'</span><span>'+fmt(it.price*it.qty)+'</span></div>').join('');
+  $('checkout-total').textContent=fmt(cartTotal());
+  $('checkout-overlay').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeCheckout(){$('checkout-overlay').classList.remove('open');document.body.style.overflow='';}
+function placeOrder(e){
+  e.preventDefault();
+  const order={id:'NP-'+Date.now(),timestamp:new Date().toISOString(),customer:{name:$('cust-name').value,phone:$('cust-phone').value,email:$('cust-email').value,address:$('cust-address').value,emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value},items:cart.map(c=>({id:c.id,name:c.name,brand:c.brand,qty:c.qty,price:c.price})),total:cartTotal(),currency:'AED'};
+  console.log('📦 New Order:',order);
+  cart=[];saveCart();updateBadges();renderCartItems();
+  e.target.reset();closeCheckout();
+  $('success-overlay').classList.add('open');document.body.style.overflow='hidden';
+}
+
+/* ═══ MISC ═══ */
+function showToast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2400);}
+function closeAll(){closeModal();closeDrawer('cart');closeDrawer('wish');closeCheckout();$('success-overlay').classList.remove('open');$('article-overlay').classList.remove('open');$('sidebar').classList.remove('mobile-open');document.body.style.overflow='';}
+function clearFilters(){
+  activeCat='all';activeBrands.clear();sortMode='default';searchQ='';
+  $('search-input').value='';$('sort-select').value='default';
+  $('area-title').textContent='All Products';
+  renderCatNav();renderBrandFilters();renderProducts();
+}
+
+/* ═══ INIT ═══ */
+function init(){
+  renderHome();renderLearn();renderFaq();updateBadges();
+  /* search */
+  let deb;$('search-input').addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>{searchQ=$('search-input').value.trim();if(!$('view-shop').classList.contains('active')&&searchQ)go('shop');else renderProducts();},250);});
+  $('sort-select').addEventListener('change',e=>{sortMode=e.target.value;renderProducts();});
+  /* header */
+  $('btn-cart').addEventListener('click',()=>openDrawer('cart'));
+  $('btn-wishlist').addEventListener('click',()=>openDrawer('wish'));
+  $('hamburger').addEventListener('click',()=>$('mobile-menu').classList.toggle('open'));
+  /* drawers */
+  $('cart-overlay').addEventListener('click',()=>closeDrawer('cart'));
+  $('btn-close-cart').addEventListener('click',()=>closeDrawer('cart'));
+  $('wish-overlay').addEventListener('click',()=>closeDrawer('wish'));
+  $('btn-close-wish').addEventListener('click',()=>closeDrawer('wish'));
+  /* modal */
+  $('modal-overlay').addEventListener('click',e=>{if(e.target===$('modal-overlay'))closeModal();});
+  $('modal-close-btn').addEventListener('click',closeModal);
+  $('modal-wish-btn').addEventListener('click',()=>{if(currentProduct){toggleWish(currentProduct.id);const wb=$('modal-wish-btn');wb.textContent=wishlist.has(currentProduct.id)?'♥':'♡';wb.classList.toggle('on',wishlist.has(currentProduct.id));}});
+  $('qty-inc').addEventListener('click',()=>{modalQty=Math.min(99,modalQty+1);$('qty-val').textContent=modalQty;});
+  $('qty-dec').addEventListener('click',()=>{modalQty=Math.max(1,modalQty-1);$('qty-val').textContent=modalQty;});
+  $('modal-add-btn').addEventListener('click',()=>{if(currentProduct){addToCart(currentProduct,modalQty);$('modal-add-btn').textContent='✓ Added!';setTimeout(()=>{if(currentProduct)$('modal-add-btn').textContent='✓ In Cart — Add More';},900);}});
+  /* checkout */
+  $('btn-checkout').addEventListener('click',openCheckout);
+  $('btn-close-checkout').addEventListener('click',closeCheckout);
+  $('checkout-overlay').addEventListener('click',e=>{if(e.target===$('checkout-overlay'))closeCheckout();});
+  $('checkout-form').addEventListener('submit',placeOrder);
+  $('btn-continue').addEventListener('click',()=>{$('success-overlay').classList.remove('open');document.body.style.overflow='';});
+  /* article */
+  $('btn-close-article').addEventListener('click',()=>{$('article-overlay').classList.remove('open');document.body.style.overflow='';});
+  $('article-overlay').addEventListener('click',e=>{if(e.target===$('article-overlay')){$('article-overlay').classList.remove('open');document.body.style.overflow='';}});
+  /* filters */
+  $('btn-clear-filters').addEventListener('click',clearFilters);
+  $('btn-mobile-filters').addEventListener('click',()=>$('sidebar').classList.add('mobile-open'));
+  $('sidebar-close').addEventListener('click',()=>$('sidebar').classList.remove('mobile-open'));
+  /* forms */
+  $('nl-form').addEventListener('submit',e=>{e.preventDefault();e.target.reset();showToast('✓ Subscribed! Welcome to the list.');});
+  $('contact-form').addEventListener('submit',e=>{e.preventDefault();e.target.reset();showToast('✓ Message sent — we\'ll reply on WhatsApp shortly.');});
+  /* keyboard + scroll */
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+  const bt=$('back-top');
+  window.addEventListener('scroll',()=>bt.classList.toggle('show',window.scrollY>600),{passive:true});
+  bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  /* reveal animations */
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  routeFromHash();
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
 </body>
 </html>
