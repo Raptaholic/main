@@ -1015,7 +1015,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
   <div class="auth-modal">
     <button class="auth-close" id="btn-close-signin">&#x2715;</button>
     <h2>Welcome back</h2>
-    <p class="auth-subtitle">New here? <a id="switch-to-signup">Create a free account</a> and get 10% off every order.</p>
+    <p class="auth-subtitle">New here? <a id="switch-to-signup">Create a free account</a> and get 10% off your first order.</p>
     <form id="signin-form" autocomplete="on">
       <div class="auth-field">
         <label>Email Address</label>
@@ -1038,7 +1038,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
   <div class="auth-modal">
     <button class="auth-close" id="btn-close-signup">&#x2715;</button>
     <h2>Create your account</h2>
-    <p class="auth-subtitle">Get 10% off every order. Already have one? <a id="switch-to-signin">Sign in</a>.</p>
+    <p class="auth-subtitle">Get 10% off your first order. Already have one? <a id="switch-to-signin">Sign in</a>.</p>
     <form id="signup-form" autocomplete="on">
       <div class="auth-field">
         <label>Full Name</label>
@@ -2045,23 +2045,34 @@ let currentUser = loadSession();
 
 function getDiscountRate(){
   if(!currentUser)return 0;
-  /* check if user has a pending referral bonus */
+  /* referral bonus takes priority over the first-order discount */
   const refs=loadReferrals();
   if(refs[currentUser.email]&&refs[currentUser.email].pendingDiscount)return 0.30;
-  return 0.10;
+  const users=loadUsers();
+  const u=users[currentUser.email];
+  if(u&&!u.firstOrderUsed)return 0.10;
+  return 0;
 }
 function getDiscountLabel(){
   const r=getDiscountRate();
   if(r===0.30)return '30% Referral Bonus';
-  if(r===0.10)return '10% Member Discount';
+  if(r===0.10)return '10% First Order Discount';
   return '';
 }
-function consumeReferralBonus(){
+function consumeDiscount(rate){
   if(!currentUser)return;
-  const refs=loadReferrals();
-  if(refs[currentUser.email]&&refs[currentUser.email].pendingDiscount){
-    refs[currentUser.email].pendingDiscount=false;
-    saveReferrals(refs);
+  if(rate===0.30){
+    const refs=loadReferrals();
+    if(refs[currentUser.email]&&refs[currentUser.email].pendingDiscount){
+      refs[currentUser.email].pendingDiscount=false;
+      saveReferrals(refs);
+    }
+  }else if(rate===0.10){
+    const users=loadUsers();
+    if(users[currentUser.email]){
+      users[currentUser.email].firstOrderUsed=true;
+      saveUsers(users);
+    }
   }
 }
 
@@ -2129,7 +2140,8 @@ async function handleSignin(e){
   currentUser={email,name:user.name,refCode:user.refCode};
   saveSession(currentUser);
   closeSignin();updateAuthUI();
-  showToast('Welcome back, '+user.name.split(' ')[0]+'! Your discount is active.');
+  const wbDisc=getDiscountLabel();
+  showToast('Welcome back, '+user.name.split(' ')[0]+'!'+(wbDisc?' '+wbDisc+' active.':''));
   btn.disabled=false;btn.textContent='Sign In';
 }
 
@@ -2170,12 +2182,12 @@ async function handleSignup(e){
   const existing=Object.values(users).map(u=>u.refCode);
   let finalCode=refCode;let tries=0;
   while(existing.includes(finalCode)&&tries<10){finalCode=genRefCode();tries++;}
-  users[email]={name,hash,salt,refCode:finalCode,joinedAt:new Date().toISOString()};
+  users[email]={name,hash,salt,refCode:finalCode,firstOrderUsed:false,joinedAt:new Date().toISOString()};
   saveUsers(users);
   currentUser={email,name,refCode:finalCode};
   saveSession(currentUser);
   closeSignup();updateAuthUI();
-  showToast('Account created! Welcome to Novu Peptides, '+name.split(' ')[0]+'. 10% discount applied.');
+  showToast('Account created! Welcome to Novu Peptides, '+name.split(' ')[0]+'. 10% off your first order.');
   btn.disabled=false;btn.textContent='Create Account & Get 10% Off';
 }
 
@@ -2183,8 +2195,8 @@ async function handleSignup(e){
 function renderCartItemsWithDiscount(){
   renderCartItems();
   const total=cartTotal();
-  if(currentUser&&total>0){
-    const rate=getDiscountRate();
+  const rate=currentUser?getDiscountRate():0;
+  if(rate>0&&total>0){
     const disc=Math.round(total*rate);
     const subtotalEl=$('cart-subtotal');
     const shipEl=$('cart-ship');
@@ -2234,7 +2246,7 @@ function placeOrderWithDiscount(e){
   const disc=Math.round(total*rate);
   const order={id:'NP-'+Date.now(),timestamp:new Date().toISOString(),customer:{name:$('cust-name').value,phone:$('cust-phone').value,email:$('cust-email').value,address:$('cust-address').value,emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value,accountEmail:currentUser?currentUser.email:null},items:cart.map(c=>({id:c.id,name:c.name,brand:c.brand,qty:c.qty,price:c.price})),subtotal:total,discount:disc,discountLabel:getDiscountLabel(),delivery:30,total:total+30-disc,currency:'AED'};
   console.log('New Order:',order);
-  if(disc>0)consumeReferralBonus();
+  if(disc>0)consumeDiscount(rate);
   cart=[];saveCart();updateBadges();renderCartItems();
   e.target.reset();closeCheckout();
   $('success-overlay').classList.add('open');document.body.style.overflow='hidden';
