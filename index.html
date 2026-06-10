@@ -2095,8 +2095,8 @@ function init(){
    2. Run supabase-setup.sql in the SQL editor (see BACKEND-SETUP.md)
    3. Paste your Project URL and anon public key below
    Leave both empty to run in local (single-browser) demo mode. */
-const SB_URL='';
-const SB_KEY='';
+const SB_URL='https://ndoccmonyfmudxviymyv.supabase.co';
+const SB_KEY='sb_publishable_f7mHPMVDgqbK1x67kohNLg_yBxQ9NLj';
 const sb=(SB_URL&&SB_KEY&&window.supabase)?window.supabase.createClient(SB_URL,SB_KEY):null;
 function sbRowToOrder(r){return {id:r.id,timestamp:r.created_at,status:r.status,processingEndsAt:r.processing_ends_at?new Date(r.processing_ends_at).getTime():0,deliveryEstimate:r.delivery_estimate,confirmedBy:r.confirmed_by,confirmedAt:r.confirmed_at,customer:r.customer||{},items:r.items||[],subtotal:r.subtotal,discount:r.discount,discountLabel:r.discount_label||'',delivery:r.delivery,total:r.total,currency:'AED'};}
 async function sbAfterLogin(session){
