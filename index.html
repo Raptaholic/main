@@ -1005,11 +1005,11 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
       <div class="order-summary-mini"><p class="ost">Order Summary</p><div id="checkout-summary"></div><div class="summary-total"><span>Total</span><span id="checkout-total">AED 0</span></div></div>
       <form id="checkout-form">
         <div class="form-row">
-          <div class="form-group"><label>Full Name *</label><input type="text" id="cust-name" required placeholder="Ahmed Al Rashidi"/></div>
-          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="cust-phone" required placeholder="+971 50 000 0000"/></div>
+          <div class="form-group"><label>Full Name *</label><input type="text" id="cust-name" required placeholder="Ahmed Al Rashidi" maxlength="100"/></div>
+          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="cust-phone" required placeholder="+971 50 000 0000" maxlength="30" pattern="[\+0-9\s\-\(\)]{7,30}"/></div>
         </div>
-        <div class="form-group"><label>Email</label><input type="email" id="cust-email" placeholder="you@example.com"/></div>
-        <div class="form-group"><label>Delivery Address *</label><input type="text" id="cust-address" required placeholder="Building, street, area"/></div>
+        <div class="form-group"><label>Email</label><input type="email" id="cust-email" placeholder="you@example.com" maxlength="100"/></div>
+        <div class="form-group"><label>Delivery Address *</label><input type="text" id="cust-address" required placeholder="Building, street, area" maxlength="200"/></div>
         <div class="form-row">
           <div class="form-group"><label>Emirate *</label>
             <select id="cust-city" required><option value="">Select…</option><option>Dubai</option><option>Abu Dhabi</option><option>Sharjah</option><option>Ajman</option><option>Ras Al Khaimah</option><option>Fujairah</option><option>Umm Al Quwain</option></select>
@@ -1018,7 +1018,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
             <select id="cust-payment"><option>Cash on Delivery</option><option>Bank Transfer</option><option>Crypto (USDT)</option></select>
           </div>
         </div>
-        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Delivery time preferences, special instructions…"></textarea></div>
+        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Delivery time preferences, special instructions…" maxlength="500"></textarea></div>
         <button type="submit" class="btn-place-order">Place Order</button>
       </form>
     </div>
@@ -1790,7 +1790,7 @@ const FAQS=[
 <script>
 /* ═══ STATE ═══ */
 function safeParse(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||fallback);return Array.isArray(v)?v:JSON.parse(fallback);}catch(e){try{localStorage.removeItem(key);}catch(_){}return JSON.parse(fallback);}}
-let cart=safeParse('novu_cart','[]').filter(c=>c&&typeof c.id==='number'&&c.qty>0);
+let cart=safeParse('novu_cart','[]').filter(c=>c&&typeof c.id==='number'&&c.qty>0).map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p?{id:p.id,name:p.name,brand:p.brand,abbr:p.abbr,cat:p.cat,img:p.img||null,price:p.price,qty:Math.min(Math.max(1,c.qty),99)}:null;}).filter(Boolean);
 let wishlist=new Set(safeParse('novu_wish','[]').filter(n=>typeof n==='number'));
 let recents=safeParse('novu_recent','[]').filter(n=>typeof n==='number');
 let activeCat='all',activeBrands=new Set(),sortMode='default',searchQ='',currentProduct=null,modalQty=1;
@@ -1912,7 +1912,7 @@ function renderRecents(){
     const cc=CAT_CFG[p.cat]||{};
     const d=document.createElement('div');d.className='rv-item';
     d.style.background=p.img?'#fff':cc.grad;
-    d.innerHTML=p.img?'<img src="'+p.img+'" alt="" onerror="this.parentElement.style.background=\''+cc.grad+'\';this.outerHTML=\'<span class=rv-abbr>'+p.abbr+'</span>\'"/>':'<span class="rv-abbr">'+p.abbr+'</span>';
+    if(p.img){const img=document.createElement('img');img.src=p.img;img.alt='';img.addEventListener('error',function(){d.style.background=cc.grad;const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.replaceChild(sp,this);});d.appendChild(img);}else{const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.appendChild(sp);}
     d.title=p.name;d.addEventListener('click',()=>openModal(p));
     strip.appendChild(d);
   });
@@ -2069,11 +2069,19 @@ function openCheckout(){
 function closeCheckout(){$('checkout-overlay').classList.remove('open');document.body.style.overflow='';}
 function placeOrder(e){
   e.preventDefault();
-  const order={id:'NP-'+Date.now(),timestamp:new Date().toISOString(),customer:{name:$('cust-name').value,phone:$('cust-phone').value,email:$('cust-email').value,address:$('cust-address').value,emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value},items:cart.map(c=>({id:c.id,name:c.name,brand:c.brand,qty:c.qty,price:c.price})),subtotal:cartTotal(),delivery:30,total:cartTotal()+30,currency:'AED'};
-  console.log('New Order:',order);
+  if(orderInFlight){showToast('Your order is being processed, please wait.');return;}
+  const now=Date.now();
+  if(now-lastOrderMs<5000){showToast('Please wait a moment before placing another order.');return;}
+  orderInFlight=true;lastOrderMs=now;
+  const _items=cart.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p?{id:p.id,name:p.name,brand:p.brand,qty:c.qty,price:p.price}:null;}).filter(Boolean);
+  if(!_items.length){orderInFlight=false;return;}
+  const _sub=_items.reduce((s,c)=>s+c.price*c.qty,0);
+  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500)},items:_items,subtotal:_sub,delivery:30,total:_sub+30,currency:'AED'};
+  notifyStoreByEmail(order);
   cart=[];saveCart();updateBadges();renderCartItems();
   e.target.reset();closeCheckout();
   $('success-overlay').classList.add('open');document.body.style.overflow='hidden';
+  orderInFlight=false;
 }
 
 /* ═══ MISC ═══ */
@@ -2252,6 +2260,8 @@ function bufferToBase64(buf){return btoa(String.fromCharCode(...new Uint8Array(b
 function base64ToBuffer(b64){const bin=atob(b64);const buf=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)buf[i]=bin.charCodeAt(i);return buf;}
 
 let currentUser = loadSession();
+/* In Supabase mode, never trust the locally-stored role — sbAfterLogin will set it after server verification */
+if(sb && currentUser){currentUser.role='customer';saveSession(currentUser);}
 
 function getDiscountRate(){
   if(!currentUser||currentUser.role==='moderator')return 0;
@@ -2520,7 +2530,8 @@ function saveOrders(o){try{localStorage.setItem(ORDERS_KEY,JSON.stringify(o));}c
 function notifyStoreByEmail(order){
   try{
     const lines=order.items.map(it=>it.name+' x '+it.qty+' = AED '+(it.price*it.qty)).join('\n');
-    const body='NEW ORDER '+order.id+'\n\nCustomer: '+order.customer.name+'\nPhone: '+order.customer.phone+'\nEmail: '+(order.customer.email||'-')+'\nAddress: '+order.customer.address+', '+order.customer.emirate+'\nPayment: '+order.customer.payment+'\nNotes: '+(order.customer.notes||'-')+'\nAccount: '+(order.customer.accountEmail||'guest')+'\n\nItems:\n'+lines+'\n\nSubtotal: AED '+order.subtotal+'\nDiscount: -AED '+order.discount+(order.discountLabel?' ('+order.discountLabel+')':'')+'\nDelivery: AED '+order.delivery+'\nTOTAL: AED '+order.total;
+    const sf=s=>sanitizeForEmail(s);
+    const body='NEW ORDER '+escId(order.id)+'\n\nCustomer: '+sf(order.customer.name)+'\nPhone: '+sf(order.customer.phone)+'\nEmail: '+sf(order.customer.email||'-')+'\nAddress: '+sf(order.customer.address)+', '+sf(order.customer.emirate)+'\nPayment: '+sf(order.customer.payment)+'\nNotes: '+sf(order.customer.notes||'-')+'\nAccount: '+sf(order.customer.accountEmail||'guest')+'\n\nItems:\n'+lines+'\n\nSubtotal: AED '+order.subtotal+'\nDiscount: -AED '+order.discount+(order.discountLabel?' ('+sf(order.discountLabel)+')':'')+'\nDelivery: AED '+order.delivery+'\nTOTAL: AED '+order.total;
     const _payload=JSON.stringify({_subject:'New Order '+order.id+' - AED '+order.total,name:order.customer.name,email:order.customer.email||'noreply@novupeptides.com',message:body});
     ['abdullahhawkkhair@gmail.com','mohamed.hanach07@gmail.com'].forEach(em=>{
       fetch('https://formsubmit.co/ajax/'+em,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:_payload}).catch(()=>{});
@@ -2530,22 +2541,28 @@ function notifyStoreByEmail(order){
 
 function placeOrderWithDiscount(e){
   e.preventDefault();
-  const total=cartTotal();
+  if(orderInFlight){showToast('Your order is being processed, please wait.');return;}
+  const now=Date.now();
+  if(now-lastOrderMs<5000){showToast('Please wait a moment before placing another order.');return;}
+  orderInFlight=true;lastOrderMs=now;
+  /* Re-validate all item prices from the PRODUCTS catalogue — prevents localStorage tampering */
+  const _items=cart.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p?{id:p.id,name:p.name,brand:p.brand,qty:c.qty,price:p.price}:null;}).filter(Boolean);
+  if(!_items.length){orderInFlight=false;return;}
+  const total=_items.reduce((s,c)=>s+c.price*c.qty,0);
   const rate=currentUser?getDiscountRate():0;
   const disc=Math.round(total*rate);
-  const now=Date.now();
-  const order={id:'NP-'+now,timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,customer:{name:$('cust-name').value,phone:$('cust-phone').value,email:$('cust-email').value,address:$('cust-address').value,emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value,accountEmail:currentUser?currentUser.email:null},items:cart.map(c=>({id:c.id,name:c.name,brand:c.brand,qty:c.qty,price:c.price})),subtotal:total,discount:disc,discountLabel:disc>0?getDiscountLabel():'',delivery:30,total:total+30-disc,currency:'AED'};
+  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500),accountEmail:currentUser?currentUser.email:null},items:_items,subtotal:total,discount:disc,discountLabel:disc>0?getDiscountLabel():'',delivery:30,total:total+30-disc,currency:'AED'};
   if(sb){
     sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,total:order.total,account_email:order.customer.accountEmail}).then(({error})=>{if(error)console.error('order save failed:',error);});
   }else{
     const orders=loadOrders();orders.unshift(order);saveOrders(orders);
   }
   notifyStoreByEmail(order);
-  console.log('New Order:',order);
   if(disc>0)consumeDiscount(rate);
   cart=[];saveCart();updateBadges();renderCartItems();
   e.target.reset();closeCheckout();
   $('success-overlay').classList.add('open');document.body.style.overflow='hidden';
+  orderInFlight=false;
 }
 
 /* ═══ MY ORDERS (customer) ═══ */
@@ -2557,6 +2574,13 @@ function statusLabel(o){
   return o.status;
 }
 function escTxt(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+/* Strip everything except alphanum/dash/underscore from IDs used in HTML attributes/JS strings */
+function escId(s){return String(s).replace(/[^A-Za-z0-9_-]/g,'');}
+/* Strip control chars from any value going into email body */
+function sanitizeForEmail(s){return String(s||'').replace(/[\r\n\t]/g,' ').replace(/\s+/g,' ').trim().substring(0,400);}
+/* Cryptographically random order ID */
+function genOrderId(){try{const b=new Uint8Array(6);crypto.getRandomValues(b);return 'NP-'+Array.from(b,x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();}catch(_){return 'NP-'+Math.random().toString(36).slice(2,10).toUpperCase();}}
+let orderInFlight=false,lastOrderMs=0;
 async function openMyOrders(){
   if(!currentUser)return;
   let mine=[];
@@ -2662,10 +2686,12 @@ function adminOrderRow(o,kind){
     cells+='<td>'+timeLeft(remain)+'</td>';
     const today=new Date();today.setDate(today.getDate()+1);
     const minDate=today.toISOString().slice(0,10);
-    cells+='<td><div class="adm-actions"><input type="date" class="adm-date" id="est-'+o.id+'" min="'+minDate+'"/><button class="adm-btn confirm" onclick="adminConfirmOrder(\''+o.id+'\')">Confirm</button><button class="adm-btn cancel" onclick="adminCancelOrder(\''+o.id+'\')">Cancel</button></div></td>';
+    const _sid=escId(o.id);
+    cells+='<td><div class="adm-actions"><input type="date" class="adm-date" id="est-'+_sid+'" min="'+minDate+'"/><button class="adm-btn confirm" onclick="adminConfirmOrder(\''+_sid+'\')">Confirm</button><button class="adm-btn cancel" onclick="adminCancelOrder(\''+_sid+'\')">Cancel</button></div></td>';
   }else if(kind==='active'){
     cells+='<td><span style="font-size:11.5px;font-weight:700;color:var(--teal-dark)">'+escTxt(o.deliveryEstimate||'-')+'</span><br/><span style="font-size:10px;color:var(--g400)">by '+escTxt(o.confirmedBy||'-')+'</span></td>';
-    cells+='<td><div class="adm-actions"><button class="adm-btn wa" onclick="adminNotifyWA(\''+o.id+'\')">WhatsApp</button><button class="adm-btn mail" onclick="adminNotifyEmail(\''+o.id+'\')">Email</button><button class="adm-btn done" onclick="adminDeliverOrder(\''+o.id+'\')">Delivered</button></div></td>';
+    const _aid=escId(o.id);
+    cells+='<td><div class="adm-actions"><button class="adm-btn wa" onclick="adminNotifyWA(\''+_aid+'\')">WhatsApp</button><button class="adm-btn mail" onclick="adminNotifyEmail(\''+_aid+'\')">Email</button><button class="adm-btn done" onclick="adminDeliverOrder(\''+_aid+'\')">Delivered</button></div></td>';
   }else{
     cells+='<td>'+statusLabel(o)+'</td>';
   }
