@@ -110,11 +110,28 @@ h1,h2,h3,.font-display{font-family:'Sora','Inter',sans-serif}
 .card-visual{height:172px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0}
 .card-visual .abbr-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .card-abbr{font-family:'Sora',sans-serif;font-size:clamp(18px,4vw,25px);font-weight:800;color:rgba(255,255,255,.22);letter-spacing:-1px;text-align:center;padding:0 8px;line-height:1.1;text-transform:uppercase;pointer-events:none;user-select:none}
-.card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:10px;z-index:2}
+.card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;background:#f8f8f8;z-index:2}
 .card-form-badge{position:absolute;bottom:8px;left:8px;background:rgba(5,23,33,.55);backdrop-filter:blur(5px);color:rgba(255,255,255,.9);font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;letter-spacing:.3px;z-index:3}
 .card-flag{position:absolute;top:10px;left:10px;z-index:4;font-size:9.5px;font-weight:800;letter-spacing:.8px;padding:4px 9px;border-radius:8px;text-transform:uppercase}
 .flag-new{background:var(--teal);color:#fff}
 .flag-hot{background:#ff5630;color:#fff}
+/* search autocomplete */
+.header-search{position:relative}
+#search-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--g200);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.12);max-height:320px;overflow-y:auto;z-index:600;display:none}
+.sug-item{padding:10px 16px;cursor:pointer;font-size:13px;color:var(--ink);border-bottom:1px solid var(--g100);display:flex;align-items:center;gap:8px;transition:background .12s}
+.sug-item:last-child{border-bottom:none}
+.sug-item:hover,.sug-item.focused{background:var(--g50)}
+.sug-name{font-weight:600;flex:1}
+.sug-brand{font-size:11px;color:var(--g400);white-space:nowrap}
+.sug-tag{font-size:10px;font-weight:700;color:var(--teal-dark);background:rgba(0,180,170,.1);padding:2px 7px;border-radius:6px;white-space:nowrap}
+/* compound browse */
+#compound-row{display:flex;flex-wrap:wrap;gap:8px;padding:20px 22px 0}
+.cpd-pill{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:20px;border:1.5px solid var(--g200);background:#fff;font-size:12.5px;font-weight:700;color:var(--navy);cursor:pointer;transition:all var(--tr);white-space:nowrap}
+.cpd-pill:hover,.cpd-pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+/* for-her / for-him strips */
+.gendered-section{padding:0 22px 32px}
+.gendered-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.gendered-sub{font-size:12.5px;color:var(--g400);margin-bottom:14px}
 .btn-wish{position:absolute;top:8px;right:8px;z-index:4;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--g400);transition:all var(--tr)}
 .btn-wish:hover{transform:scale(1.12);color:var(--red)}
 .btn-wish.on{color:var(--red)}
@@ -617,6 +634,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
   </nav>
   <div class="header-search">
     <input type="text" id="search-input" placeholder="Search 240+ products…" autocomplete="off"/>
+    <div id="search-suggestions" role="listbox" aria-label="Search suggestions"></div>
     <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
   </div>
   <div class="header-actions">
@@ -673,6 +691,32 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
       <a class="link-more" data-nav="shop">View all products →</a>
     </div>
     <div class="featured-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- COMPOUND BROWSE -->
+  <section class="section reveal" style="padding-bottom:12px">
+    <div class="sec-row">
+      <div><div class="sec-eyebrow">By active ingredient</div><h2>Browse by Compound</h2></div>
+    </div>
+    <div id="compound-row"></div>
+  </section>
+
+  <!-- FOR HER -->
+  <section class="section reveal" id="sec-her">
+    <div class="sec-row">
+      <div><div class="sec-eyebrow">Designed for women</div><h2 style="color:var(--teal-dark)">For Her</h2></div>
+      <a class="link-more" data-nav="shop">See all →</a>
+    </div>
+    <div class="rv-strip" id="her-strip"></div>
+  </section>
+
+  <!-- FOR HIM -->
+  <section class="section reveal" id="sec-him">
+    <div class="sec-row">
+      <div><div class="sec-eyebrow">Designed for men</div><h2>For Him</h2></div>
+      <a class="link-more" data-nav="shop">See all →</a>
+    </div>
+    <div class="rv-strip" id="him-strip"></div>
   </section>
 
   <section class="section reveal">
@@ -1475,15 +1519,15 @@ const PRODUCTS=[
 {id:263,name:'Biolab PT-141 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'PT-141',price:p(235),tags:['pt141','libido','bremelanotide'],img:WI('5.45.08'),hot:1},
 {id:264,name:'Cambridge PT-141 30mg',brand:'Cambridge Research',cat:'peptides',form:'30mg Vial',abbr:'PT-141',price:p(350),tags:['pt141','libido','bremelanotide'],img:WI('5.45.34')},
 /* ── IPAMORELIN (vendor stock) ── */
-{id:265,name:'Biolab Ipamorelin 2mg',brand:'Biolab',cat:'peptides',form:'2mg Vial',abbr:'IPA',price:p(150),tags:['ipamorelin','ghrp','gh release'],img:WI('4.20.41')},
-{id:266,name:'Biolab Ipamorelin+MOD GRF(1-29)',brand:'Biolab',cat:'peptides',form:'3mg+3mg Kit',abbr:'IPA+CJC',price:p(240),tags:['ipamorelin','mod grf','cjc1295','combo'],img:WI('4.20.30')},
-{id:267,name:'Genovare Tesamorelin+Ipa+CJC Pen',brand:'Genovare',cat:'peptides',form:'Combo Pen',abbr:'TESA+IPA',price:p(490),tags:['tesamorelin','ipamorelin','cjc1295','pen','combo'],img:WI('4.20.09')},
+{id:265,name:'Biolab Ipamorelin 2mg',brand:'Biolab',cat:'peptides',form:'2mg Vial',abbr:'IPA',price:p(150),tags:['ipamorelin','ghrp','gh release'],img:WI('5.43.41')},
+{id:266,name:'Biolab Ipamorelin+MOD GRF(1-29)',brand:'Biolab',cat:'peptides',form:'3mg+3mg Kit',abbr:'IPA+CJC',price:p(240),tags:['ipamorelin','mod grf','cjc1295','combo'],img:WI('5.43.11')},
+{id:267,name:'Genovare Tesamorelin+Ipa+CJC Pen',brand:'Genovare',cat:'peptides',form:'Combo Pen',abbr:'TESA+IPA',price:p(490),tags:['tesamorelin','ipamorelin','cjc1295','pen','combo'],img:WI('5.42.45')},
 /* ── CJC-1295 (vendor stock) ── */
 {id:268,name:'CJCtech CJC-1295 No DAC 2mg',brand:'CJCtech',cat:'peptides',form:'2mg Vial',abbr:'CJC',price:p(500),tags:['cjc1295','ghrh','no dac'],img:WI('5.41.28')},
 {id:269,name:'Cambridge CJC-1295 No DAC',brand:'Cambridge Research',cat:'peptides',form:'2mg Vial',abbr:'CJC',price:p(600),tags:['cjc1295','ghrh','no dac'],img:WI('4.19.26')},
-{id:270,name:'Nomad Lab CJC-1295',brand:'Nomad Lab',cat:'peptides',form:'Vial',abbr:'CJC',price:p(600),tags:['cjc1295','ghrh'],img:WI('4.23.28')},
+{id:270,name:'Nomad Lab CJC-1295',brand:'Nomad Lab',cat:'peptides',form:'Vial',abbr:'CJC',price:p(600),tags:['cjc1295','ghrh'],img:WI('5.41.16')},
 {id:271,name:'Biolab CJC-1295 No DAC 5mg',brand:'Biolab',cat:'peptides',form:'5mg Vial',abbr:'CJC',price:p(180),tags:['cjc1295','ghrh','no dac'],img:WI('5.40.44')},
-{id:272,name:'Biolab CJC-1295 with DAC 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'CJC-DAC',price:p(330),tags:['cjc1295','dac','ghrh','long-acting'],img:WI('4.23.57')},
+{id:272,name:'Biolab CJC-1295 with DAC 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'CJC-DAC',price:p(330),tags:['cjc1295','dac','ghrh','long-acting'],img:WI('5.40.57')},
 {id:273,name:'DNA Pro CJC-1295+Ipa Pen 50mg',brand:'DNA Pro',cat:'peptides',form:'50mg Pen',abbr:'CJC+IPA',price:p(750),tags:['cjc1295','ipamorelin','combo','pen'],img:WI('4.22.50'),hot:1},
 /* ── TB-500 (vendor stock) ── */
 {id:274,name:'Cambridge TB-500 15mg',brand:'Cambridge Research',cat:'peptides',form:'15mg Vial',abbr:'TB-500',price:p(350),tags:['tb500','thymosin beta-4','healing'],img:WI('4.32.03')},
@@ -1505,7 +1549,22 @@ const PRODUCTS=[
 {id:285,name:'Biolab BPC-157 10mg',brand:'Biolab',cat:'peptides',form:'10mg Vial',abbr:'BPC-157',price:p(250),tags:['bpc157','healing','gut'],img:WI('4.21.10')},
 {id:286,name:'Peptide Sciences BPC-157 Acetyl 500mcg',brand:'Peptide Sciences',cat:'peptides',form:'500mcg Vial',abbr:'BPC-157',price:p(550),tags:['bpc157','acetyl','healing'],img:WI('4.20.55')},
 /* ── GLOW MIX (vendor stock) ── */
-{id:287,name:'ZPHC Glow Mix 60mg',brand:'ZPHC',cat:'peptides',form:'60mg Combo',abbr:'GLOW',price:p(315),tags:['bpc157','tb500','ghk-cu','combo','skin','anti-aging'],img:WI('4.25.09')}
+{id:287,name:'ZPHC Glow Mix 60mg',brand:'ZPHC',cat:'peptides',form:'60mg Combo',abbr:'GLOW',price:p(315),tags:['bpc157','tb500','ghk-cu','combo','skin','anti-aging'],img:WI('4.25.09')},
+/* ── BODY TECH ── */
+{id:288,name:'Body Tech Primo Depot 100mg/ml',brand:'Body Tech',cat:'injectables',form:'10x1ml Ampoules',abbr:'PRIMO',price:p(135),tags:['primobolan','methenolone','lean muscle'],img:WI('4.18.12')},
+/* ── GHK-Cu extras ── */
+{id:289,name:'DNA Pro GHK-Cu Pen 500mg',brand:'DNA Pro',cat:'peptides',form:'500mg/3ml Pen',abbr:'GHK-Cu',price:p(850),tags:['ghk-cu','skin','collagen','anti-aging','pen'],img:WI('4.25.35'),hot:1},
+{id:290,name:'Biolab Beauty GHK-Cu Intense Cream',brand:'Biolab',cat:'peptides',form:'15ml Face Cream',abbr:'GHK-Cu',price:p(320),tags:['ghk-cu','skin','face cream','dry skin','anti-aging'],img:WI('4.26.41'),hot:1},
+{id:291,name:'Biolab Beauty GHK-Cu Medium Cream',brand:'Biolab',cat:'peptides',form:'15ml Face Cream',abbr:'GHK-Cu',price:p(320),tags:['ghk-cu','skin','face cream','combination skin','anti-aging'],img:WI('4.27.10')},
+/* ── MK-677 extras ── */
+{id:292,name:'InSarm UNI-Yohimbine 5mg',brand:'InSarm Labs',cat:'fatloss',form:'60 Caps',abbr:'YOHIM',price:p(125),tags:['yohimbine','thermogenic','fat loss'],img:WI('5.38.19')},
+{id:293,name:'XSarm X-Tamoren MK-677',brand:'XSarm',cat:'sarms',form:'90 Caps',abbr:'MK-677',price:p(270),tags:['mk677','ibutamoren','gh secretagogue'],img:WI('5.38.42')},
+{id:294,name:'InSarm UNI-Tamoren MK-677 10mg',brand:'InSarm Labs',cat:'sarms',form:'60 Caps',abbr:'MK-677',price:p(160),tags:['mk677','ibutamoren','gh secretagogue'],img:WI('5.39.01')},
+/* ── NAD+ ── */
+{id:295,name:'NAD+ 500mg',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'NAD+',price:p(180),tags:['nad+','nad','energy','longevity','anti-aging']},
+{id:296,name:'NMN 250mg',brand:'Applied Nutrition',cat:'vitamins',form:'60 Caps',abbr:'NMN',price:p(220),tags:['nmn','nad+','nad','nicotinamide','longevity','energy']},
+/* ── ARGIRELINE (For Her) ── */
+{id:297,name:'Argireline Spray 10mg',brand:'Genovare',cat:'peptides',form:'10mg Nasal Spray',abbr:'ARGIR',price:p(380),tags:['argireline','anti-wrinkle','skin','topical','for-her']}
 ];
 
 /* ═══ PRODUCT DESCRIPTIONS ═══ */
@@ -1828,7 +1887,9 @@ window.addEventListener('hashchange',routeFromHash);
 /* ═══ FILTER & SORT ═══ */
 function filtered(){
   let list=PRODUCTS;
-  if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
+  if(activeCat==='for-her'){const H=['ghk-cu','semaglutide','aod9604','epithalon','pt141','nad','argireline','melanotan','skin','collagen','anti-aging'];list=PRODUCTS.filter(p=>p.tags&&p.tags.some(t=>H.some(h=>t.includes(h))));}
+  else if(activeCat==='for-him'){const H=['cjc1295','ipamorelin','mk677','tb500','bpc157','pt141','tirzepatide','semax','testosterone','trenbolone','ghrp','hcg'];list=PRODUCTS.filter(p=>p.tags&&p.tags.some(t=>H.some(h=>t.includes(h))));}
+  else if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
   if(activeBrands.size>0)list=list.filter(p=>activeBrands.has(p.brand));
   if(searchQ){const q=searchQ.toLowerCase();list=list.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||(p.tags||[]).some(t=>t.toLowerCase().includes(q))||(p.abbr||'').toLowerCase().includes(q));}
   if(sortMode==='price-asc')list=[...list].sort((a,b)=>a.price-b.price);
@@ -1879,18 +1940,20 @@ function renderProducts(){
 function renderCatNav(){
   const nav=$('cat-nav');
   const cats=[{id:'all',label:'All Products',icon:''},...Object.entries(CAT_CFG).map(([id,c])=>({id,label:c.label,icon:c.icon}))];
-  nav.innerHTML=cats.map(c=>'<button class="cat-btn '+(c.id===activeCat?'active':'')+'" data-cat="'+c.id+'"><span>'+c.label+'</span></button>').join('');
+  const special=[{id:'for-her',label:'For Her'},{id:'for-him',label:'For Him'}];
+  nav.innerHTML=[...special,...cats].map(c=>'<button class="cat-btn '+(c.id===activeCat?'active':'')+'" data-cat="'+c.id+'"><span>'+c.label+'</span></button>').join('');
   nav.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{
     activeCat=btn.dataset.cat;activeBrands.clear();
     nav.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
-    $('area-title').textContent=activeCat==='all'?'All Products':CAT_CFG[activeCat].label;
+    $('area-title').textContent=activeCat==='all'?'All Products':activeCat==='for-her'?'For Her':activeCat==='for-him'?'For Him':CAT_CFG[activeCat].label;
     history.replaceState(null,'','#shop'+(activeCat!=='all'?'/'+activeCat:''));
     renderBrandFilters();renderProducts();
   }));
 }
 function renderBrandFilters(){
   const c=$('brand-filter-list'),counts={};
-  (activeCat==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat)).forEach(p=>counts[p.brand]=(counts[p.brand]||0)+1);
+  const bfList=(activeCat==='all'||activeCat==='for-her'||activeCat==='for-him')?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
+  bfList.forEach(p=>counts[p.brand]=(counts[p.brand]||0)+1);
   const brands=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
   c.innerHTML=brands.map(b=>{
     const bc=BRAND_CFG[b]||{color:'#64748b'};
@@ -1935,6 +1998,34 @@ function renderHome(){
   const featured=PRODUCTS.filter(p=>p.img&&p.hot).concat(PRODUCTS.filter(p=>p.img&&!p.hot)).slice(0,8);
   const fg=$('featured-grid');fg.innerHTML='';
   featured.forEach(p=>{const card=document.createElement('div');card.className='product-card';card.innerHTML=cardHTML(p);bindCard(card,p);fg.appendChild(card);});
+  /* compound pills */
+  const COMPOUNDS=[
+    {name:'Tirzepatide',tag:'tirzepatide'},{name:'Semaglutide',tag:'semaglutide'},{name:'GHK-Cu',tag:'ghk-cu'},
+    {name:'Semax',tag:'semax'},{name:'PT-141',tag:'pt141'},{name:'CJC-1295',tag:'cjc1295'},
+    {name:'Ipamorelin',tag:'ipamorelin'},{name:'TB-500',tag:'tb500'},{name:'BPC-157',tag:'bpc157'},
+    {name:'MK-677',tag:'mk677'},{name:'AOD-9604',tag:'aod9604'},{name:'Epitalon',tag:'epithalon'},
+    {name:'Retatrutide',tag:'retatrutide'},{name:'GHRP-6',tag:'ghrp6'},{name:'NAD+',tag:'nad'},
+    {name:'Argireline',tag:'argireline'},{name:'HCG',tag:'hcg'},{name:'Primobolan',tag:'primobolan'},
+  ];
+  const cRow=$('compound-row');
+  if(cRow){
+    cRow.innerHTML=COMPOUNDS.map(c=>'<button class="cpd-pill" data-ctag="'+c.tag+'">'+c.name+'</button>').join('');
+    cRow.querySelectorAll('.cpd-pill').forEach(btn=>btn.addEventListener('click',()=>{
+      const t=btn.dataset.ctag;
+      activeCat='all';activeBrands.clear();searchQ=t;$('search-input').value=t;
+      go('shop');renderProducts();
+    }));
+  }
+  /* For Her */
+  const HER=['ghk-cu','semaglutide','aod9604','epithalon','pt141','nad','argireline','melanotan','skin','collagen','anti-aging'];
+  const herProds=PRODUCTS.filter(p=>p.tags&&p.tags.some(t=>HER.some(h=>t.includes(h)))).slice(0,12);
+  const herStrip=$('her-strip');
+  if(herStrip){herStrip.innerHTML='';herProds.forEach(p=>{const cc=CAT_CFG[p.cat]||{};const d=document.createElement('div');d.className='rv-item';d.style.background=p.img?'#fff':cc.grad;if(p.img){const img=document.createElement('img');img.src=p.img;img.alt='';img.addEventListener('error',function(){d.style.background=cc.grad;const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.replaceChild(sp,this);});d.appendChild(img);}else{const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.appendChild(sp);}d.title=p.name;d.addEventListener('click',()=>openModal(p));herStrip.appendChild(d);});}
+  /* For Him */
+  const HIM=['cjc1295','ipamorelin','mk677','tb500','bpc157','pt141','tirzepatide','semax','testosterone','trenbolone','ghrp','hcg'];
+  const himProds=PRODUCTS.filter(p=>p.tags&&p.tags.some(t=>HIM.some(h=>t.includes(h)))).slice(0,12);
+  const himStrip=$('him-strip');
+  if(himStrip){himStrip.innerHTML='';himProds.forEach(p=>{const cc=CAT_CFG[p.cat]||{};const d=document.createElement('div');d.className='rv-item';d.style.background=p.img?'#fff':cc.grad;if(p.img){const img=document.createElement('img');img.src=p.img;img.alt='';img.addEventListener('error',function(){d.style.background=cc.grad;const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.replaceChild(sp,this);});d.appendChild(img);}else{const sp=document.createElement('span');sp.className='rv-abbr';sp.textContent=p.abbr||'';d.appendChild(sp);}d.title=p.name;d.addEventListener('click',()=>openModal(p));himStrip.appendChild(d);});}
   $('footer-cats').innerHTML=Object.entries(CAT_CFG).slice(0,6).map(([id,c])=>'<li><a data-footcat="'+id+'">'+c.label+'</a></li>').join('');
   document.querySelectorAll('[data-footcat]').forEach(a=>a.addEventListener('click',()=>go('shop',a.dataset.footcat)));
   $('footer-brands').innerHTML=['ZPHC','Pharmacom Labs','Peptide Sciences','Applied Nutrition','Revive MD','Lawless Labs'].map(b=>'<li><a data-footbrand="'+b+'">'+b+'</a></li>').join('');
@@ -2099,7 +2190,33 @@ function safe(fn){try{fn();}catch(e){console.error('init step failed:',e);}}
 function init(){
   safe(renderHome);safe(renderLearn);safe(renderFaq);safe(updateBadges);
   /* search */
-  let deb;$('search-input').addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>{searchQ=$('search-input').value.trim();if(!$('view-shop').classList.contains('active')&&searchQ)go('shop');else renderProducts();},250);});
+  /* search with autocomplete */
+  const sugBox=$('search-suggestions');
+  function showSuggestions(q){
+    if(!sugBox)return;
+    const lq=(q||'').trim().toLowerCase();
+    if(lq.length<2){sugBox.style.display='none';return;}
+    const hits=PRODUCTS.filter(p=>{
+      const n=p.name.toLowerCase(),b=p.brand.toLowerCase(),a=(p.abbr||'').toLowerCase();
+      const tMatch=p.tags&&p.tags.some(t=>t.toLowerCase().includes(lq));
+      return n.includes(lq)||b.includes(lq)||a.includes(lq)||tMatch;
+    }).slice(0,9);
+    if(!hits.length){sugBox.style.display='none';return;}
+    sugBox.innerHTML=hits.map(p=>'<div class="sug-item" data-sugid="'+p.id+'"><span class="sug-name">'+escTxt(p.name)+'</span><span class="sug-brand">'+escTxt(p.brand)+'</span></div>').join('');
+    sugBox.style.display='block';
+    sugBox.querySelectorAll('.sug-item').forEach(el=>el.addEventListener('click',()=>{
+      const p=byId(+el.dataset.sugid);sugBox.style.display='none';$('search-input').value='';
+      if(p){if(!$('view-shop').classList.contains('active'))go('shop');openModal(p);}
+    }));
+  }
+  let deb;$('search-input').addEventListener('input',()=>{
+    const q=$('search-input').value;
+    showSuggestions(q);
+    clearTimeout(deb);deb=setTimeout(()=>{searchQ=q.trim();if(!$('view-shop').classList.contains('active')&&searchQ)go('shop');else renderProducts();},250);
+  });
+  document.addEventListener('click',e=>{if(sugBox&&!e.target.closest('.header-search'))sugBox.style.display='none';});
+  $('search-input').addEventListener('focus',()=>showSuggestions($('search-input').value));
+  $('search-input').addEventListener('keydown',e=>{if(e.key==='Escape'&&sugBox)sugBox.style.display='none';if(e.key==='Enter'&&sugBox)sugBox.style.display='none';});
   $('sort-select').addEventListener('change',e=>{sortMode=e.target.value;renderProducts();});
   /* header */
   /* cart button bound in initAuth() */
