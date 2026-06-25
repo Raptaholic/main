@@ -1154,9 +1154,9 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <p class="auth-subtitle">New here? <a id="switch-to-signup">Create a free account</a> and get 10% off your first order.</p>
     <form id="signin-form" autocomplete="on">
       <div class="auth-field">
-        <label>Email Address</label>
-        <input type="email" id="signin-email" placeholder="you@example.com" autocomplete="email" required/>
-        <div class="auth-err" id="signin-email-err">Please enter a valid email address.</div>
+        <label>Email or Full Name</label>
+        <input type="text" id="signin-email" placeholder="your@email.com or your full name" autocomplete="email" required/>
+        <div class="auth-err" id="signin-email-err">Please enter your email address or full name.</div>
       </div>
       <div class="auth-field">
         <label>Password</label>
@@ -1201,6 +1201,11 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
         <label>Password</label>
         <input type="password" id="signup-pass" placeholder="At least 8 characters" autocomplete="new-password" required minlength="8"/>
         <div class="auth-err" id="signup-pass-err">Password must be at least 8 characters.</div>
+      </div>
+      <div class="auth-field">
+        <label>Confirm Password</label>
+        <input type="password" id="signup-pass-confirm" placeholder="Repeat your password" autocomplete="new-password" required minlength="8"/>
+        <div class="auth-err" id="signup-pass-confirm-err">Passwords do not match.</div>
       </div>
       <div class="ref-note">Have a referral code? Enter it below to get your friend a 30% discount on their next order.</div>
       <div class="ref-input-row">
@@ -2188,6 +2193,7 @@ async function sbSignup(name,email,phone,pass,refInput){
     btn.disabled=false;btn.textContent='Create Account & Get 10% Off';return;
   }
   if(refInput){try{localStorage.setItem('novu_pending_ref',refInput);}catch(_){}}
+  $('signup-form').reset();
   closeSignup();
   if(!data.session){
     showToast('Account created! Check your email for a verification link, then sign in.');
@@ -2384,12 +2390,22 @@ function logoutUser(){
 /* ─── SIGN IN ─── */
 async function handleSignin(e){
   e.preventDefault();
-  const email=$('signin-email').value.trim().toLowerCase();
+  const ident=$('signin-email').value.trim();
   const pass=$('signin-pass').value;
   $('signin-email-err').classList.remove('show');
   $('signin-pass-err').classList.remove('show');
   $('signin-global-err').classList.remove('show');
-  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){$('signin-email-err').classList.add('show');return;}
+  if(!ident){$('signin-email-err').classList.add('show');return;}
+  /* resolve name → email if not in email format */
+  const isEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ident);
+  let email=isEmail?ident.toLowerCase():null;
+  if(!isEmail){
+    const users=loadUsers();
+    const lc=ident.toLowerCase();
+    const found=Object.entries(users).find(([,u])=>u.name&&u.name.toLowerCase()===lc);
+    if(found){email=found[0];}
+    else{$('signin-email-err').textContent='No account found for that name. Try signing in with your email.';$('signin-email-err').classList.add('show');return;}
+  }
   if(sb)return sbSignin(email,pass);
   const btn=$('signin-submit');btn.disabled=true;btn.textContent='Signing in...';
   const users=loadUsers();
@@ -2399,6 +2415,7 @@ async function handleSignin(e){
   if(hash!==user.hash){$('signin-pass-err').textContent='Incorrect password.';$('signin-pass-err').classList.add('show');btn.disabled=false;btn.textContent='Sign In';return;}
   currentUser={email,name:user.name,refCode:user.refCode,role:user.role||'customer',phone:user.phone||''};
   saveSession(currentUser);
+  $('signin-form').reset();
   closeSignin();updateAuthUI();
   if(currentUser.role==='moderator'){
     showToast('Welcome back, '+user.name.split(' ')[0]+'. Opening your dashboard.');
@@ -2419,15 +2436,17 @@ async function handleSignup(e){
   const phone=$('signup-phone').value.trim();
   const phoneDigits=phone.replace(/[^0-9]/g,'');
   const pass=$('signup-pass').value;
+  const passConfirm=$('signup-pass-confirm').value;
   const refInput=$('signup-ref').value.trim().toUpperCase();
   const tcOk=$('tc-accept').checked;
   /* clear errors */
-  ['signup-name-err','signup-email-err','signup-phone-err','signup-pass-err','signup-tc-err','signup-global-err'].forEach(id=>$(''+id).classList.remove('show'));
+  ['signup-name-err','signup-email-err','signup-phone-err','signup-pass-err','signup-pass-confirm-err','signup-tc-err','signup-global-err'].forEach(id=>$(id).classList.remove('show'));
   let valid=true;
   if(!name){$('signup-name-err').classList.add('show');valid=false;}
   if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){$('signup-email-err').textContent='Enter a valid email address.';$('signup-email-err').classList.add('show');valid=false;}
   if(phoneDigits.length<8||phoneDigits.length>15){$('signup-phone-err').classList.add('show');valid=false;}
   if(pass.length<8){$('signup-pass-err').classList.add('show');valid=false;}
+  if(pass!==passConfirm){$('signup-pass-confirm-err').classList.add('show');valid=false;}
   if(!tcOk){$('signup-tc-err').classList.add('show');valid=false;}
   if(!valid)return;
   if(sb)return sbSignup(name,email,phone,pass,refInput);
@@ -2455,6 +2474,7 @@ async function handleSignup(e){
   saveUsers(users);
   currentUser={email,name,refCode:finalCode,role:'customer',phone};
   saveSession(currentUser);
+  $('signup-form').reset();
   closeSignup();updateAuthUI();
   showToast('Welcome to Novu Peptides, '+name.split(' ')[0]+'! 10% off your first order. Expect a WhatsApp text from the Novu team.');
   btn.disabled=false;btn.textContent='Create Account & Get 10% Off';
