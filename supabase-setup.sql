@@ -53,9 +53,35 @@ create policy "read own profile or moderator reads all"
   on public.profiles for select
   using (id = auth.uid() or public.is_moderator(auth.uid()));
 
-create policy "update own profile"
+-- A user may update only their own profile, and may NOT change privileged
+-- columns (role / discount flags). The WITH CHECK pins those columns to their
+-- currently-stored values, so a customer cannot self-promote to moderator or
+-- grant themselves a discount by editing the row directly.
+create policy "update own profile (non-privileged columns)"
   on public.profiles for update
-  using (id = auth.uid());
+  using (id = auth.uid())
+  with check (
+    id = auth.uid()
+    and role = (select p.role from public.profiles p where p.id = auth.uid())
+    and first_order_used = (select p.first_order_used from public.profiles p where p.id = auth.uid())
+    and pending_discount = (select p.pending_discount from public.profiles p where p.id = auth.uid())
+  );
+
+-- Discount flags are mutated only through this SECURITY DEFINER function, which
+-- runs with table-owner rights and therefore bypasses the locked-down policy
+-- above while still only ever touching the caller's own row.
+create or replace function public.consume_discount(rate numeric)
+returns void
+language plpgsql security definer set search_path = public
+as $$
+begin
+  if rate = 0.30 then
+    update profiles set pending_discount = false where id = auth.uid();
+  elsif rate = 0.10 then
+    update profiles set first_order_used = true where id = auth.uid();
+  end if;
+end;
+$$;
 
 -- ── 2. REFERRALS ──
 -- Called by a newly signed-up user with the code they entered.
@@ -79,7 +105,9 @@ $$;
 
 -- ── 3. ORDERS ──
 create table public.orders (
-  id text primary key,
+  -- id is client-supplied (NP-XXXX…); constrain the format so a forged INSERT
+  -- can't smuggle HTML/script into the id that later renders in the dashboard.
+  id text primary key check (id ~ '^NP-[A-Z0-9]{4,40}$'),
   created_at timestamptz not null default now(),
   status text not null default 'processing',
   processing_ends_at timestamptz,
@@ -101,10 +129,21 @@ create table public.orders (
 
 alter table public.orders enable row level security;
 
--- Guests and members can place orders
-create policy "anyone can place orders"
+-- Guests and members can place orders, but the row is constrained so a
+-- direct anon INSERT cannot forge a privileged/abusive order:
+--   * status must start as 'processing' (can't self-mark delivered/confirmed)
+--   * money fields must be non-negative
+--   * cannot attach an order to another logged-in user's account email
+--     (guests send account_email = null; members must match their own JWT)
+create policy "anyone can place a clean order"
   on public.orders for insert
-  with check (true);
+  with check (
+    status = 'processing'
+    and subtotal >= 0 and discount >= 0 and delivery >= 0 and total >= 0
+    and confirmed_by is null and confirmed_at is null
+    and delivered_at is null and cancelled_at is null
+    and (account_email is null or account_email = auth.jwt()->>'email')
+  );
 
 -- Customers see their own orders; moderators see everything
 create policy "read own orders or moderator reads all"

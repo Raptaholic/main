@@ -2317,13 +2317,11 @@ function getDiscountLabel(){
 function consumeDiscount(rate){
   if(!currentUser)return;
   if(sb){
-    if(rate===0.30){
-      currentUser.pend=false;
-      sb.from('profiles').update({pending_discount:false}).eq('email',currentUser.email).then(()=>{},()=>{});
-    }else if(rate===0.10){
-      currentUser.fou=true;
-      sb.from('profiles').update({first_order_used:true}).eq('email',currentUser.email).then(()=>{},()=>{});
-    }
+    /* discount flags are mutated server-side via a SECURITY DEFINER RPC so the
+       profile row itself stays non-user-writable (no self-granted discounts) */
+    if(rate===0.30)currentUser.pend=false;
+    else if(rate===0.10)currentUser.fou=true;
+    if(rate>0)sb.rpc('consume_discount',{rate}).then(()=>{},()=>{});
     saveSession(currentUser);
     return;
   }
@@ -2343,26 +2341,11 @@ function consumeDiscount(rate){
 }
 
 /* ═══ MODERATOR ACCOUNTS ═══
-   Tom Reed and John Pork sign in with these emails + the shared
-   moderator password. Change MOD_PASSWORD before going live. */
-const MOD_ACCOUNTS=[
-  {email:'abdullahhawkkhair@gmail.com',name:'Tom Reed'},
-  {email:'mohamed.hanach07@gmail.com',name:'John Pork'}
-];
-const MOD_PASSWORD='NovuMod@2025';
-async function seedModerators(){
-  try{
-    const users=loadUsers();let changed=false;
-    for(const m of MOD_ACCOUNTS){
-      if(!users[m.email]){
-        const {hash,salt}=await hashPassword(MOD_PASSWORD,null);
-        users[m.email]={name:m.name,hash,salt,refCode:genRefCode(),role:'moderator',firstOrderUsed:true,phone:'',joinedAt:new Date().toISOString()};
-        changed=true;
-      }
-    }
-    if(changed)saveUsers(users);
-  }catch(e){console.error('moderator seed failed:',e);}
-}
+   No moderator credentials are shipped in the client. In Supabase mode the
+   two moderators simply sign up on the site like any customer, then are
+   promoted server-side by running the "PROMOTE MODERATORS" step in
+   supabase-setup.sql (sets profiles.role = 'moderator'). The moderator
+   role is read from the verified server profile, never from the client. */
 
 function updateAuthUI(){
   const slot=$('auth-header-slot');
@@ -2595,7 +2578,7 @@ function notifyStoreByEmail(order){
     const lines=order.items.map(it=>it.name+' x '+it.qty+' = AED '+(it.price*it.qty)).join('\n');
     const sf=s=>sanitizeForEmail(s);
     const body='NEW ORDER '+escId(order.id)+'\n\nCustomer: '+sf(order.customer.name)+'\nPhone: '+sf(order.customer.phone)+'\nEmail: '+sf(order.customer.email||'-')+'\nAddress: '+sf(order.customer.address)+', '+sf(order.customer.emirate)+'\nPayment: '+sf(order.customer.payment)+'\nNotes: '+sf(order.customer.notes||'-')+'\nAccount: '+sf(order.customer.accountEmail||'guest')+'\n\nItems:\n'+lines+'\n\nSubtotal: AED '+order.subtotal+'\nDiscount: -AED '+order.discount+(order.discountLabel?' ('+sf(order.discountLabel)+')':'')+'\nDelivery: AED '+order.delivery+'\nTOTAL: AED '+order.total;
-    const _payload=JSON.stringify({_subject:'New Order '+order.id+' - AED '+order.total,name:order.customer.name,email:order.customer.email||'noreply@novupeptides.com',message:body});
+    const _payload=JSON.stringify({_subject:'New Order '+escId(order.id)+' - AED '+order.total,name:sanitizeForEmail(order.customer.name),email:order.customer.email||'noreply@novupeptides.com',message:body});
     ['abdullahhawkkhair@gmail.com','mohamed.hanach07@gmail.com'].forEach(em=>{
       fetch('https://formsubmit.co/ajax/'+em,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:_payload}).catch(()=>{});
     });
@@ -2663,7 +2646,7 @@ async function openMyOrders(){
       if(o.status==='processing')est='<div class="oc-est">Processing - our team will confirm within 24 hours and text you on WhatsApp.</div>';
       if(o.status==='confirmed'&&o.deliveryEstimate)est='<div class="oc-est">Estimated delivery: '+escTxt(o.deliveryEstimate)+'</div>';
       if(o.status==='delivered')est='<div class="oc-est">Delivered. Thank you for shopping with Novu Peptides!</div>';
-      return '<div class="order-card"><div class="oc-top"><span class="oc-id">'+o.id+'</span>'+statusLabel(o)+'</div><div class="oc-date">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div><div class="oc-items">'+items+'</div><div class="oc-bottom"><span class="oc-total">'+fmt(o.total)+'</span></div>'+est+'</div>';
+      return '<div class="order-card"><div class="oc-top"><span class="oc-id">'+escTxt(o.id)+'</span>'+statusLabel(o)+'</div><div class="oc-date">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div><div class="oc-items">'+items+'</div><div class="oc-bottom"><span class="oc-total">'+fmt(o.total)+'</span></div>'+est+'</div>';
     }).join('');
   }
   $('orders-overlay').classList.add('open');document.body.style.overflow='hidden';
@@ -2743,7 +2726,7 @@ function adminOrderRow(o,kind){
   const d=new Date(o.timestamp);
   const items=o.items.map(it=>escTxt(it.name)+' x'+it.qty).join('<br/>');
   const cust='<div class="at-cust"><b>'+escTxt(o.customer.name)+'</b><span>'+escTxt(o.customer.phone)+(o.customer.email?' &middot; '+escTxt(o.customer.email):'')+'</span><span style="display:block">'+escTxt(o.customer.emirate)+' &middot; '+escTxt(o.customer.payment)+'</span></div>';
-  let cells='<td>'+o.id+'<br/><span style="font-size:10.5px;color:var(--g400)">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</span></td><td>'+cust+'</td><td class="at-items">'+items+'</td><td><b>'+fmt(o.total)+'</b>'+(o.discount>0?'<br/><span style="font-size:10px;color:var(--teal-dark)">'+escTxt(o.discountLabel)+'</span>':'')+'</td>';
+  let cells='<td>'+escTxt(o.id)+'<br/><span style="font-size:10.5px;color:var(--g400)">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</span></td><td>'+cust+'</td><td class="at-items">'+items+'</td><td><b>'+fmt(o.total)+'</b>'+(o.discount>0?'<br/><span style="font-size:10px;color:var(--teal-dark)">'+escTxt(o.discountLabel)+'</span>':'')+'</td>';
   if(kind==='pending'){
     const remain=o.processingEndsAt-Date.now();
     cells+='<td>'+timeLeft(remain)+'</td>';
@@ -2837,9 +2820,6 @@ function initAuth(){
     /* restore server session; listen for auth changes (e.g. email verification) */
     sb.auth.getSession().then(({data})=>{if(data&&data.session)sbAfterLogin(data.session);}).catch(()=>{});
     sb.auth.onAuthStateChange((ev,session)=>{if(ev==='SIGNED_IN'&&session&&!currentUser)sbAfterLogin(session);});
-  }else{
-    /* local demo mode: seed moderator accounts (async, non-blocking) */
-    seedModerators();
   }
   /* update cart/checkout to be discount-aware */
   $('btn-cart').addEventListener('click',()=>openDrawerWithDiscount('cart'));
