@@ -1152,15 +1152,15 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <button class="auth-close" id="btn-close-signin">&#x2715;</button>
     <h2>Welcome back</h2>
     <p class="auth-subtitle">New here? <a id="switch-to-signup">Create a free account</a> and get 10% off your first order.</p>
-    <form id="signin-form" autocomplete="on">
+    <form id="signin-form" autocomplete="off">
       <div class="auth-field">
         <label>Email or Full Name</label>
-        <input type="text" id="signin-email" placeholder="your@email.com or your full name" autocomplete="email" required/>
+        <input type="text" id="signin-email" placeholder="your@email.com or your full name" autocomplete="off" autocapitalize="off" spellcheck="false" required/>
         <div class="auth-err" id="signin-email-err">Please enter your email address or full name.</div>
       </div>
       <div class="auth-field">
         <label>Password</label>
-        <input type="password" id="signin-pass" placeholder="Your password" autocomplete="current-password" required/>
+        <input type="password" id="signin-pass" placeholder="Your password" autocomplete="new-password" required/>
         <div class="auth-err" id="signin-pass-err">Incorrect email or password.</div>
       </div>
       <div class="auth-err" id="signin-global-err"></div>
@@ -1180,20 +1180,20 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
       <div class="signup-perk"><div class="pk-num">30%</div><div class="pk-txt">Earn off your next order with referrals</div></div>
       <div class="signup-perk"><div class="pk-num">24/7</div><div class="pk-txt">Order updates on WhatsApp</div></div>
     </div>
-    <form id="signup-form" autocomplete="on">
+    <form id="signup-form" autocomplete="off">
       <div class="auth-field">
         <label>Full Name</label>
-        <input type="text" id="signup-name" placeholder="Your full name" autocomplete="name" required/>
+        <input type="text" id="signup-name" placeholder="Your full name" autocomplete="off" autocapitalize="words" spellcheck="false" required/>
         <div class="auth-err" id="signup-name-err">Please enter your name.</div>
       </div>
       <div class="auth-field">
         <label>Email Address</label>
-        <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" required/>
+        <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="off" autocapitalize="off" spellcheck="false" required/>
         <div class="auth-err" id="signup-email-err">Enter a valid email or this email is already registered.</div>
       </div>
       <div class="auth-field">
         <label>Phone / WhatsApp Number</label>
-        <input type="tel" id="signup-phone" placeholder="+971 50 000 0000" autocomplete="tel" required/>
+        <input type="tel" id="signup-phone" placeholder="+971 50 000 0000" autocomplete="off" required/>
         <div class="auth-err" id="signup-phone-err">Please enter a valid phone number (8-15 digits).</div>
         <div class="wa-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="#22c55e" style="flex-shrink:0;margin-top:1px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg><span><b>Expect a welcome text on WhatsApp from the Novu Peptides team.</b> We use WhatsApp for order confirmations and delivery updates.</span></div>
       </div>
@@ -2192,11 +2192,12 @@ async function sbSignup(name,email,phone,pass,refInput){
     $('signup-global-err').classList.add('show');
     btn.disabled=false;btn.textContent='Create Account & Get 10% Off';return;
   }
+  nameIndexAdd(name,email);
   if(refInput){try{localStorage.setItem('novu_pending_ref',refInput);}catch(_){}}
   $('signup-form').reset();
   closeSignup();
   if(!data.session){
-    showToast('Account created! Check your email for a verification link, then sign in.');
+    showToast('Account created! Please check your email for a verification link, then sign in with your email or full name.');
   }else{
     await sbAfterLogin(data.session);
     showToast('Welcome to Novu Peptides, '+name.split(' ')[0]+'! 10% off your first order. Expect a WhatsApp text from the Novu team.');
@@ -2207,11 +2208,15 @@ async function sbSignin(email,pass){
   const btn=$('signin-submit');btn.disabled=true;btn.textContent='Signing in...';
   const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
   if(error){
-    $('signin-pass-err').textContent=error.message;
+    const m=/not confirmed/i.test(error.message)
+      ? 'Please verify your email first — check your inbox for the confirmation link.'
+      : (/invalid/i.test(error.message)?'Incorrect email/name or password.':error.message);
+    $('signin-pass-err').textContent=m;
     $('signin-pass-err').classList.add('show');
     btn.disabled=false;btn.textContent='Sign In';return;
   }
   await sbAfterLogin(data.session);
+  $('signin-form').reset();
   closeSignin();
   if(currentUser.role==='moderator'){
     showToast('Welcome back, '+currentUser.name.split(' ')[0]+'. Opening your dashboard.');
@@ -2227,6 +2232,25 @@ async function sbSignin(email,pass){
 const AUTH_STORE = 'novu_users';
 const SESSION_KEY = 'novu_session';
 const REFERRER_STORE = 'novu_referrals';
+const NAME_INDEX = 'novu_name_idx';
+
+/* Local full-name → email map so members can sign in with their name as well
+   as their email (Supabase Auth itself only accepts an email). Stored per
+   device; if a member signs up on another device they sign in by email. */
+function loadNameIndex(){try{const v=localStorage.getItem(NAME_INDEX);return v?JSON.parse(v):{};}catch(_){return {};}}
+function saveNameIndex(m){try{localStorage.setItem(NAME_INDEX,JSON.stringify(m));}catch(_){}}
+function nameIndexAdd(name,email){if(!name||!email)return;const m=loadNameIndex();m[name.trim().toLowerCase()]=email.toLowerCase();saveNameIndex(m);}
+function resolveNameToEmail(name){
+  if(!name)return null;
+  const lc=name.trim().toLowerCase();
+  /* local account store first (full single-device accounts) */
+  const users=loadUsers();
+  const found=Object.entries(users).find(([,u])=>u.name&&u.name.toLowerCase()===lc);
+  if(found)return found[0];
+  /* then the name→email index (covers Supabase-backed accounts) */
+  const m=loadNameIndex();
+  return m[lc]||null;
+}
 
 function genRefCode(){
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -2263,7 +2287,10 @@ function bufferToBase64(buf){return btoa(String.fromCharCode(...new Uint8Array(b
 function base64ToBuffer(b64){const bin=atob(b64);const buf=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)buf[i]=bin.charCodeAt(i);return buf;}
 
 let currentUser = loadSession();
-/* In Supabase mode, never trust the locally-stored role — sbAfterLogin will set it after server verification */
+/* In Supabase mode never trust a locally-stored role — the server session
+   (sbAfterLogin) re-derives it from the profiles table after verification.
+   A client-side role only toggles the dashboard UI; all order data is still
+   gated server-side by Supabase Row Level Security. */
 if(sb && currentUser){currentUser.role='customer';saveSession(currentUser);}
 
 function getDiscountRate(){
@@ -2375,9 +2402,29 @@ function copyRefCode(){
   navigator.clipboard.writeText(currentUser.refCode).then(()=>showToast('Referral code copied to clipboard!')).catch(()=>showToast('Your code: '+currentUser.refCode));
 }
 
-function openSignin(){$('signin-overlay').classList.add('open');document.body.style.overflow='hidden';}
+/* Close an overlay only when the mouse press both starts AND ends on the
+   backdrop element (not when a drag/text-selection started inside the modal). */
+function bindBackdropClose(overlayId,closeFn){
+  const ov=$(overlayId);if(!ov)return;
+  let downOnBackdrop=false;
+  ov.addEventListener('mousedown',e=>{downOnBackdrop=(e.target===ov);});
+  ov.addEventListener('mouseup',e=>{if(downOnBackdrop&&e.target===ov)closeFn();downOnBackdrop=false;});
+}
+function clearAuthErrors(ids){ids.forEach(id=>{const el=$(id);if(el)el.classList.remove('show');});}
+function openSignin(){
+  const f=$('signin-form');if(f)f.reset();
+  /* defeat late browser autofill: re-blank just after paint */
+  setTimeout(()=>{if($('signin-email'))$('signin-email').value='';if($('signin-pass'))$('signin-pass').value='';},60);
+  clearAuthErrors(['signin-email-err','signin-pass-err','signin-global-err']);
+  $('signin-overlay').classList.add('open');document.body.style.overflow='hidden';
+}
 function closeSignin(){$('signin-overlay').classList.remove('open');document.body.style.overflow='';}
-function openSignup(){$('signup-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function openSignup(){
+  const f=$('signup-form');if(f)f.reset();
+  setTimeout(()=>{['signup-name','signup-email','signup-phone','signup-pass','signup-pass-confirm','signup-ref'].forEach(id=>{if($(id))$(id).value='';});},60);
+  clearAuthErrors(['signup-name-err','signup-email-err','signup-phone-err','signup-pass-err','signup-pass-confirm-err','signup-tc-err','signup-global-err']);
+  $('signup-overlay').classList.add('open');document.body.style.overflow='hidden';
+}
 function closeSignup(){$('signup-overlay').classList.remove('open');document.body.style.overflow='';}
 
 function logoutUser(){
@@ -2396,16 +2443,10 @@ async function handleSignin(e){
   $('signin-pass-err').classList.remove('show');
   $('signin-global-err').classList.remove('show');
   if(!ident){$('signin-email-err').classList.add('show');return;}
-  /* resolve name → email if not in email format */
+  /* resolve name → email if the input is not in email format */
   const isEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ident);
-  let email=isEmail?ident.toLowerCase():null;
-  if(!isEmail){
-    const users=loadUsers();
-    const lc=ident.toLowerCase();
-    const found=Object.entries(users).find(([,u])=>u.name&&u.name.toLowerCase()===lc);
-    if(found){email=found[0];}
-    else{$('signin-email-err').textContent='No account found for that name. Try signing in with your email.';$('signin-email-err').classList.add('show');return;}
-  }
+  let email=isEmail?ident.toLowerCase():resolveNameToEmail(ident);
+  if(!email){$('signin-email-err').textContent='No account found for that name on this device. Try signing in with your email.';$('signin-email-err').classList.add('show');return;}
   if(sb)return sbSignin(email,pass);
   const btn=$('signin-submit');btn.disabled=true;btn.textContent='Signing in...';
   const users=loadUsers();
@@ -2449,6 +2490,8 @@ async function handleSignup(e){
   if(pass!==passConfirm){$('signup-pass-confirm-err').classList.add('show');valid=false;}
   if(!tcOk){$('signup-tc-err').classList.add('show');valid=false;}
   if(!valid)return;
+  /* block duplicate full names so name-based login stays unambiguous */
+  if(resolveNameToEmail(name)){$('signup-name-err').textContent='That name is already registered on this device. Please add a last name or sign in.';$('signup-name-err').classList.add('show');return;}
   if(sb)return sbSignup(name,email,phone,pass,refInput);
   const users=loadUsers();
   if(users[email]){$('signup-email-err').textContent='An account with this email already exists.';$('signup-email-err').classList.add('show');return;}
@@ -2472,6 +2515,7 @@ async function handleSignup(e){
   while(existing.includes(finalCode)&&tries<10){finalCode=genRefCode();tries++;}
   users[email]={name,hash,salt,phone,refCode:finalCode,role:'customer',firstOrderUsed:false,joinedAt:new Date().toISOString()};
   saveUsers(users);
+  nameIndexAdd(name,email);
   currentUser={email,name,refCode:finalCode,role:'customer',phone};
   saveSession(currentUser);
   $('signup-form').reset();
@@ -2775,8 +2819,11 @@ function initAuth(){
   /* sign in/up overlay close buttons */
   $('btn-close-signin').addEventListener('click',closeSignin);
   $('btn-close-signup').addEventListener('click',closeSignup);
-  $('signin-overlay').addEventListener('click',e=>{if(e.target===$('signin-overlay'))closeSignin();});
-  $('signup-overlay').addEventListener('click',e=>{if(e.target===$('signup-overlay'))closeSignup();});
+  /* Only close when the press STARTS and ENDS on the backdrop itself.
+     Prevents the modal vanishing when you select text in a field and
+     release the mouse outside the modal. */
+  bindBackdropClose('signin-overlay',closeSignin);
+  bindBackdropClose('signup-overlay',closeSignup);
   /* switch between modals */
   $('switch-to-signup').addEventListener('click',e=>{e.preventDefault();closeSignin();openSignup();});
   $('switch-to-signin').addEventListener('click',e=>{e.preventDefault();closeSignup();openSignin();});
