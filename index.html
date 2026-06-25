@@ -2188,8 +2188,20 @@ async function sbSignup(name,email,phone,pass,refInput){
   const refCode=genRefCode();
   const {data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name,phone,ref_code:refCode}}});
   if(error){
-    $('signup-global-err').textContent=error.message;
-    $('signup-global-err').classList.add('show');
+    const m=/already|registered|exists/i.test(error.message)
+      ? 'An account with this email already exists. Please sign in instead.'
+      : error.message;
+    $('signup-email-err').textContent=m;
+    $('signup-email-err').classList.add('show');
+    btn.disabled=false;btn.textContent='Create Account & Get 10% Off';return;
+  }
+  /* When email confirmation is ON, Supabase masks a duplicate signup as a
+     fake success with an empty identities array (anti email-enumeration).
+     Detect that and tell the user the email is taken instead of falsely
+     reporting a new account was created. */
+  if(data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){
+    $('signup-email-err').textContent='An account with this email already exists. Please sign in instead.';
+    $('signup-email-err').classList.add('show');
     btn.disabled=false;btn.textContent='Create Account & Get 10% Off';return;
   }
   nameIndexAdd(name,email);
