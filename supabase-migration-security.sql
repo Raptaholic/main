@@ -15,6 +15,11 @@
 
 -- ── products: server-side price catalogue (source of truth for all prices) ──
 -- Order prices are re-derived from THIS table, never trusted from the browser.
+--
+-- ⚠️  WHEN UPDATING PRICES: Always update BOTH this table (in the seed below)
+-- AND the PRODUCTS array in index.html (around line 1283). If you change a
+-- price in only one place, orders will fail with "subtotal mismatch" because the
+-- client and server prices won't match.
 create table if not exists public.products (
   id integer primary key,
   name text not null,

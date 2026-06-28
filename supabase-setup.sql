@@ -128,6 +128,11 @@ $$;
 -- browser sends. place_order() re-derives price/name/brand from here, and the
 -- direct-INSERT policy rejects any basket whose ids or sums don't match. A
 -- tampered client therefore cannot order a real product at a forged price.
+--
+-- ⚠️  WHEN UPDATING PRICES: Always update BOTH the products table (below) AND
+-- the PRODUCTS array in index.html (around line 1283). If you change a price
+-- in only one place, orders will fail with "subtotal mismatch" because the
+-- client and server prices won't match.
 create table public.products (
   id integer primary key,
   name text not null,
