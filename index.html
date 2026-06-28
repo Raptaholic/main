@@ -2615,14 +2615,16 @@ function placeOrderWithDiscount(e){
   const disc=Math.round(total*rate);
   const order={id:genOrderId(),timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500),accountEmail:currentUser?currentUser.email:null},items:_items,subtotal:total,discount:disc,discountLabel:disc>0?getDiscountLabel():'',delivery:30,total:total+30-disc,currency:'AED'};
   if(sb){
-    /* Try the atomic place_order RPC first: the server re-derives the authorized
-       discount from the caller's own profile, verifies subtotal/total against the
-       line items, inserts the row and consumes the discount flag in ONE
-       transaction (no double-spend, no forged total/discount). If the RPC isn't
-       deployed yet the call errors and we fall back to a direct INSERT. After the
-       migration runs, that fallback only succeeds for discount-free orders — any
+    /* Try the atomic place_order RPC first: the server re-derives every item
+       price from the products catalogue (ignoring whatever price the browser
+       sends), re-derives the authorized discount from the caller's own profile,
+       verifies the subtotal/total, inserts the row and consumes the discount
+       flag in ONE transaction (no double-spend, no forged price/total/discount).
+       If the RPC isn't deployed yet the call errors and we fall back to a direct
+       INSERT. After the migration runs, that fallback only succeeds for
+       discount-free orders whose ids and prices match the catalogue — any
        discounted order MUST go through place_order, since the hardened INSERT RLS
-       policy requires discount = 0 and subtotal = sum(items). */
+       policy requires discount = 0 and subtotal = catalogue sum. */
     sb.rpc('place_order',{
       p_id:order.id,
       p_processing_ends_at:new Date(order.processingEndsAt).toISOString(),
