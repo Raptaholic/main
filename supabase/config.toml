@@ -1,0 +1,17 @@
+# Novu Peptides — Supabase Edge Function config.
+#
+# create-checkout and paypal-capture are called by our own page (they receive
+# the anon apikey / user JWT), so JWT verification stays ON.
+#
+# stripe-webhook is called by Stripe's servers directly — there is no Supabase
+# JWT on that request. It must skip JWT verification and is authenticated
+# instead by verifying the Stripe signature inside the function.
+
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.paypal-capture]
+verify_jwt = true
+
+[functions.stripe-webhook]
+verify_jwt = false

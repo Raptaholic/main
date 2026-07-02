@@ -266,7 +266,15 @@ create table public.orders (
   discount_label text default '',
   delivery numeric not null default 30,
   total numeric not null,
-  account_email text
+  account_email text,
+  -- Payment state. Only the server (service-role edge-function webhooks) ever
+  -- flips this to 'paid'; the INSERT policy pins new rows to 'unpaid' and the
+  -- moderator UPDATE policy pins these columns, so a payment cannot be faked.
+  payment_status text not null default 'unpaid'
+    check (payment_status in ('unpaid','paid','refunded')),
+  payment_provider text,
+  payment_ref text,
+  paid_at timestamptz
 );
 
 -- Every item must have a plain-integer qty in 1..99 and a non-negative numeric
@@ -358,6 +366,7 @@ create policy "anyone can place a clean order"
     status = 'processing'
     and subtotal >= 0 and delivery >= 0 and total >= 0
     and discount = 0
+    and payment_status = 'unpaid'
     and confirmed_by is null and confirmed_at is null
     and delivered_at is null and cancelled_at is null
     and (account_email is null or account_email = auth.jwt()->>'email')
@@ -386,7 +395,11 @@ create policy "moderators update orders"
     and subtotal = (select o.subtotal from public.orders o where o.id = orders.id)
     and discount = (select o.discount from public.orders o where o.id = orders.id)
     and total    = (select o.total    from public.orders o where o.id = orders.id)
-    and account_email is not distinct from (select o.account_email from public.orders o where o.id = orders.id)
+    and account_email    is not distinct from (select o.account_email    from public.orders o where o.id = orders.id)
+    and payment_status   is not distinct from (select o.payment_status   from public.orders o where o.id = orders.id)
+    and payment_provider is not distinct from (select o.payment_provider from public.orders o where o.id = orders.id)
+    and payment_ref      is not distinct from (select o.payment_ref      from public.orders o where o.id = orders.id)
+    and paid_at          is not distinct from (select o.paid_at          from public.orders o where o.id = orders.id)
   );
 
 -- ── 3b. ATOMIC ORDER PLACEMENT (closes the discount double-spend race AND

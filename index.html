@@ -1071,7 +1071,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
   <div class="checkout-modal">
     <div class="checkout-header">
       <button class="btn-close" id="btn-close-checkout" aria-label="Close" style="position:absolute;top:18px;right:18px;color:rgba(255,255,255,.7)"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <h2>Checkout</h2><p>Cash on delivery, bank transfer or crypto - your choice.</p>
+      <h2>Checkout</h2><p>Cash on delivery, bank transfer or pay online by card - your choice.</p>
     </div>
     <div class="checkout-form">
       <div class="order-summary-mini"><p class="ost">Order Summary</p><div id="checkout-summary"></div><div class="summary-total"><span>Total</span><span id="checkout-total">AED 0</span></div></div>
@@ -1087,7 +1087,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
             <select id="cust-city" required><option value="">Select…</option><option>Dubai</option><option>Abu Dhabi</option><option>Sharjah</option><option>Ajman</option><option>Ras Al Khaimah</option><option>Fujairah</option><option>Umm Al Quwain</option></select>
           </div>
           <div class="form-group"><label>Payment Method</label>
-            <select id="cust-payment"><option>Cash on Delivery</option><option>Bank Transfer</option><option>Crypto (USDT)</option></select>
+            <select id="cust-payment"><option>Cash on Delivery</option><option>Bank Transfer</option><option>Pay Online (Card)</option><option>PayPal</option></select>
           </div>
         </div>
         <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Delivery time preferences, special instructions…" maxlength="500"></textarea></div>
@@ -1668,7 +1668,7 @@ const ARTICLES=[
 /* ═══ FAQ ═══ */
 const FAQS=[
 {q:'Do you deliver across the whole UAE?',a:'Yes - we deliver to all seven Emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah and Umm Al Quwain. Orders confirmed before 4 PM are typically dispatched the same day.'},
-{q:'Is Cash on Delivery available?',a:'Yes. COD is available UAE-wide, alongside bank transfer and crypto (USDT). You pay when your order arrives at your door.'},
+{q:'Is Cash on Delivery available?',a:'Yes. COD is available UAE-wide, alongside bank transfer and secure online card payment. You pay when your order arrives at your door, or online by card if you prefer.'},
 {q:'How do I know the products are genuine?',a:'We source exclusively through verified supply chains. Brands like ZPHC and Pharmacom include authentication codes on every unit which you can verify directly on the manufacturer’s website.'},
 {q:'How is my order packaged?',a:'All orders ship in plain, discreet packaging with no product names or branding visible on the outside. Temperature-sensitive items ship with appropriate cold-chain protection.'},
 {q:'How fast is delivery?',a:'Dubai and Sharjah: usually next-day or sooner. Abu Dhabi and other Emirates: 1–2 working days. You’ll receive a WhatsApp confirmation with tracking once your order is dispatched.'},
@@ -2601,7 +2601,14 @@ function notifyStoreByEmail(order){
   }catch(_){}
 }
 
-function placeOrderWithDiscount(e){
+/* Which payment methods send the customer to an online payment page. */
+function paymentProvider(method){
+  if(method==='Pay Online (Card)')return 'stripe';
+  if(method==='PayPal')return 'paypal';
+  return null;
+}
+
+async function placeOrderWithDiscount(e){
   e.preventDefault();
   if(orderInFlight){showToast('Your order is being processed, please wait.');return;}
   const now=Date.now();
@@ -2614,57 +2621,111 @@ function placeOrderWithDiscount(e){
   const rate=currentUser?getDiscountRate():0;
   const disc=Math.round(total*rate);
   const order={id:genOrderId(),timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500),accountEmail:currentUser?currentUser.email:null},items:_items,subtotal:total,discount:disc,discountLabel:disc>0?getDiscountLabel():'',delivery:30,total:total+30-disc,currency:'AED'};
+  const provider=paymentProvider(order.customer.payment);
   if(sb){
-    /* Try the atomic place_order RPC first: the server re-derives every item
-       price from the products catalogue (ignoring whatever price the browser
-       sends), re-derives the authorized discount from the caller's own profile,
-       verifies the subtotal/total, inserts the row and consumes the discount
-       flag in ONE transaction (no double-spend, no forged price/total/discount).
-       If the RPC isn't deployed yet the call errors and we fall back to a direct
-       INSERT. After the migration runs, that fallback only succeeds for
-       discount-free orders whose ids and prices match the catalogue — any
-       discounted order MUST go through place_order, since the hardened INSERT RLS
-       policy requires discount = 0 and subtotal = catalogue sum. */
-    sb.rpc('place_order',{
-      p_id:order.id,
-      p_processing_ends_at:new Date(order.processingEndsAt).toISOString(),
-      p_customer:order.customer,
-      p_items:order.items,
-      p_subtotal:order.subtotal,
-      p_discount:order.discount,
-      p_discount_label:order.discountLabel,
-      p_delivery:order.delivery,
-      p_total:order.total,
-      p_account_email:order.customer.accountEmail
-    }).then(({error})=>{
+    let inserted=false;
+    try{
+      /* Atomic place_order RPC: the server re-derives every item price from the
+         products catalogue (ignoring whatever price the browser sends), re-derives
+         the authorized discount from the caller's own profile, verifies the
+         subtotal/total, inserts the row (payment_status defaults to 'unpaid') and
+         consumes the discount flag in ONE transaction. If the RPC isn't deployed
+         yet the call errors and we fall back to a hardened direct INSERT that only
+         succeeds for discount-free orders matching the catalogue. */
+      const {error}=await sb.rpc('place_order',{
+        p_id:order.id,
+        p_processing_ends_at:new Date(order.processingEndsAt).toISOString(),
+        p_customer:order.customer,
+        p_items:order.items,
+        p_subtotal:order.subtotal,
+        p_discount:order.discount,
+        p_discount_label:order.discountLabel,
+        p_delivery:order.delivery,
+        p_total:order.total,
+        p_account_email:order.customer.accountEmail
+      });
       if(error){
-        /* place_order RPC unavailable/rejected — fall back to hardened direct INSERT */
-        sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,total:order.total,account_email:order.customer.accountEmail}).then(({error:e2})=>{
-          if(e2)console.error('order save failed:',e2);
-          else if(disc>0)consumeDiscount(rate);
-        });
-      }else if(disc>0){
-        /* place_order already consumed the discount server-side; just sync the
-           local session flags so the UI no longer shows an active discount. */
-        if(rate===0.30)currentUser.pend=false;else if(rate===0.10)currentUser.fou=true;
-        saveSession(currentUser);
+        const {error:e2}=await sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,total:order.total,account_email:order.customer.accountEmail});
+        if(e2){console.error('order save failed:',e2);}
+        else{inserted=true;if(disc>0)consumeDiscount(rate);}
+      }else{
+        inserted=true;
+        if(disc>0){/* discount already consumed server-side; sync session UI */
+          if(rate===0.30)currentUser.pend=false;else if(rate===0.10)currentUser.fou=true;
+          saveSession(currentUser);
+        }
       }
-    });
+    }catch(err){console.error('order save error:',err);}
+
+    /* Online payment: the order now exists (unpaid) with a server-fixed total.
+       Ask the edge function for a Stripe/PayPal pay URL and send the customer
+       there. The amount is read from the DB server-side, never from here. */
+    if(inserted&&provider){
+      notifyStoreByEmail(order);
+      cart=[];saveCart();updateBadges();renderCartItems();
+      e.target.reset();closeCheckout();
+      try{
+        const {data,error}=await sb.functions.invoke('create-checkout',{body:{orderId:order.id,provider}});
+        if(error||!data||!data.url)throw (error||new Error('no checkout url'));
+        showToast('Redirecting to secure '+(provider==='stripe'?'card':'PayPal')+' payment…');
+        window.location.href=data.url;
+        return; /* leaving the page for the payment provider */
+      }catch(perr){
+        console.error('checkout error:',perr);
+        showOrderSuccess(order);
+        showToast('Order placed. Online payment could not start right now — we’ll send you a secure payment link.');
+        orderInFlight=false;
+        return;
+      }
+    }
+    /* offline method (COD / bank transfer), or the insert failed → fall through */
   }else{
     /* Local/demo mode: never persist customer PII to localStorage. Keep only the
-       account email (needed to list the order under "My Orders"); the full
-       customer block lives only in the in-memory `order` used for the email
-       receipt and the on-screen confirmation. */
+       account email (needed to list the order under "My Orders"). Online payment
+       needs the live backend, so demo orders are just recorded as unpaid. */
     const {customer,...rest}=order;
     const safeOrder={...rest,customer:{accountEmail:customer.accountEmail||null}};
     const orders=loadOrders();orders.unshift(safeOrder);saveOrders(orders);
     if(disc>0)consumeDiscount(rate);
+    if(provider)showToast('Online payment is available on the live site.');
   }
   notifyStoreByEmail(order);
   cart=[];saveCart();updateBadges();renderCartItems();
   e.target.reset();closeCheckout();
   showOrderSuccess(order);
   orderInFlight=false;
+}
+
+/* Handle the customer returning from Stripe/PayPal (called once on load).
+   Stripe:  ?order=NP-…&paid=stripe   (paid confirmed by the stripe-webhook)
+   PayPal:  ?order=NP-…&pp=1&token=…  (we capture it here, then it's paid)
+   Cancel:  ?order=NP-…&paid=cancel */
+async function handlePaymentReturn(){
+  let params;
+  try{params=new URLSearchParams(window.location.search);}catch(_){return;}
+  const orderId=params.get('order')||'';
+  const clean=()=>{try{history.replaceState({},'',window.location.pathname);}catch(_){}};
+  if(params.get('paid')==='stripe'){
+    clean();showToast('Payment received — thank you! Your order is confirmed.');
+    if(currentUser)setTimeout(openMyOrders,600);
+  }else if(params.get('paid')==='cancel'){
+    clean();showToast('Payment cancelled. Your order is saved — you can pay later or choose Cash on Delivery.');
+  }else if(params.get('pp')==='1'){
+    const token=params.get('token')||'';
+    clean();
+    if(sb&&token&&/^NP-[A-Z0-9]{4,40}$/.test(orderId)){
+      showToast('Confirming your PayPal payment…');
+      try{
+        const {data,error}=await sb.functions.invoke('paypal-capture',{body:{paypalOrderId:token,orderId}});
+        if(error||!data||!data.ok)throw (error||new Error('capture failed'));
+        showToast('Payment received — thank you! Your order is confirmed.');
+        if(currentUser)setTimeout(openMyOrders,600);
+      }catch(cerr){
+        console.error('paypal capture error:',cerr);
+        showToast('We could not confirm your PayPal payment. If you were charged, contact us and we’ll sort it out.');
+      }
+    }
+  }
 }
 
 /* ═══ MY ORDERS (customer) ═══ */
@@ -2676,6 +2737,17 @@ function statusLabel(o){
   /* Any unrecognised status (e.g. one forged via a compromised moderator UPDATE)
      is escaped before it reaches innerHTML — never rendered as raw markup. */
   return '<span class="status-pill">'+escTxt(String(o.status))+'</span>';
+}
+/* Payment badge. Only shown for online-payment orders (or once paid); COD /
+   bank-transfer orders are settled off-site so they get no "awaiting" pill.
+   payment_status is a DB column (absent on local demo orders → no badge). */
+function payLabel(o){
+  if(!o||o.payment_status===undefined||o.payment_status===null)return '';
+  if(o.payment_status==='paid')return '<span class="status-pill delivered">Paid</span>';
+  if(o.payment_status==='refunded')return '<span class="status-pill cancelled">Refunded</span>';
+  const m=o.customer&&o.customer.payment;
+  if(m==='Pay Online (Card)'||m==='PayPal')return '<span class="status-pill processing">Awaiting payment</span>';
+  return '';
 }
 function escTxt(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 /* Strip everything except alphanum/dash/underscore from IDs used in HTML attributes/JS strings */
@@ -2704,7 +2776,7 @@ async function openMyOrders(){
       if(o.status==='processing')est='<div class="oc-est">Processing - our team will confirm within 24 hours and text you on WhatsApp.</div>';
       if(o.status==='confirmed'&&o.deliveryEstimate)est='<div class="oc-est">Estimated delivery: '+escTxt(o.deliveryEstimate)+'</div>';
       if(o.status==='delivered')est='<div class="oc-est">Delivered. Thank you for shopping with Novu Peptides!</div>';
-      return '<div class="order-card"><div class="oc-top"><span class="oc-id">'+escTxt(o.id)+'</span>'+statusLabel(o)+'</div><div class="oc-date">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div><div class="oc-items">'+items+'</div><div class="oc-bottom"><span class="oc-total">'+fmt(o.total)+'</span></div>'+est+'</div>';
+      return '<div class="order-card"><div class="oc-top"><span class="oc-id">'+escTxt(o.id)+'</span>'+statusLabel(o)+' '+payLabel(o)+'</div><div class="oc-date">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div><div class="oc-items">'+items+'</div><div class="oc-bottom"><span class="oc-total">'+fmt(o.total)+'</span></div>'+est+'</div>';
     }).join('');
   }
   $('orders-overlay').classList.add('open');document.body.style.overflow='hidden';
@@ -2797,7 +2869,7 @@ function adminOrderRow(o,kind){
     const _aid=escId(o.id);
     cells+='<td><div class="adm-actions"><button class="adm-btn wa" onclick="adminNotifyWA(\''+_aid+'\')">WhatsApp</button><button class="adm-btn mail" onclick="adminNotifyEmail(\''+_aid+'\')">Email</button><button class="adm-btn done" onclick="adminDeliverOrder(\''+_aid+'\')">Delivered</button></div></td>';
   }else{
-    cells+='<td>'+statusLabel(o)+'</td>';
+    cells+='<td>'+statusLabel(o)+' '+payLabel(o)+'</td>';
   }
   return '<tr>'+cells+'</tr>';
 }
@@ -2901,6 +2973,8 @@ function initAuth(){
   $('checkout-form').removeEventListener('submit',placeOrder);
   $('checkout-form').addEventListener('submit',placeOrderWithDiscount);
   updateAuthUI();
+  /* If the customer just came back from Stripe/PayPal, resolve that here. */
+  handlePaymentReturn();
 }
 
 document.addEventListener('DOMContentLoaded',()=>safe(init));
