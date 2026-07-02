@@ -57,12 +57,6 @@ insert into public.products (id, name, brand, cat, price) values
   (146, 'Pharma Grade HGH Fragment 5mg', 'Pharma Grade', 'peptides', 396),
   (148, 'Cali BioLab GLP-3 RT Retatrutide 30mg', 'Biolab', 'peptides', 2340),
   (149, '5-Amino-1MQ 5mg Vial', 'Biolab', 'peptides', 585),
-  (155, 'Godzilla 5-SARM Stack 90 Caps', 'Lawless Labs', 'sarms', 533),
-  (156, 'King Kong SARM S-23 90 Caps', 'Lawless Labs', 'sarms', 500),
-  (157, 'Ligandrol LGD-4033 Liquid 30ml', 'Lawless Labs', 'sarms', 488),
-  (170, 'Uni-Sten SR-9009 Stenabolic', 'Unisarm Labs', 'sarms', 488),
-  (171, 'Uni-Tamoren MK-677 Ibutamoren', 'Unisarm Labs', 'sarms', 488),
-  (172, 'Uni-Mix III (LGD + MK-677 + RAD-140)', 'Unisarm Labs', 'sarms', 611),
   (190, 'TRT - Testosterone Support', 'Applied Nutrition', 'vitamins', 351),
   (191, 'Organ Shield - Liver, Kidney & Heart', 'Applied Nutrition', 'vitamins', 338),
   (192, 'Sleep - Unwind & Recover', 'Applied Nutrition', 'vitamins', 318),
@@ -120,9 +114,7 @@ insert into public.products (id, name, brand, cat, price) values
   (289, 'DNA Pro GHK-Cu Pen 500mg', 'DNA Pro', 'peptides', 1495),
   (290, 'Biolab Beauty GHK-Cu Intense Cream', 'Biolab', 'peptides', 611),
   (291, 'Biolab Beauty GHK-Cu Medium Cream', 'Biolab', 'peptides', 611),
-  (292, 'InSarm UNI-Yohimbine 5mg', 'InSarm Labs', 'fatloss', 358),
-  (293, 'XSarm X-Tamoren MK-677', 'XSarm', 'sarms', 546),
-  (294, 'InSarm UNI-Tamoren MK-677 10mg', 'InSarm Labs', 'sarms', 403)
+  (292, 'InSarm UNI-Yohimbine 5mg', 'InSarm Labs', 'fatloss', 358)
 on conflict (id) do update set
   name = excluded.name, brand = excluded.brand, cat = excluded.cat,
   price = excluded.price, active = true;
