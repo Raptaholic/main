@@ -90,7 +90,7 @@ Deno.serve(async (req) => {
         line_items: [{
           price_data: {
             currency: "aed",
-            product_data: { name: `Novu Peptides — Order ${orderId}` },
+            product_data: { name: `Novu Peptides - Order ${orderId}` },
             unit_amount: Math.round(aed * 100),
           },
           quantity: 1,
