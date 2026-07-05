@@ -373,6 +373,21 @@ svg.i{width:1.1em;height:1.1em;display:inline-block;vertical-align:-.14em;flex-s
 .summary-total{display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:var(--navy);border-top:1px solid var(--g200);margin-top:9px;padding-top:10px}
 .btn-place-order{width:100%;height:51px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15.5px;font-weight:800;border-radius:26px;transition:all var(--tr);letter-spacing:.3px;box-shadow:0 5px 16px rgba(0,180,170,.35)}
 .btn-place-order:hover{transform:translateY(-1px)}
+/* payment method selector */
+.pay-methods,.card-branch{display:flex;flex-direction:column;gap:9px}
+.card-branch{margin-top:9px;padding-left:14px;border-left:2px solid var(--g200)}
+.pay-opt{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border:1.5px solid var(--g200);border-radius:12px;cursor:pointer;transition:border-color var(--tr),background var(--tr)}
+.pay-opt:hover{border-color:var(--teal)}
+.pay-opt input{margin-top:3px;flex:0 0 auto;accent-color:var(--teal);width:16px;height:16px}
+.pay-opt:has(input:checked){border-color:var(--teal);background:var(--g50)}
+.pay-opt.disabled{opacity:.55;cursor:not-allowed}
+.pay-opt.disabled:hover{border-color:var(--g200)}
+.po-body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.po-title{font-size:14px;font-weight:700;color:var(--navy)}
+.po-sub{font-size:12px;color:var(--g500)}
+.po-soon{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);background:var(--g100);padding:1px 6px;border-radius:20px;margin-left:5px}
+.summary-item.disc{color:var(--teal2)}
+.summary-item .si-note{color:var(--g400);font-size:11px}
 /* ── SUCCESS ── */
 #success-overlay{position:fixed;inset:0;background:rgba(5,23,33,.72);z-index:800;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow-y:auto}
 #success-overlay.open{opacity:1;pointer-events:all}
@@ -380,17 +395,44 @@ svg.i{width:1.1em;height:1.1em;display:inline-block;vertical-align:-.14em;flex-s
 .success-icon{font-size:60px;margin-bottom:10px}
 .success-card h2{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
 .success-card>.sub{font-size:13.5px;color:var(--g500);line-height:1.65;margin-bottom:18px}
-.order-confirm-box{background:var(--g50);border:1px solid var(--g200);border-radius:12px;text-align:left;padding:16px;margin-bottom:18px;font-size:13px;color:var(--g700)}
-.order-confirm-box .oc-id{font-weight:800;color:var(--navy);font-size:13.5px;margin-bottom:10px;border-bottom:1px solid var(--g200);padding-bottom:8px}
-.order-confirm-box .oc-row{display:flex;gap:8px;margin-bottom:4px;line-height:1.5}
-.order-confirm-box .oc-label{font-weight:700;color:var(--g500);min-width:70px;flex-shrink:0}
-.order-confirm-box .oc-val{color:var(--g800);word-break:break-word}
-.order-confirm-box .oc-items{margin-top:10px;padding-top:8px;border-top:1px solid var(--g200)}
-.order-confirm-box .oc-item{padding:3px 0;border-bottom:1px solid var(--g100)}
-.order-confirm-box .oc-total{margin-top:8px;display:flex;justify-content:space-between;font-weight:800;color:var(--navy);font-size:14px}
-.success-card .email-note{font-size:12.5px;color:var(--g500);margin-bottom:20px;line-height:1.5}
-.btn-continue{height:46px;padding:0 32px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:23px;transition:all var(--tr)}
+.order-confirm-box{text-align:left;margin-bottom:18px}
+/* receipt / printable invoice */
+.receipt{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:20px;font-size:13px;color:var(--g700)}
+.rc-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:14px}
+.rc-brand{font-size:17px;font-weight:900;letter-spacing:1px;color:var(--navy)}
+.rc-brand span{color:var(--teal2)}
+.rc-doc{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g400)}
+.rc-meta{display:flex;flex-wrap:wrap;gap:12px 26px;margin-bottom:16px}
+.rc-meta>div{display:flex;flex-direction:column;gap:2px}
+.rc-k{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--g400)}
+.rc-v{font-weight:700;color:var(--navy)}
+.rc-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.rc-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:var(--navy);padding:7px 10px}
+.rc-table td{padding:8px 10px;border-bottom:1px solid var(--g100);color:var(--g700)}
+.rc-table .qc{text-align:center;width:48px}
+.rc-table .pc{text-align:right;white-space:nowrap;width:96px}
+.rc-tot{margin-left:auto;max-width:280px;margin-bottom:16px}
+.rc-line{display:flex;justify-content:space-between;gap:16px;padding:4px 0;font-size:13px;color:var(--g600)}
+.rc-line.disc{color:var(--teal2)}
+.rc-line.grand{border-top:2px solid var(--navy);margin-top:4px;padding-top:8px;font-weight:900;font-size:15px;color:var(--navy)}
+.rc-cols{display:flex;flex-wrap:wrap;gap:16px;border-top:1px solid var(--g200);padding-top:14px}
+.rc-cols>div{flex:1 1 150px;min-width:0}
+.rc-h{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);font-weight:700;margin-bottom:4px}
+.rc-cols p{margin:1px 0;color:var(--g700);word-break:break-word}
+.rc-notes{margin-top:12px;font-size:12.5px;color:var(--g600)}
+.rc-foot{margin-top:16px;padding-top:12px;border-top:1px solid var(--g200);text-align:center;font-size:12px;color:var(--g400)}
+.success-card .email-note{font-size:12.5px;color:var(--g500);margin-bottom:18px;line-height:1.5}
+.success-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-continue{height:46px;padding:0 28px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:15px;font-weight:800;border-radius:23px;transition:all var(--tr)}
 .btn-continue:hover{transform:translateY(-1px)}
+.btn-receipt{height:46px;padding:0 24px;background:#fff;border:1.5px solid var(--g300);color:var(--navy);font-size:14.5px;font-weight:800;border-radius:23px;transition:all var(--tr)}
+.btn-receipt:hover{border-color:var(--navy)}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  #receipt-print,#receipt-print *{visibility:visible}
+  #receipt-print{position:absolute;left:0;top:0;width:100%;border:none;border-radius:0;padding:0}
+}
 /* ── MOD NOTIFICATION ── */
 #mod-notif-wrap{position:fixed;top:72px;right:20px;z-index:900;display:flex;flex-direction:column;gap:10px;max-width:340px}
 .mod-notif{background:var(--navy);color:#fff;border-radius:14px;padding:16px;box-shadow:0 8px 28px rgba(0,0,0,.3);font-size:13px;line-height:1.5;animation:slideInRight .3s ease;cursor:pointer}
@@ -1086,11 +1128,21 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
           <div class="form-group"><label>Emirate *</label>
             <select id="cust-city" required><option value="">Select…</option><option>Dubai</option><option>Abu Dhabi</option><option>Sharjah</option><option>Ajman</option><option>Ras Al Khaimah</option><option>Fujairah</option><option>Umm Al Quwain</option></select>
           </div>
-          <div class="form-group"><label>Payment Method</label>
-            <select id="cust-payment"><option>Cash on Delivery</option><option>Bank Transfer</option><option>Pay Online (Card)</option><option>PayPal</option></select>
+          <div class="form-group"><label>Preferred delivery date</label><input type="date" id="cust-date"/></div>
+        </div>
+        <div class="form-group"><label>Preferred delivery time</label><input type="time" id="cust-time"/></div>
+        <div class="form-group">
+          <label>Payment Method *</label>
+          <div class="pay-methods">
+            <label class="pay-opt"><input type="radio" name="paymethod" value="cod" checked/><span class="po-body"><span class="po-title">Cash on Delivery</span><span class="po-sub">Pay in cash when your order arrives.</span></span></label>
+            <label class="pay-opt"><input type="radio" name="paymethod" value="card"/><span class="po-body"><span class="po-title">Card Payment</span><span class="po-sub">Pay online securely. A small processing fee applies.</span></span></label>
+          </div>
+          <div id="card-branch" class="card-branch" hidden>
+            <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-stripe"/><span class="po-body"><span class="po-title">Credit / Debit Card</span><span class="po-sub">Visa, Mastercard, Apple&nbsp;Pay · +2.9%</span></span></label>
+            <label class="pay-opt sub disabled"><input type="radio" name="cardbrand" value="card-paypal" disabled/><span class="po-body"><span class="po-title">PayPal <span class="po-soon">coming soon</span></span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
           </div>
         </div>
-        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Delivery time preferences, special instructions…" maxlength="500"></textarea></div>
+        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Building/villa number, landmark, special instructions…" maxlength="500"></textarea></div>
         <button type="submit" class="btn-place-order">Place Order</button>
       </form>
     </div>
@@ -1103,8 +1155,11 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <h2>Order Placed!</h2>
     <p class="sub">Thank you — your order is confirmed. Here's a summary:</p>
     <div class="order-confirm-box" id="order-confirm-box"><!-- populated by JS --></div>
-    <p class="email-note">You'll receive a confirmation by email once our shipping team dispatches your order. Keep your phone handy — we'll also send a WhatsApp update.</p>
-    <button class="btn-continue" id="btn-continue">Continue Shopping</button>
+    <p class="email-note">We've received your order and it's now being processed. We'll message you on WhatsApp to confirm the delivery slot.</p>
+    <div class="success-actions">
+      <button class="btn-receipt" id="btn-receipt">Download receipt</button>
+      <button class="btn-continue" id="btn-continue">Continue Shopping</button>
+    </div>
   </div>
 </div>
 <div id="mod-notif-wrap"></div>
@@ -1657,7 +1712,9 @@ let recents=safeParse('novu_recent','[]').filter(n=>typeof n==='number');
 let activeCat='all',activeBrands=new Set(),sortMode='default',searchQ='',currentProduct=null,modalQty=1;
 const $=id=>document.getElementById(id);
 const byId=id=>PRODUCTS.find(p=>p.id===id);
-const fmt=n=>'AED '+n.toLocaleString();
+const fmt=n=>'AED '+Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
+/* 2-decimal money for order breakdowns / receipts / email (e.g. "AED 8.50") */
+const money=n=>'AED '+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 let toastTimer;
 
 /* ═══ ROUTER ═══ */
@@ -1881,6 +1938,33 @@ function updateBadges(){
   const w=wishlist.size;$('wish-badge').textContent=w;$('wish-badge').classList.toggle('visible',w>0);
 }
 const MAX_QTY=99;
+
+/* ═══ ORDER PRICING — VAT + card processing fee ═══
+   Every amount here is ALSO recomputed and verified server-side in place_order,
+   so the browser can never change what is actually charged. */
+const VAT_RATE=0.05;                              // UAE standard 5% VAT (on goods)
+const DELIVERY_FEE=30;                            // flat shipping, AED
+const CARD_FEE_PCT={stripe:0.029,paypal:0.039};   // shown to the customer, exact AED
+const r2=n=>Math.round((Number(n)+Number.EPSILON)*100)/100;
+/* provider: 'stripe' | 'paypal' | null (Cash on Delivery = no card fee) */
+function computeTotals(items,discount,provider){
+  const subtotal=items.reduce((s,c)=>s+c.price*c.qty,0);
+  const disc=Math.min(Math.max(0,Math.round(discount||0)),subtotal);
+  const taxable=Math.max(0,subtotal-disc);
+  const delivery=DELIVERY_FEE;
+  const vat=r2(taxable*VAT_RATE);
+  const feePct=CARD_FEE_PCT[provider]||0;
+  const fee=r2((taxable+delivery+vat)*feePct);
+  const total=r2(taxable+delivery+vat+fee);
+  return {subtotal,discount:disc,taxable,delivery,vat,feePct,fee,total};
+}
+function paymentProvider(method){
+  if(method==='card-stripe')return 'stripe';
+  if(method==='card-paypal')return 'paypal';
+  return null; /* cod */
+}
+function feeLabel(provider){return provider==='stripe'?'Card fee (2.9%)':provider==='paypal'?'PayPal fee (3.9%)':'';}
+
 function addToCart(p,qty){
   qty=Math.min(Math.max(1,Math.trunc(+qty)||1),MAX_QTY);
   const ex=cart.find(c=>c.id===p.id);
@@ -1970,7 +2054,7 @@ function placeOrder(e){
   const _items=cart.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p?{id:p.id,name:p.name,brand:p.brand,qty:Math.min(Math.max(1,Math.trunc(+c.qty)||1),MAX_QTY),price:p.price}:null;}).filter(Boolean);
   if(!_items.length){orderInFlight=false;return;}
   const _sub=_items.reduce((s,c)=>s+c.price*c.qty,0);
-  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500)},items:_items,subtotal:_sub,delivery:30,total:_sub+30,currency:'AED'};
+  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:'Cash on Delivery',notes:$('cust-notes').value.trim().substring(0,500)},items:_items,subtotal:_sub,delivery:30,total:_sub+30,currency:'AED'};
   notifyStoreByEmail(order);
   cart=[];saveCart();updateBadges();renderCartItems();
   e.target.reset();closeCheckout();
@@ -1979,19 +2063,39 @@ function placeOrder(e){
 }
 
 /* ═══ ORDER CONFIRMATION ═══ */
-function showOrderSuccess(order){
+let lastOrder=null;
+function orderReceiptHTML(order){
   const c=order.customer;
-  const itemsHtml=order.items.map(it=>'<div class="oc-item"><span>'+escTxt(it.name)+' <span style="color:var(--g400)">× '+escTxt(Math.trunc(+it.qty)||0)+'</span></span><span style="float:right;font-weight:600">'+fmt(it.price*it.qty)+'</span></div>').join('');
-  $('order-confirm-box').innerHTML=
-    '<div class="oc-id">Order '+escTxt(order.id)+'</div>'
-    +'<div class="oc-row"><span class="oc-label">Name</span><span class="oc-val">'+escTxt(c.name)+'</span></div>'
-    +'<div class="oc-row"><span class="oc-label">Phone</span><span class="oc-val">'+escTxt(c.phone)+'</span></div>'
-    +(c.email?'<div class="oc-row"><span class="oc-label">Email</span><span class="oc-val">'+escTxt(c.email)+'</span></div>':'')
-    +'<div class="oc-row"><span class="oc-label">Address</span><span class="oc-val">'+escTxt(c.address)+(c.emirate?', '+escTxt(c.emirate):'')+'</span></div>'
-    +'<div class="oc-row"><span class="oc-label">Payment</span><span class="oc-val">'+escTxt(c.payment)+'</span></div>'
-    +(c.notes?'<div class="oc-row"><span class="oc-label">Notes</span><span class="oc-val">'+escTxt(c.notes)+'</span></div>':'')
-    +'<div class="oc-items">'+itemsHtml+'</div>'
-    +'<div class="oc-total"><span>Total (incl. delivery)</span><span>'+fmt(order.total)+'</span></div>';
+  const rows=order.items.map(it=>'<tr><td>'+escTxt(it.name)+'</td><td class="qc">'+escTxt(Math.trunc(+it.qty)||0)+'</td><td class="pc">'+money(it.price*it.qty)+'</td></tr>').join('');
+  const when=[c.deliveryDate,c.deliveryTime].filter(Boolean).join(' · ');
+  const line=(l,v,cls)=>'<div class="rc-line'+(cls?' '+cls:'')+'"><span>'+l+'</span><span>'+v+'</span></div>';
+  return '<div class="receipt" id="receipt-print">'
+    +'<div class="rc-head"><div class="rc-brand">NOVU <span>PEPTIDES</span></div><div class="rc-doc">Order Receipt</div></div>'
+    +'<div class="rc-meta">'
+      +'<div><span class="rc-k">Order number</span><span class="rc-v">'+escTxt(order.id)+'</span></div>'
+      +'<div><span class="rc-k">Order date</span><span class="rc-v">'+new Date(order.timestamp).toLocaleDateString()+'</span></div>'
+      +'<div><span class="rc-k">Payment method</span><span class="rc-v">'+escTxt(c.payment)+'</span></div>'
+    +'</div>'
+    +'<table class="rc-table"><thead><tr><th>Product</th><th class="qc">Qty</th><th class="pc">Price</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div class="rc-tot">'
+      +line('Subtotal',money(order.subtotal))
+      +(order.discount>0?line('Discount'+(order.discountLabel?' ('+escTxt(order.discountLabel)+')':''),'−'+money(order.discount),'disc'):'')
+      +line('Shipping',money(order.delivery))
+      +line('VAT (5%)',money(order.vat))
+      +(order.fee>0?line(feeLabel(order.provider),money(order.fee)):'')
+      +line('Total',money(order.total),'grand')
+    +'</div>'
+    +'<div class="rc-cols">'
+      +'<div><div class="rc-h">Delivery</div><p>'+(when?escTxt(when):'To be arranged')+'</p><p>'+escTxt(c.emirate||'')+'</p></div>'
+      +'<div><div class="rc-h">Billing</div><p>'+escTxt(c.name)+'</p><p>'+escTxt(c.address)+'</p><p>'+escTxt(c.phone)+'</p>'+(c.email?'<p>'+escTxt(c.email)+'</p>':'')+'</div>'
+    +'</div>'
+    +(c.notes?'<div class="rc-notes"><span class="rc-h">Notes</span> '+escTxt(c.notes)+'</div>':'')
+    +'<div class="rc-foot">Thank you for your order. Questions? sales@novupeptides.store</div>'
+  +'</div>';
+}
+function showOrderSuccess(order){
+  lastOrder=order;
+  $('order-confirm-box').innerHTML=orderReceiptHTML(order);
   $('success-overlay').classList.add('open');document.body.style.overflow='hidden';
 }
 
@@ -2096,6 +2200,7 @@ function init(){
   $('checkout-overlay').addEventListener('click',e=>{if(e.target===$('checkout-overlay'))closeCheckout();});
   /* checkout form bound in initAuth() */
   $('btn-continue').addEventListener('click',()=>{$('success-overlay').classList.remove('open');document.body.style.overflow='';});
+  $('btn-receipt').addEventListener('click',()=>{try{window.print();}catch(_){}});
   /* article */
   $('btn-close-article').addEventListener('click',()=>{$('article-overlay').classList.remove('open');document.body.style.overflow='';});
   $('article-overlay').addEventListener('click',e=>{if(e.target===$('article-overlay')){$('article-overlay').classList.remove('open');document.body.style.overflow='';}});
@@ -2524,19 +2629,46 @@ function openDrawerWithDiscount(which){
 }
 
 /* ─── DISCOUNT-AWARE CHECKOUT ─── */
+/* The payment method currently chosen in the form: 'cod' | 'card-stripe' | 'card-paypal' */
+function selectedPayMethod(){
+  const m=document.querySelector('input[name="paymethod"]:checked');
+  if(!m||m.value==='cod')return 'cod';
+  const b=document.querySelector('input[name="cardbrand"]:checked');
+  return b?b.value:'card-stripe';
+}
+/* Live order summary — recomputed whenever the cart or payment choice changes. */
+function renderCheckoutSummary(){
+  if(!cart.length)return;
+  const rate=currentUser?getDiscountRate():0;
+  const provider=paymentProvider(selectedPayMethod());
+  const items=cart.map(c=>({name:c.name,qty:c.qty,price:c.price}));
+  const t=computeTotals(items,Math.round(cartTotal()*rate),provider);
+  let h=cart.map(it=>'<div class="summary-item"><span>'+escTxt(it.name)+' × '+it.qty+'</span><span>'+fmt(it.price*it.qty)+'</span></div>').join('');
+  if(t.discount>0)h+='<div class="summary-item disc"><span>'+escTxt(getDiscountLabel())+'</span><span>−'+money(t.discount)+'</span></div>';
+  h+='<div class="summary-item"><span>Shipping</span><span>'+money(t.delivery)+'</span></div>';
+  h+='<div class="summary-item"><span>VAT (5%)</span><span>'+money(t.vat)+'</span></div>';
+  if(t.fee>0)h+='<div class="summary-item"><span>'+feeLabel(provider)+'</span><span>'+money(t.fee)+'</span></div>';
+  $('checkout-summary').innerHTML=h;
+  $('checkout-total').textContent=money(t.total);
+}
+/* Show/hide the card sub-options and keep the summary in sync. Wired once. */
+let payUIWired=false;
+function wirePaymentUI(){
+  if(payUIWired)return;payUIWired=true;
+  document.querySelectorAll('input[name="paymethod"]').forEach(r=>r.addEventListener('change',()=>{
+    const card=document.querySelector('input[name="paymethod"]:checked').value==='card';
+    $('card-branch').hidden=!card;
+    const stripe=document.querySelector('input[name="cardbrand"][value="card-stripe"]');
+    if(card&&stripe&&!document.querySelector('input[name="cardbrand"]:checked'))stripe.checked=true;
+    renderCheckoutSummary();
+  }));
+  document.querySelectorAll('input[name="cardbrand"]').forEach(r=>r.addEventListener('change',renderCheckoutSummary));
+}
 function openCheckoutWithDiscount(){
   if(!cart.length)return;
   closeDrawer('cart');
-  const total=cartTotal();
-  const rate=currentUser?getDiscountRate():0;
-  const disc=Math.round(total*rate);
-  const discLabel=getDiscountLabel();
-  const finalTotal=total+30-disc;
-  let summaryHTML=cart.map(it=>'<div class="summary-item"><span>'+it.name+' x '+it.qty+'</span><span>'+fmt(it.price*it.qty)+'</span></div>').join('');
-  summaryHTML+='<div class="summary-item"><span>Delivery</span><span>AED 30</span></div>';
-  if(disc>0)summaryHTML+='<div class="summary-item" style="color:var(--teal-dark);font-weight:700"><span>'+discLabel+'</span><span>-AED '+disc+'</span></div>';
-  $('checkout-summary').innerHTML=summaryHTML;
-  $('checkout-total').textContent=fmt(finalTotal);
+  wirePaymentUI();
+  renderCheckoutSummary();
   /* prefill from account */
   if(currentUser&&currentUser.role!=='moderator'){
     if(!$('cust-name').value)$('cust-name').value=currentUser.name;
@@ -2560,21 +2692,43 @@ function saveOrders(o){try{localStorage.setItem(ORDERS_KEY,JSON.stringify(o));}c
    First submission triggers a one-time activation email to the inbox. */
 function notifyStoreByEmail(order){
   try{
-    const lines=order.items.map(it=>it.name+' x '+it.qty+' = AED '+(it.price*it.qty)).join('\n');
     const sf=s=>sanitizeForEmail(s);
-    const body='NEW ORDER '+escId(order.id)+'\n\nCustomer: '+sf(order.customer.name)+'\nPhone: '+sf(order.customer.phone)+'\nEmail: '+sf(order.customer.email||'-')+'\nAddress: '+sf(order.customer.address)+', '+sf(order.customer.emirate)+'\nPayment: '+sf(order.customer.payment)+'\nNotes: '+sf(order.customer.notes||'-')+'\nAccount: '+sf(order.customer.accountEmail||'guest')+'\n\nItems:\n'+lines+'\n\nSubtotal: AED '+order.subtotal+'\nDiscount: -AED '+order.discount+(order.discountLabel?' ('+sf(order.discountLabel)+')':'')+'\nDelivery: AED '+order.delivery+'\nTOTAL: AED '+order.total;
-    const _payload=JSON.stringify({_subject:'New Order '+escId(order.id)+' - AED '+order.total,name:sanitizeForEmail(order.customer.name),email:order.customer.email||'noreply@novupeptides.com',message:body});
+    const c=order.customer;
+    const lines=order.items.map(it=>'  '+it.name+' × '+it.qty+' = '+money(it.price*it.qty)).join('\n');
+    const when=[c.deliveryDate,c.deliveryTime].filter(Boolean).join(' ')||'Not specified';
+    const parts=[
+      'NEW ORDER '+escId(order.id),
+      'Date: '+new Date(order.timestamp).toLocaleString(),
+      'Payment method: '+sf(order.customer.payment)+(order.provider?' (online, '+(order.method==='card-paypal'?'PayPal':'Stripe')+')':''),
+      '',
+      'ITEMS',
+      lines,
+      '',
+      'Subtotal: '+money(order.subtotal),
+      (order.discount>0?'Discount: -'+money(order.discount)+(order.discountLabel?' ('+sf(order.discountLabel)+')':''):null),
+      'Shipping: '+money(order.delivery),
+      'VAT (5%): '+money(order.vat),
+      (order.fee>0?feeLabel(order.provider)+': '+money(order.fee):null),
+      'TOTAL: '+money(order.total),
+      '',
+      'DELIVERY',
+      'Preferred date/time: '+sf(when),
+      'Emirate: '+sf(c.emirate),
+      '',
+      'BILLING / CONTACT',
+      'Name: '+sf(c.name),
+      'Phone: '+sf(c.phone),
+      'Email: '+sf(c.email||'-'),
+      'Address: '+sf(c.address),
+      'Account: '+sf(c.accountEmail||'guest'),
+      (c.notes?'Notes: '+sf(c.notes):null)
+    ].filter(v=>v!==null);
+    const body=parts.join('\n');
+    const _payload=JSON.stringify({_subject:'New Order '+escId(order.id)+' - '+money(order.total),name:sanitizeForEmail(c.name),email:c.email||'noreply@novupeptides.com',message:body});
     ['abdullahhawkkhair@gmail.com','mohamed.hanach07@gmail.com'].forEach(em=>{
       fetch('https://formsubmit.co/ajax/'+em,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:_payload}).catch(()=>{});
     });
   }catch(_){}
-}
-
-/* Which payment methods send the customer to an online payment page. */
-function paymentProvider(method){
-  if(method==='Pay Online (Card)')return 'stripe';
-  if(method==='PayPal')return 'paypal';
-  return null;
 }
 
 async function placeOrderWithDiscount(e){
@@ -2586,11 +2740,15 @@ async function placeOrderWithDiscount(e){
   /* Re-validate all item prices from the PRODUCTS catalogue — prevents localStorage tampering */
   const _items=cart.map(c=>{const p=PRODUCTS.find(x=>x.id===c.id);return p?{id:p.id,name:p.name,brand:p.brand,qty:Math.min(Math.max(1,Math.trunc(+c.qty)||1),MAX_QTY),price:p.price}:null;}).filter(Boolean);
   if(!_items.length){orderInFlight=false;return;}
-  const total=_items.reduce((s,c)=>s+c.price*c.qty,0);
   const rate=currentUser?getDiscountRate():0;
-  const disc=Math.round(total*rate);
-  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:$('cust-payment').value,notes:$('cust-notes').value.trim().substring(0,500),accountEmail:currentUser?currentUser.email:null},items:_items,subtotal:total,discount:disc,discountLabel:disc>0?getDiscountLabel():'',delivery:30,total:total+30-disc,currency:'AED'};
-  const provider=paymentProvider(order.customer.payment);
+  const method=selectedPayMethod();               /* 'cod' | 'card-stripe' | 'card-paypal' */
+  const provider=paymentProvider(method);          /* 'stripe' | 'paypal' | null */
+  const discAmt=Math.round(_items.reduce((s,c)=>s+c.price*c.qty,0)*rate);
+  const t=computeTotals(_items,discAmt,provider);
+  const payLabel={cod:'Cash on Delivery','card-stripe':'Card (Visa / Mastercard)','card-paypal':'PayPal'}[method];
+  const order={id:genOrderId(),timestamp:new Date(now).toISOString(),status:'processing',processingEndsAt:now+PROCESSING_WINDOW_MS,deliveryEstimate:null,confirmedBy:null,confirmedAt:null,
+    customer:{name:$('cust-name').value.trim().substring(0,100),phone:$('cust-phone').value.trim().substring(0,30),email:$('cust-email').value.trim().substring(0,100),address:$('cust-address').value.trim().substring(0,200),emirate:$('cust-city').value,payment:payLabel,deliveryDate:$('cust-date').value||'',deliveryTime:$('cust-time').value||'',notes:$('cust-notes').value.trim().substring(0,500),accountEmail:currentUser?currentUser.email:null},
+    method:method,provider:provider,items:_items,subtotal:t.subtotal,discount:t.discount,discountLabel:t.discount>0?getDiscountLabel():'',delivery:t.delivery,vat:t.vat,feePct:t.feePct,fee:t.fee,total:t.total,currency:'AED'};
   if(sb){
     let inserted=false;
     try{
@@ -2610,11 +2768,14 @@ async function placeOrderWithDiscount(e){
         p_discount:order.discount,
         p_discount_label:order.discountLabel,
         p_delivery:order.delivery,
+        p_vat:order.vat,
+        p_fee:order.fee,
+        p_pay_method:order.method,
         p_total:order.total,
         p_account_email:order.customer.accountEmail
       });
       if(error){
-        const {error:e2}=await sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,total:order.total,account_email:order.customer.accountEmail});
+        const {error:e2}=await sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,vat:order.vat,fee:order.fee,total:order.total,account_email:order.customer.accountEmail});
         if(e2){console.error('order save failed:',e2);}
         else{inserted=true;if(disc>0)consumeDiscount(rate);}
       }else{

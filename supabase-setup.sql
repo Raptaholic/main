@@ -266,7 +266,10 @@ create table public.orders (
     check (payment_status in ('unpaid','paid','refunded')),
   payment_provider text,
   payment_ref text,
-  paid_at timestamptz
+  paid_at timestamptz,
+  -- 5% UAE VAT and the card processing fee, both re-derived in place_order.
+  vat numeric not null default 0,
+  fee numeric not null default 0
 );
 
 -- Every item must have a plain-integer qty in 1..99 and a non-negative numeric
@@ -358,6 +361,7 @@ create policy "anyone can place a clean order"
     status = 'processing'
     and subtotal >= 0 and delivery >= 0 and total >= 0
     and discount = 0
+    and fee = 0
     and payment_status = 'unpaid'
     and confirmed_by is null and confirmed_at is null
     and delivered_at is null and cancelled_at is null
@@ -365,7 +369,8 @@ create policy "anyone can place a clean order"
     and public.items_all_in_catalog(items)
     and subtotal = public.catalog_subtotal(items)
     and subtotal = public.items_subtotal(items)
-    and total = subtotal + delivery
+    and vat = round(subtotal * 0.05, 2)
+    and total = round(subtotal + delivery + vat, 2)
   );
 
 -- Customers see their own orders; moderators see everything
@@ -386,6 +391,8 @@ create policy "moderators update orders"
     and items    = (select o.items    from public.orders o where o.id = orders.id)
     and subtotal = (select o.subtotal from public.orders o where o.id = orders.id)
     and discount = (select o.discount from public.orders o where o.id = orders.id)
+    and vat      = (select o.vat      from public.orders o where o.id = orders.id)
+    and fee      = (select o.fee      from public.orders o where o.id = orders.id)
     and total    = (select o.total    from public.orders o where o.id = orders.id)
     and account_email    is not distinct from (select o.account_email    from public.orders o where o.id = orders.id)
     and payment_status   is not distinct from (select o.payment_status   from public.orders o where o.id = orders.id)
@@ -415,6 +422,9 @@ create or replace function public.place_order(
   p_discount numeric,
   p_discount_label text,
   p_delivery numeric,
+  p_vat numeric,
+  p_fee numeric,
+  p_pay_method text,
   p_total numeric,
   p_account_email text
 )
@@ -429,11 +439,19 @@ declare
   v_items jsonb;
   v_subtotal numeric;
   v_count int;
+  v_taxable numeric;
+  v_vat numeric;
+  v_fee_pct numeric;
+  v_fee numeric;
+  v_total numeric;
 begin
   if p_id !~ '^NP-[A-Z0-9]{4,40}$' then
     raise exception 'invalid order id';
   end if;
-  if p_discount < 0 or p_delivery < 0 or p_total < 0 then
+  if p_pay_method not in ('cod','card-stripe','card-paypal') then
+    raise exception 'invalid payment method';
+  end if;
+  if p_discount < 0 or p_delivery < 0 or p_vat < 0 or p_fee < 0 or p_total < 0 then
     raise exception 'invalid amounts';
   end if;
   if not public.items_ok(p_items) then
@@ -483,20 +501,31 @@ begin
   else
     v_authorized := 0;
   end if;
-
   if p_discount > v_authorized or p_discount > v_subtotal then
     raise exception 'discount not authorized';
   end if;
-  if p_total <> v_subtotal + p_delivery - p_discount then
-    raise exception 'total mismatch';
-  end if;
+
+  -- VAT (5% of goods after discount) + card fee, all re-derived here so the
+  -- browser can't change what is charged. COD pays no card fee.
+  v_taxable := v_subtotal - p_discount;
+  v_vat := round(v_taxable * 0.05, 2);
+  v_fee_pct := case p_pay_method
+    when 'card-stripe' then 0.029
+    when 'card-paypal' then 0.039
+    else 0 end;
+  v_fee := round((v_taxable + p_delivery + v_vat) * v_fee_pct, 2);
+  v_total := round(v_taxable + p_delivery + v_vat + v_fee, 2);
+
+  if p_vat <> v_vat then raise exception 'vat mismatch'; end if;
+  if p_fee <> v_fee then raise exception 'fee mismatch'; end if;
+  if p_total <> v_total then raise exception 'total mismatch'; end if;
 
   insert into public.orders(
     id, status, processing_ends_at, customer, items,
-    subtotal, discount, discount_label, delivery, total, account_email
+    subtotal, discount, discount_label, delivery, vat, fee, total, account_email
   ) values (
     p_id, 'processing', p_processing_ends_at, p_customer, v_items,
-    v_subtotal, p_discount, p_discount_label, p_delivery, p_total, p_account_email
+    v_subtotal, p_discount, p_discount_label, p_delivery, v_vat, v_fee, v_total, p_account_email
   );
 
   if p_discount > 0 and auth.uid() is not null then
@@ -510,7 +539,7 @@ end;
 $$;
 
 grant execute on function public.place_order(
-  text, timestamptz, jsonb, jsonb, numeric, numeric, text, numeric, numeric, text
+  text, timestamptz, jsonb, jsonb, numeric, numeric, text, numeric, numeric, numeric, text, numeric, text
 ) to anon, authenticated;
 
 -- ── 4. LIVE DASHBOARD UPDATES ──
