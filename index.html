@@ -552,9 +552,18 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
 .auth-btn{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:12.5px;font-weight:600;padding:0 14px;height:38px;border-radius:19px;cursor:pointer;transition:all var(--tr);white-space:nowrap}
 .auth-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(0,217,204,.5)}
 .auth-btn svg{flex-shrink:0}
-.user-menu-wrap{position:relative}
-.user-menu-trigger{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:12.5px;font-weight:700;padding:0 14px;height:38px;border-radius:19px;cursor:pointer;border:none;transition:all var(--tr);font-family:inherit}
+.user-menu-wrap{position:relative;display:inline-flex;align-items:center;gap:6px}
+.user-menu-trigger{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:var(--ink);font-size:12.5px;font-weight:700;padding:0 14px;height:38px;border-radius:19px;cursor:pointer;border:none;transition:all var(--tr);font-family:inherit;flex-shrink:0}
 .user-menu-trigger:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,180,170,.4)}
+.user-menu-trigger>span{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* keep the header row from cramming — especially for moderators (extra bell) */
+@media(max-width:640px){
+  .header-actions{gap:6px}
+  .header-actions>*,.user-menu-wrap>*{flex-shrink:0}
+  .header-search{min-width:0}
+  .user-menu-trigger{padding:0;width:40px;justify-content:center;border-radius:50%;gap:0}
+  .user-menu-trigger>span,.user-menu-trigger .discount-badge{display:none}
+}
 .user-avatar{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .user-dropdown{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:var(--radius);box-shadow:0 12px 40px rgba(7,32,46,.18);min-width:200px;padding:8px 0;z-index:500;display:none;border:1px solid var(--g200)}
 .user-dropdown.open{display:block}
@@ -731,7 +740,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <div class="molecule m1"></div><div class="molecule m2"></div><div class="molecule m3"></div><div class="molecule m4"></div>
     <div class="hero-eyebrow">UAE's Trusted Peptide &amp; Supplement Store</div>
     <h1>High-Purity <span class="grad">Peptides</span><br/>&amp; Elite Supplements</h1>
-    <p class="hero-sub">From GLP-1 and healing peptides to pharma-grade compounds and complete sports nutrition, delivered fast across the Emirates.</p>
+    <p class="hero-sub">GLP-1, peptides, pharma-grade compounds and sports nutrition. Delivered fast across the UAE.</p>
     <div class="hero-ctas">
       <a class="btn-primary" data-nav="shop">Shop All Products →</a>
       <a class="btn-ghost" data-nav="learn">Learning Hub</a>
@@ -750,7 +759,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <div class="sec-head">
       <div class="sec-eyebrow">Browse</div>
       <h2>Shop by Category</h2>
-      <p>Specialist categories covering everything from research peptides to everyday health.</p>
+      <p>From research peptides to everyday health.</p>
     </div>
     <div class="cat-tiles" id="home-cat-tiles"></div>
   </section>
@@ -810,10 +819,10 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
       <h2>What Customers Say</h2>
     </div>
     <div class="testi-grid">
-      <div class="testi-card"><div class="stars">★★★★★</div><p>"Honestly didn't expect it to be this fast. Ordered Sunday night, knock on the door Tuesday morning in the Marina 😅 ZPHC was legit, scanned the codes and everything checked out. Found my go-to."</p><div class="testi-who"><div class="testi-av" style="background:#0d6efd">AK</div><div><div class="nm">Ahmed K.</div><div class="loc">Dubai</div></div></div></div>
-      <div class="testi-card"><div class="stars">★★★★★</div><p>"Been shopping around the UAE for ages and nobody beats their prices on Applied Nutrition. The ABE + ISO-XP combo is what I keep coming back for 💪 paid cash at the door, super easy."</p><div class="testi-who"><div class="testi-av" style="background:#e67e22">SM</div><div><div class="nm">Sara M.</div><div class="loc">Abu Dhabi</div></div></div></div>
-      <div class="testi-card"><div class="stars">★★★★★</div><p>"First time buying peptides so I had a million questions on WhatsApp 😂 they were patient with every single one, no pressure to buy. Box turned up plain with zero branding, exactly what I wanted."</p><div class="testi-who"><div class="testi-av" style="background:#8e44ad">RJ</div><div><div class="nm">Ryan J.</div><div class="loc">Sharjah</div></div></div></div>
-      <div class="testi-card"><div class="stars">★★★★★</div><p>"I learned more from their Learn section in an afternoon than weeks of digging through forums. Got my PCT right the first time because of it. Genuinely appreciate that they explain things 🙏"</p><div class="testi-who"><div class="testi-av" style="background:#16a085">DF</div><div><div class="nm">Daniel F.</div><div class="loc">Ras Al Khaimah</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>ordered sunday night, was at my door tuesday morning marina side. didnt expect it that quick ngl. scanned the zphc codes and all good. my go to now</p><div class="testi-who"><div class="testi-av" style="background:#0d6efd">AK</div><div><div class="nm">Ahmed K.</div><div class="loc">Dubai</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>prices on applied nutrition are just better here, nobody close tbh. abe + iso-xp every time. paid cash at the door, done in like 2 mins 👌</p><div class="testi-who"><div class="testi-av" style="background:#e67e22">SM</div><div><div class="nm">Sara M.</div><div class="loc">Abu Dhabi</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>first time buying peptides so i had like a million questions on whatsapp lol. they answered every one, no pushing me to buy anything. box came plain, zero branding</p><div class="testi-who"><div class="testi-av" style="background:#8e44ad">RJ</div><div><div class="nm">Ryan J.</div><div class="loc">Sharjah</div></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★<span style="color:var(--g300)">★</span></div><p>4 stars only cause it took an extra day to reach RAK. but the stuff is legit and the learn section actually helped me sort my pct out. niceee</p><div class="testi-who"><div class="testi-av" style="background:#16a085">DF</div><div><div class="nm">Daniel F.</div><div class="loc">Ras Al Khaimah</div></div></div></div>
     </div>
   </section>
 
@@ -873,7 +882,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
 <div class="view" id="view-learn">
   <div class="about-hero">
     <h1>Learning Hub</h1>
-    <p>Straight-talking guides on peptides, PCT and sports nutrition - so you always know exactly what you're working with.</p>
+    <p>Straightforward guides on peptides, PCT and nutrition.</p>
   </div>
   <section class="section">
     <div class="learn-grid" id="learn-grid"></div>
@@ -985,7 +994,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
 <div class="view" id="view-faq">
   <div class="about-hero">
     <h1>Frequently Asked Questions</h1>
-    <p>Everything you need to know about ordering, delivery and our products.</p>
+    <p>Ordering, delivery and product questions.</p>
   </div>
   <section class="section">
     <div class="faq-wrap" id="faq-wrap"></div>
