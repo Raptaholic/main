@@ -1140,7 +1140,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
           </div>
           <div id="card-branch" class="card-branch" hidden>
             <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-stripe"/><span class="po-body"><span class="po-title">Credit / Debit Card</span><span class="po-sub">Visa, Mastercard, Apple&nbsp;Pay · +2.9%</span></span></label>
-            <label class="pay-opt sub disabled"><input type="radio" name="cardbrand" value="card-paypal" disabled/><span class="po-body"><span class="po-title">PayPal <span class="po-soon">coming soon</span></span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
+            <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-paypal"/><span class="po-body"><span class="po-title">PayPal</span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
           </div>
         </div>
         <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Building/villa number, landmark, special instructions…" maxlength="500"></textarea></div>
@@ -2005,6 +2005,7 @@ const MAX_QTY=99;
 const VAT_RATE=0.05;                              // UAE standard 5% VAT (on goods)
 const DELIVERY_FEE=30;                            // flat shipping, AED
 const CARD_FEE_PCT={stripe:0.029,paypal:0.039};   // shown to the customer, exact AED
+const AED_USD=0.2723;                             // AED->USD peg; MUST match the AED_USD_RATE edge-function secret
 const r2=n=>Math.round((Number(n)+Number.EPSILON)*100)/100;
 /* provider: 'stripe' | 'paypal' | null (Cash on Delivery = no card fee) */
 function computeTotals(items,discount,provider){
@@ -2704,13 +2705,18 @@ function renderCheckoutSummary(){
   const provider=paymentProvider(selectedPayMethod());
   const items=cart.map(c=>({name:c.name,qty:c.qty,price:c.price}));
   const t=computeTotals(items,Math.round(cartTotal()*rate),provider);
-  let h=cart.map(it=>'<div class="summary-item"><span>'+escTxt(it.name)+' × '+it.qty+'</span><span>'+fmt(it.price*it.qty)+'</span></div>').join('');
-  if(t.discount>0)h+='<div class="summary-item disc"><span>'+escTxt(getDiscountLabel())+'</span><span>−'+money(t.discount)+'</span></div>';
-  h+='<div class="summary-item"><span>Shipping</span><span>'+money(t.delivery)+'</span></div>';
-  h+='<div class="summary-item"><span>VAT (5%)</span><span>'+money(t.vat)+'</span></div>';
-  if(t.fee>0)h+='<div class="summary-item"><span>'+feeLabel(provider)+'</span><span>'+money(t.fee)+'</span></div>';
+  /* PayPal is billed in USD (no AED support), so show the whole summary in USD
+     at the same peg the edge function uses. Everything else stays in AED. */
+  const usd=provider==='paypal';
+  const m=n=>usd?('$'+(Number(n)*AED_USD).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})):money(n);
+  let h=cart.map(it=>'<div class="summary-item"><span>'+escTxt(it.name)+' × '+it.qty+'</span><span>'+m(it.price*it.qty)+'</span></div>').join('');
+  if(t.discount>0)h+='<div class="summary-item disc"><span>'+escTxt(getDiscountLabel())+'</span><span>−'+m(t.discount)+'</span></div>';
+  h+='<div class="summary-item"><span>Shipping</span><span>'+m(t.delivery)+'</span></div>';
+  h+='<div class="summary-item"><span>VAT (5%)</span><span>'+m(t.vat)+'</span></div>';
+  if(t.fee>0)h+='<div class="summary-item"><span>'+feeLabel(provider)+'</span><span>'+m(t.fee)+'</span></div>';
+  if(usd)h+='<div class="summary-item" style="opacity:.65;font-size:11.5px"><span>Charged in USD via PayPal</span><span></span></div>';
   $('checkout-summary').innerHTML=h;
-  $('checkout-total').textContent=money(t.total);
+  $('checkout-total').textContent=m(t.total);
 }
 /* Show/hide the card sub-options and keep the summary in sync. Wired once. */
 let payUIWired=false;
