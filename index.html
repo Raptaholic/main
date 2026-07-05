@@ -2859,7 +2859,9 @@ async function placeOrderWithDiscount(e){
        Ask the edge function for a Stripe/PayPal pay URL and send the customer
        there. The amount is read from the DB server-side, never from here. */
     if(inserted&&provider){
-      notifyStoreByEmail(order);
+      /* Online orders: the store is notified server-side by the webhook only
+         AFTER the payment actually succeeds, so an abandoned or failed online
+         payment never reaches the store. COD orders notify immediately (below). */
       cart=[];saveCart();updateBadges();renderCartItems();
       e.target.reset();closeCheckout();
       try{
