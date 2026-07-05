@@ -26,11 +26,14 @@ columns).
 
 ---
 
-## 1. Run the database migration
+## 1. Run the database migrations (in this order)
 
-In Supabase → SQL Editor, run **`supabase-payments.sql`** (after you've already
-run `supabase-migration-security.sql`). It adds the payment columns and locks the
-policies. It's idempotent.
+In Supabase → SQL Editor, run these once each, in order (all idempotent):
+
+1. `supabase-migration-security.sql` — security hardening + products catalogue
+2. `supabase-payments.sql` — payment columns + locked policies
+3. `supabase-pricing.sql` — 5% VAT + card-fee columns and the pricing-aware `place_order`
+4. `supabase-remove-sarms.sql` — deletes the prohibited SARM products
 
 ## 2. Install the Supabase CLI & link the project
 
