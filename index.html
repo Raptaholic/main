@@ -43,6 +43,9 @@ h1,h2,h3,.font-display{font-family:'Sora','Inter',sans-serif}
 .header-search input:focus{background:rgba(255,255,255,.16);border-color:rgba(0,217,204,.5)}
 .header-search .search-icon{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.45);pointer-events:none;font-size:15px}
 .header-actions{display:flex;align-items:center;gap:8px}
+[dir=rtl]{text-align:right}
+[dir=rtl] .rc-table th,[dir=rtl] .rc-table td{text-align:right}
+[dir=rtl] .rc-table .pc{text-align:left}
 .icon-btn{position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(255,255,255,.8);background:rgba(255,255,255,.07);transition:all var(--tr)}
 .icon-btn:hover{background:rgba(255,255,255,.16);color:#fff}
 svg.i{width:1.1em;height:1.1em;display:inline-block;vertical-align:-.14em;flex-shrink:0}
@@ -717,6 +720,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
     <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
   </div>
   <div class="header-actions">
+    <button class="icon-btn" id="lang-toggle" title="العربية / English" data-noi18n style="font-weight:800;font-size:14px">ع</button>
     <button class="icon-btn" id="btn-wishlist" title="Wishlist"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.49 4.04 3 5.5l7 7Z"/></svg><span class="bub" id="wish-badge">0</span></button>
     <div id="auth-header-slot">
       <button class="auth-btn" id="btn-signin-header"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign In</button>
@@ -1724,6 +1728,65 @@ const byId=id=>PRODUCTS.find(p=>p.id===id);
 const fmt=n=>'AED '+Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
 /* 2-decimal money for order breakdowns / receipts / email (e.g. "AED 8.50") */
 const money=n=>'AED '+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+/* ═══ i18n — English / Arabic toggle (RTL). Product names/brands/prices are
+   never in the dictionary, so they always stay in their original form. ═══ */
+let lang=(()=>{try{return localStorage.getItem('novu_lang')==='ar'?'ar':'en';}catch(_){return 'en';}})();
+const AR={
+'Home':'الرئيسية','Shop':'المتجر','Learn':'المقالات','About Us':'من نحن','FAQ':'الأسئلة الشائعة','Contact':'تواصل معنا','Contact Us':'تواصل معنا',
+'Sign In':'تسجيل الدخول','Sign Up':'إنشاء حساب','Sign Out':'تسجيل الخروج','Cart':'السلة','Wishlist':'المفضلة','My Orders':'طلباتي','Moderator Dashboard':'لوحة المشرف',
+'Add to Cart':'أضف إلى السلة','Add to cart':'أضف إلى السلة','View Details':'عرض التفاصيل','View all products →':'عرض كل المنتجات ←','Place Order':'تأكيد الطلب','Continue Shopping':'متابعة التسوق','Download receipt':'تحميل الإيصال','Proceed to Checkout':'المتابعة للدفع','Checkout':'إتمام الشراء','Clear All Filters':'مسح كل الفلاتر','Filters':'الفلاتر','Send Message':'إرسال الرسالة','Subscribe':'اشتراك','Confirm':'تأكيد','Cancel':'إلغاء','Delivered':'تم التوصيل','Email':'البريد الإلكتروني','WhatsApp':'واتساب',
+"UAE's Trusted Peptide & Supplement Store":'متجر الإمارات الموثوق للببتيدات والمكمّلات',
+'GLP-1, peptides, pharma-grade compounds and sports nutrition. Delivered fast across the UAE.':'GLP-1، ببتيدات، مركّبات دوائية ومكمّلات رياضية. توصيل سريع في كل الإمارات.',
+'Shop by Category':'تسوّق حسب الفئة','Featured Products':'منتجات مختارة','Browse by Compound':'تصفّح حسب المادة','For Her':'لها','For Him':'له','Built on Quality & Trust':'قائم على الجودة والثقة','What Customers Say':'آراء عملائنا','Get Drops, Deals & Restocks First':'كن أول من يعرف بالعروض والمنتجات الجديدة','All Products':'كل المنتجات','Three Principles. No Compromise.':'ثلاثة مبادئ بلا تنازل.','Brands We Carry':'العلامات التي نوفّرها','Your goals deserve the right compounds.':'أهدافك تستحق المركّبات الصحيحة.','Send Us a Message':'راسلنا','Your Cart':'سلتك','Order Placed!':'تم استلام طلبك!','Welcome back':'مرحبًا بعودتك','Create your account':'أنشئ حسابك',
+'Browse':'تصفّح','Hand-picked':'مختارة بعناية','By active ingredient':'حسب المادة الفعّالة','Designed for women':'مصمّم للنساء','Designed for men':'مصمّم للرجال','Why Novu':'لماذا نوفو','Reviews':'التقييمات','What Drives Us':'ما يحرّكنا','Our Partners':'شركاؤنا','From research peptides to everyday health.':'من ببتيدات الأبحاث إلى الصحة اليومية.',
+'Order Summary':'ملخّص الطلب','Full Name *':'الاسم الكامل *','Phone / WhatsApp *':'الهاتف / واتساب *','Delivery Address *':'عنوان التوصيل *','Emirate *':'الإمارة *','Preferred delivery date':'تاريخ التوصيل المفضّل','Preferred delivery time':'وقت التوصيل المفضّل','Payment Method *':'طريقة الدفع *','Cash on Delivery':'الدفع عند الاستلام','Card Payment':'الدفع بالبطاقة','Order Notes':'ملاحظات الطلب','Subtotal':'المجموع الفرعي','Shipping':'الشحن','VAT (5%)':'ضريبة القيمة المضافة (5%)','Total':'الإجمالي','Select…':'اختر…',
+'Dubai':'دبي','Abu Dhabi':'أبوظبي','Sharjah':'الشارقة','Ajman':'عجمان','Ras Al Khaimah':'رأس الخيمة','Fujairah':'الفجيرة','Umm Al Quwain':'أم القيوين',
+'Injectables':'حقن','Oral Compounds':'مركّبات فموية','Peptides & GLP-1':'ببتيدات و GLP-1','HGH & Hormones':'هرمون النمو والهرمونات','PCT & Anti-Estrogen':'علاج ما بعد الدورة ومضادات الإستروجين','Fat Loss':'حرق الدهون','Sports Nutrition':'التغذية الرياضية','Vitamins & Health':'الفيتامينات والصحة',
+'Credit / Debit Card':'بطاقة ائتمان / خصم','Order Receipt':'إيصال الطلب','Order number':'رقم الطلب','Order date':'تاريخ الطلب','Payment method':'طريقة الدفع','Product':'المنتج','Qty':'الكمية','Price':'السعر','Delivery':'التوصيل','Billing':'الفوترة','Notes':'ملاحظات',
+'Quick Links':'روابط سريعة','Categories':'الفئات','Company':'الشركة','Newsletter':'النشرة البريدية','Popular':'الأكثر رواجًا',
+'Search 240+ products…':'ابحث في أكثر من 240 منتج…','Search products…':'ابحث عن منتجات…'
+};
+function translateNode(n){
+  if(n.__en===undefined)n.__en=n.nodeValue;
+  const key=(n.__en||'').trim();
+  if(lang==='ar'&&AR[key]!==undefined)n.nodeValue=n.__en.replace(key,AR[key]);
+  else n.nodeValue=n.__en;
+}
+function applyI18n(root){
+  root=root||document.body;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    if(!n.nodeValue||!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+    const p=n.parentNode;if(!p||p.nodeType!==1)return NodeFilter.FILTER_REJECT;
+    if(p.nodeName==='SCRIPT'||p.nodeName==='STYLE')return NodeFilter.FILTER_REJECT;
+    if(p.closest&&p.closest('[data-noi18n]'))return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;
+  }});
+  const list=[];let x;while(x=w.nextNode())list.push(x);
+  list.forEach(translateNode);
+  (root.querySelectorAll?root.querySelectorAll('[placeholder]'):[]).forEach(el=>{
+    if(el.__ph===undefined)el.__ph=el.getAttribute('placeholder');
+    const k=(el.__ph||'').trim();
+    el.setAttribute('placeholder',(lang==='ar'&&AR[k]!==undefined)?AR[k]:el.__ph);
+  });
+}
+function setLang(l){
+  lang=(l==='ar')?'ar':'en';
+  try{localStorage.setItem('novu_lang',lang);}catch(_){}
+  document.documentElement.lang=lang;document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+  const b=$('lang-toggle');if(b)b.textContent=(lang==='ar')?'EN':'ع';
+  applyI18n(document.body);
+}
+function initI18n(){
+  document.documentElement.lang=lang;document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+  const b=$('lang-toggle');if(b){b.textContent=(lang==='ar')?'EN':'ع';b.addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));}
+  applyI18n(document.body);
+  /* re-translate dynamically-rendered content while Arabic is active */
+  try{new MutationObserver(muts=>{
+    if(lang==='en')return;
+    muts.forEach(m=>m.addedNodes.forEach(nd=>{if(nd.nodeType===1)applyI18n(nd);else if(nd.nodeType===3)translateNode(nd);}));
+  }).observe(document.body,{childList:true,subtree:true});}catch(_){}
+}
 let toastTimer;
 
 /* ═══ ROUTER ═══ */
@@ -2232,6 +2295,7 @@ function init(){
   }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
   safe(routeFromHash);
   safe(initAuth);
+  safe(initI18n);
   if(currentUser&&currentUser.role==='moderator')setTimeout(initModNotifications,1200);
 }
 
