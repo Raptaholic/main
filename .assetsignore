@@ -1,0 +1,20 @@
+# Cloudflare Workers static assets: serve ONLY the site.
+# Excludes the dependency tree (node_modules ships a 121 MB workerd binary,
+# over Cloudflare's 25 MB asset limit) and all non-site source/docs/SQL so
+# nothing sensitive (schema, edge-function source) is ever served publicly.
+node_modules
+.git
+.github
+.claude
+supabase
+scripts
+*.sql
+*.md
+package.json
+package-lock.json
+.gitignore
+.assetsignore
+wrangler.jsonc
+wrangler.toml
+.dev.vars
+.env

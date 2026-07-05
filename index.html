@@ -1140,7 +1140,8 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
           </div>
           <div id="card-branch" class="card-branch" hidden>
             <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-stripe"/><span class="po-body"><span class="po-title">Credit / Debit Card</span><span class="po-sub">Visa, Mastercard, Apple&nbsp;Pay · +2.9%</span></span></label>
-            <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-paypal"/><span class="po-body"><span class="po-title">PayPal</span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
+            <!-- PayPal hidden until its credentials are re-added to Supabase. To re-enable: remove `hidden` and `disabled` below. -->
+            <label class="pay-opt sub" hidden><input type="radio" name="cardbrand" value="card-paypal" disabled/><span class="po-body"><span class="po-title">PayPal</span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
           </div>
         </div>
         <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Building/villa number, landmark, special instructions…" maxlength="500"></textarea></div>
