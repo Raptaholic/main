@@ -2850,10 +2850,10 @@ async function placeOrderWithDiscount(e){
       if(error){
         const {error:e2}=await sb.from('orders').insert({id:order.id,status:order.status,processing_ends_at:new Date(order.processingEndsAt).toISOString(),customer:order.customer,items:order.items,subtotal:order.subtotal,discount:order.discount,discount_label:order.discountLabel,delivery:order.delivery,vat:order.vat,fee:order.fee,total:order.total,account_email:order.customer.accountEmail});
         if(e2){console.error('order save failed:',e2);}
-        else{inserted=true;if(disc>0)consumeDiscount(rate);}
+        else{inserted=true;if(order.discount>0)consumeDiscount(rate);}
       }else{
         inserted=true;
-        if(disc>0){/* discount already consumed server-side; sync session UI */
+        if(order.discount>0){/* discount already consumed server-side; sync session UI */
           if(rate===0.30)currentUser.pend=false;else if(rate===0.10)currentUser.fou=true;
           saveSession(currentUser);
         }
@@ -2889,7 +2889,7 @@ async function placeOrderWithDiscount(e){
     const {customer,...rest}=order;
     const safeOrder={...rest,customer:{accountEmail:customer.accountEmail||null}};
     const orders=loadOrders();orders.unshift(safeOrder);saveOrders(orders);
-    if(disc>0)consumeDiscount(rate);
+    if(order.discount>0)consumeDiscount(rate);
     if(provider)showToast('Online payment is available on the live site.');
   }
   notifyStoreByEmail(order);
