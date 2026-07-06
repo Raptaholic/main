@@ -473,6 +473,13 @@ svg.i{width:1.1em;height:1.1em;display:inline-block;vertical-align:-.14em;flex-s
 #back-top{position:fixed;bottom:96px;right:33px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--g200);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--g600);z-index:399;opacity:0;pointer-events:none;transition:all var(--tr)}
 #back-top.show{opacity:1;pointer-events:all}
 #back-top:hover{color:var(--teal-dark);border-color:var(--teal)}
+/* ── ORDER VIA WHATSAPP ── */
+.wa-order-card{max-width:1000px;margin:0 auto;background:linear-gradient(135deg,var(--navy),var(--deep));border-radius:var(--rl);padding:34px 30px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;box-shadow:var(--shadow-lg)}
+.wa-order-text{flex:1;min-width:260px}
+.wa-order-text p{color:rgba(255,255,255,.75);font-size:14px;line-height:1.7;max-width:520px}
+.wa-order-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#062b14;font-weight:800;font-size:16px;padding:15px 26px;border-radius:14px;white-space:nowrap;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:transform var(--tr),box-shadow var(--tr)}
+.wa-order-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.45)}
+@media(max-width:640px){.wa-order-card{padding:26px 20px}.wa-order-btn{width:100%;justify-content:center}}
 /* ── FOOTER ── */
 footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;margin-top:0}
 .footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1.4fr;gap:34px;max-width:1280px;margin:0 auto 38px}
@@ -782,6 +789,21 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
       <a class="link-more" data-nav="shop">View all products →</a>
     </div>
     <div class="featured-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- ORDER VIA WHATSAPP -->
+  <section class="section reveal">
+    <div class="wa-order-card">
+      <div class="wa-order-text">
+        <div class="sec-eyebrow" style="color:var(--teal2)">Fastest way to order</div>
+        <h2 style="color:#fff;margin:4px 0 8px">Order in seconds on WhatsApp</h2>
+        <p>Prefer to keep it simple? Send us your order on WhatsApp for a faster, smoother experience. We confirm stock and price, arrange delivery across the UAE, and answer any questions. No account needed.</p>
+      </div>
+      <a id="wa-order-btn" class="wa-order-btn" href="https://wa.me/971557884185" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.729-.979zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
+        Order on WhatsApp
+      </a>
+    </div>
   </section>
 
   <!-- COMPOUND BROWSE -->
@@ -1742,6 +1764,7 @@ const money=n=>'AED '+Number(n).toLocaleString(undefined,{minimumFractionDigits:
    never in the dictionary, so they always stay in their original form. ═══ */
 let lang=(()=>{try{return localStorage.getItem('novu_lang')==='ar'?'ar':'en';}catch(_){return 'en';}})();
 const AR={
+'Fastest way to order':'أسرع طريقة للطلب','Order in seconds on WhatsApp':'اطلب في ثوانٍ عبر واتساب','Order on WhatsApp':'اطلب عبر واتساب','Prefer to keep it simple? Send us your order on WhatsApp for a faster, smoother experience. We confirm stock and price, arrange delivery across the UAE, and answer any questions. No account needed.':'تفضّل الطريقة الأبسط؟ أرسل طلبك عبر واتساب لتجربة أسرع وأسهل. نؤكد التوفّر والسعر، ونرتّب التوصيل في كل أنحاء الإمارات، ونجيب عن أي أسئلة. دون الحاجة إلى حساب.',
 'Home':'الرئيسية','Shop':'المتجر','Learn':'المقالات','About Us':'من نحن','FAQ':'الأسئلة الشائعة','Contact':'تواصل معنا','Contact Us':'تواصل معنا',
 'Sign In':'تسجيل الدخول','Sign Up':'إنشاء حساب','Sign Out':'تسجيل الخروج','Cart':'السلة','Wishlist':'المفضلة','My Orders':'طلباتي','Moderator Dashboard':'لوحة المشرف',
 'Add to Cart':'أضف إلى السلة','Add to cart':'أضف إلى السلة','View Details':'عرض التفاصيل','View all products →':'عرض كل المنتجات ←','Place Order':'تأكيد الطلب','Continue Shopping':'متابعة التسوق','Download receipt':'تحميل الإيصال','Proceed to Checkout':'المتابعة للدفع','Checkout':'إتمام الشراء','Clear All Filters':'مسح كل الفلاتر','Filters':'الفلاتر','Send Message':'إرسال الرسالة','Subscribe':'اشتراك','Confirm':'تأكيد','Cancel':'إلغاء','Delivered':'تم التوصيل','Email':'البريد الإلكتروني','WhatsApp':'واتساب',
@@ -2018,6 +2041,7 @@ function updateBadges(){
   const n=cartCount();$('cart-badge').textContent=n;$('cart-badge').classList.toggle('visible',n>0);
   const w=wishlist.size;$('wish-badge').textContent=w;$('wish-badge').classList.toggle('visible',w>0);
   const wm=$('wish-badge-m');if(wm){wm.textContent=w;wm.style.display=w>0?'inline-flex':'none';}
+  const wo=$('wa-order-btn');if(wo)wo.href=waCartLink();
 }
 const MAX_QTY=99;
 
