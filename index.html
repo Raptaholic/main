@@ -1182,8 +1182,8 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
           </div>
           <div id="card-branch" class="card-branch" hidden>
             <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-stripe"/><span class="po-body"><span class="po-title">Credit / Debit Card</span><span class="po-sub">Visa, Mastercard, Apple&nbsp;Pay · +2.9%</span></span></label>
-            <!-- PayPal hidden until its credentials are re-added to Supabase. To re-enable: remove `hidden` and `disabled` below. -->
-            <label class="pay-opt sub" hidden><input type="radio" name="cardbrand" value="card-paypal" disabled/><span class="po-body"><span class="po-title">PayPal</span><span class="po-sub">Billed in USD · +3.9%</span></span></label>
+            <!-- PayPal removed from the UI. To re-add: restore a <label class="pay-opt sub"> with an <input name="cardbrand" value="card-paypal"> here, and re-add its Supabase secrets. -->
+
           </div>
         </div>
         <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Building/villa number, landmark, special instructions…" maxlength="500"></textarea></div>
@@ -2904,22 +2904,23 @@ async function placeOrderWithDiscount(e){
        Ask the edge function for a Stripe/PayPal pay URL and send the customer
        there. The amount is read from the DB server-side, never from here. */
     if(inserted&&provider){
-      /* Online orders: the store is notified server-side by the webhook only
-         AFTER the payment actually succeeds, so an abandoned or failed online
-         payment never reaches the store. COD orders notify immediately (below). */
-      cart=[];saveCart();updateBadges();renderCartItems();
-      e.target.reset();closeCheckout();
+      /* Online orders: try to START the payment FIRST. Only clear the cart and
+         leave the page once the checkout URL is in hand. A failed start must
+         NEVER look like a placed order - keep the cart open so the customer can
+         retry or switch to Cash on Delivery. The store is notified server-side
+         by the webhook only after the payment actually succeeds. */
       try{
         const {data,error}=await sb.functions.invoke('create-checkout',{body:{orderId:order.id,provider}});
         if(error||!data||!data.url)throw (error||new Error('no checkout url'));
-        showToast('Redirecting to secure '+(provider==='stripe'?'card':'PayPal')+' payment…');
+        cart=[];saveCart();updateBadges();renderCartItems();
+        e.target.reset();closeCheckout();
+        showToast('Redirecting to secure card payment…');
         window.location.href=data.url;
         return; /* leaving the page for the payment provider */
       }catch(perr){
         console.error('checkout error:',perr);
-        showOrderSuccess(order);
-        showToast('Order placed. Online payment could not start right now - we’ll send you a secure payment link.');
         orderInFlight=false;
+        showToast('We could not start the card payment right now. Please try again in a moment, or choose Cash on Delivery.');
         return;
       }
     }
