@@ -1178,13 +1178,10 @@ footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 24px 26px;
           <label>Payment Method *</label>
           <div class="pay-methods">
             <label class="pay-opt"><input type="radio" name="paymethod" value="cod" checked/><span class="po-body"><span class="po-title">Cash on Delivery</span><span class="po-sub">Pay in cash when your order arrives.</span></span></label>
-            <label class="pay-opt"><input type="radio" name="paymethod" value="card"/><span class="po-body"><span class="po-title">Card Payment</span><span class="po-sub">Pay online securely. A small processing fee applies.</span></span></label>
           </div>
-          <div id="card-branch" class="card-branch" hidden>
-            <label class="pay-opt sub"><input type="radio" name="cardbrand" value="card-stripe"/><span class="po-body"><span class="po-title">Credit / Debit Card</span><span class="po-sub">Visa, Mastercard, Apple&nbsp;Pay · +2.9%</span></span></label>
-            <!-- PayPal removed from the UI. To re-add: restore a <label class="pay-opt sub"> with an <input name="cardbrand" value="card-paypal"> here, and re-add its Supabase secrets. -->
+          <p style="font-size:12.5px;color:var(--g500);margin-top:6px">Prefer to arrange payment another way? <a href="https://wa.me/971557884185" target="_blank" rel="noopener" style="color:var(--teal-dark);font-weight:600">Message us on WhatsApp</a> and we'll sort it out.</p>
+          <!-- Card/online payment removed: Stripe rejected the business category (peptides/pharmacy). To re-add later, restore a "card" paymethod radio + a #card-branch with cardbrand options, using a supplement-friendly processor. -->
 
-          </div>
         </div>
         <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" placeholder="Building/villa number, landmark, special instructions…" maxlength="500"></textarea></div>
         <button type="submit" class="btn-place-order">Place Order</button>
@@ -2770,10 +2767,13 @@ let payUIWired=false;
 function wirePaymentUI(){
   if(payUIWired)return;payUIWired=true;
   document.querySelectorAll('input[name="paymethod"]').forEach(r=>r.addEventListener('change',()=>{
-    const card=document.querySelector('input[name="paymethod"]:checked').value==='card';
-    $('card-branch').hidden=!card;
-    const stripe=document.querySelector('input[name="cardbrand"][value="card-stripe"]');
-    if(card&&stripe&&!document.querySelector('input[name="cardbrand"]:checked'))stripe.checked=true;
+    const cb=$('card-branch');
+    if(cb){
+      const card=document.querySelector('input[name="paymethod"]:checked').value==='card';
+      cb.hidden=!card;
+      const stripe=document.querySelector('input[name="cardbrand"][value="card-stripe"]');
+      if(card&&stripe&&!document.querySelector('input[name="cardbrand"]:checked'))stripe.checked=true;
+    }
     renderCheckoutSummary();
   }));
   document.querySelectorAll('input[name="cardbrand"]').forEach(r=>r.addEventListener('change',renderCheckoutSummary));
