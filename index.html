@@ -2045,12 +2045,13 @@ function updateBadges(){
 }
 const MAX_QTY=99;
 
-/* ═══ ORDER PRICING - VAT + card processing fee ═══
+/* ═══ ORDER PRICING - card processing fee (no VAT: not VAT-registered) ═══
    Every amount here is ALSO recomputed and verified server-side in place_order,
    so the browser can never change what is actually charged. */
-const VAT_RATE=0.05;                              // UAE standard 5% VAT (on goods)
 const DELIVERY_FEE=30;                            // flat shipping, AED
-const CARD_FEE_PCT={stripe:0.029,paypal:0.039};   // shown to the customer, exact AED
+/* Card processing fee passed to the customer, card only. UAE standard rate is
+   2.9% + AED 1.00 (fixed) per transaction. Cash on Delivery has no card fee. */
+const CARD_FEE={stripe:{pct:0.029,fixed:1},paypal:{pct:0.039,fixed:1}};
 const AED_USD=0.2723;                             // AED->USD peg; MUST match the AED_USD_RATE edge-function secret
 const r2=n=>Math.round((Number(n)+Number.EPSILON)*100)/100;
 /* provider: 'stripe' | 'paypal' | null (Cash on Delivery = no card fee) */
@@ -2059,10 +2060,11 @@ function computeTotals(items,discount,provider){
   const disc=Math.min(Math.max(0,Math.round(discount||0)),subtotal);
   const taxable=Math.max(0,subtotal-disc);
   const delivery=DELIVERY_FEE;
-  const vat=r2(taxable*VAT_RATE);
-  const feePct=CARD_FEE_PCT[provider]||0;
-  const fee=r2((taxable+delivery+vat)*feePct);
-  const total=r2(taxable+delivery+vat+fee);
+  const vat=0;                                    // not VAT-registered: no VAT charged
+  const cf=CARD_FEE[provider];
+  const feePct=cf?cf.pct:0;
+  const fee=cf?r2((taxable+delivery)*cf.pct+cf.fixed):0;
+  const total=r2(taxable+delivery+fee);
   return {subtotal,discount:disc,taxable,delivery,vat,feePct,fee,total};
 }
 function paymentProvider(method){
@@ -2070,7 +2072,7 @@ function paymentProvider(method){
   if(method==='card-paypal')return 'paypal';
   return null; /* cod */
 }
-function feeLabel(provider){return provider==='stripe'?'Card fee (2.9%)':provider==='paypal'?'PayPal fee (3.9%)':'';}
+function feeLabel(provider){return provider==='stripe'?'Card fee (2.9% + AED 1)':provider==='paypal'?'PayPal fee (3.9% + AED 1)':'';}
 
 function addToCart(p,qty){
   qty=Math.min(Math.max(1,Math.trunc(+qty)||1),MAX_QTY);
@@ -2188,7 +2190,6 @@ function orderReceiptHTML(order){
       +line('Subtotal',money(order.subtotal))
       +(order.discount>0?line('Discount'+(order.discountLabel?' ('+escTxt(order.discountLabel)+')':''),'−'+money(order.discount),'disc'):'')
       +line('Shipping',money(order.delivery))
-      +line('VAT (5%)',money(order.vat))
       +(order.fee>0?line(feeLabel(order.provider),money(order.fee)):'')
       +line('Total',money(order.total),'grand')
     +'</div>'
@@ -2759,7 +2760,6 @@ function renderCheckoutSummary(){
   let h=cart.map(it=>'<div class="summary-item"><span>'+escTxt(it.name)+' × '+it.qty+'</span><span>'+m(it.price*it.qty)+'</span></div>').join('');
   if(t.discount>0)h+='<div class="summary-item disc"><span>'+escTxt(getDiscountLabel())+'</span><span>−'+m(t.discount)+'</span></div>';
   h+='<div class="summary-item"><span>Shipping</span><span>'+m(t.delivery)+'</span></div>';
-  h+='<div class="summary-item"><span>VAT (5%)</span><span>'+m(t.vat)+'</span></div>';
   if(t.fee>0)h+='<div class="summary-item"><span>'+feeLabel(provider)+'</span><span>'+m(t.fee)+'</span></div>';
   if(usd)h+='<div class="summary-item" style="opacity:.65;font-size:11.5px"><span>Charged in USD via PayPal</span><span></span></div>';
   $('checkout-summary').innerHTML=h;
@@ -2821,7 +2821,6 @@ function notifyStoreByEmail(order){
       'Subtotal: '+money(order.subtotal),
       (order.discount>0?'Discount: -'+money(order.discount)+(order.discountLabel?' ('+sf(order.discountLabel)+')':''):null),
       'Shipping: '+money(order.delivery),
-      'VAT (5%): '+money(order.vat),
       (order.fee>0?feeLabel(order.provider)+': '+money(order.fee):null),
       'TOTAL: '+money(order.total),
       '',

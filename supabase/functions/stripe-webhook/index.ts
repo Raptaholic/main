@@ -51,7 +51,6 @@ async function notifyStore(o: any) {
         ? "Discount: -" + money(o.discount) + (o.discount_label ? " (" + clean(o.discount_label) + ")" : "")
         : null,
       "Shipping: " + money(o.delivery),
-      "VAT (5%): " + money(o.vat),
       Number(o.fee) > 0 ? "Card fee: " + money(o.fee) : null,
       "TOTAL: " + money(o.total),
       "",
