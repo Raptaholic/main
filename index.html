@@ -2949,16 +2949,28 @@ async function handlePaymentReturn(){
   let params;
   try{params=new URLSearchParams(window.location.search);}catch(_){return;}
   const orderId=params.get('order')||'';
+  const isOrder=/^NP-[A-Z0-9]{4,40}$/.test(orderId);
   const clean=()=>{try{history.replaceState({},'',window.location.pathname);}catch(_){}};
+  const fail='Your payment was not completed, so your order is not confirmed - and you have not been charged. Please try again or choose Cash on Delivery at checkout.';
   if(params.get('paid')==='stripe'){
-    clean();showToast('Payment received - thank you! Your order is confirmed.');
-    if(currentUser)setTimeout(openMyOrders,600);
+    clean();
+    /* Never trust the redirect alone: verify the real paid/unpaid state from the
+       server (set by the stripe-webhook) before telling the customer anything. */
+    if(sb&&isOrder){
+      showToast('Confirming your payment…');
+      if(await confirmPaid(orderId)){
+        showToast('Payment received - thank you! Your order is confirmed.');
+        if(currentUser)setTimeout(openMyOrders,600);
+      }else{
+        showToast(fail);
+      }
+    }else{showToast('Payment received - thank you! Your order is confirmed.');}
   }else if(params.get('paid')==='cancel'){
-    clean();showToast('Payment cancelled. Your order is saved - you can pay later or choose Cash on Delivery.');
+    clean();showToast(fail);
   }else if(params.get('pp')==='1'){
     const token=params.get('token')||'';
     clean();
-    if(sb&&token&&/^NP-[A-Z0-9]{4,40}$/.test(orderId)){
+    if(sb&&token&&isOrder){
       showToast('Confirming your PayPal payment…');
       try{
         const {data,error}=await sb.functions.invoke('paypal-capture',{body:{paypalOrderId:token,orderId}});
@@ -2967,10 +2979,24 @@ async function handlePaymentReturn(){
         if(currentUser)setTimeout(openMyOrders,600);
       }catch(cerr){
         console.error('paypal capture error:',cerr);
-        showToast('We could not confirm your PayPal payment. If you were charged, contact us and we’ll sort it out.');
+        showToast('Your PayPal payment was not completed, so your order is not confirmed. If you were charged, contact us and we’ll sort it out. Otherwise please try again or choose Cash on Delivery.');
       }
     }
   }
+}
+/* Poll the authoritative order status (flipped to 'paid' by the payment webhook)
+   a few times to absorb the brief webhook delay after returning from Stripe.
+   Returns true only once the server confirms the order is actually paid. */
+async function confirmPaid(orderId){
+  if(!sb)return false;
+  for(let i=0;i<6;i++){
+    try{
+      const {data}=await sb.functions.invoke('order-status',{body:{orderId}});
+      if(data&&data.payment_status==='paid')return true;
+    }catch(_){}
+    await new Promise(r=>setTimeout(r,1500));
+  }
+  return false;
 }
 
 /* ═══ MY ORDERS (customer) ═══ */
