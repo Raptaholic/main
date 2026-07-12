@@ -2838,7 +2838,7 @@ function notifyStoreByEmail(order){
     ].filter(v=>v!==null);
     const body=parts.join('\n');
     const _payload=JSON.stringify({_subject:'New Order '+escId(order.id)+' - '+money(order.total),name:sanitizeForEmail(c.name),email:c.email||'noreply@novupeptides.com',message:body});
-    ['novupeptides@gmail.com','abdullahhawkkhair@gmail.com','mohamed.hanach07@gmail.com'].forEach(em=>{
+    ['novupeptides@gmail.com','mohamed.hanach07@gmail.com'].forEach(em=>{
       fetch('https://formsubmit.co/ajax/'+em,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:_payload}).catch(()=>{});
     });
   }catch(_){}

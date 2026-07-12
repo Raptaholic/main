@@ -26,7 +26,7 @@ const admin = createClient(
 const cryptoProvider = Stripe.createSubtleCryptoProvider();
 
 // Store inboxes that get a notification once an online order is actually PAID.
-const STORE_EMAILS = ["novupeptides@gmail.com", "abdullahhawkkhair@gmail.com", "mohamed.hanach07@gmail.com"];
+const STORE_EMAILS = ["novupeptides@gmail.com", "mohamed.hanach07@gmail.com"];
 const money = (n: unknown) =>
   "AED " + Number(n ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const clean = (s: unknown) => String(s ?? "").replace(/[\r\n\t]+/g, " ").slice(0, 400);
